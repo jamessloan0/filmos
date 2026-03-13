@@ -1,0 +1,235 @@
+import React, { useState, useEffect } from "react";
+import { base44 } from "@/api/base44Client";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+import { Film, Loader2, FileText, MessageSquare, Receipt, LayoutGrid, AlertTriangle } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
+
+import OverviewTab from "@/components/workspace/OverviewTab";
+import FilesTab from "@/components/workspace/FilesTab";
+import MessagesTab from "@/components/workspace/MessagesTab";
+import InvoicesTab from "@/components/workspace/InvoicesTab";
+
+export default function ClientPortal() {
+  const params = new URLSearchParams(window.location.search);
+  const token = params.get("token");
+  const queryClient = useQueryClient();
+
+  const [clientName, setClientName] = useState("");
+  const [enteredName, setEnteredName] = useState(false);
+  const [nameInput, setNameInput] = useState("");
+
+  // Load saved client name
+  useEffect(() => {
+    const saved = localStorage.getItem(`filmos_client_${token}`);
+    if (saved) {
+      setClientName(saved);
+      setEnteredName(true);
+    }
+  }, [token]);
+
+  const { data: project, isLoading, error } = useQuery({
+    queryKey: ["client-project", token],
+    queryFn: async () => {
+      const projects = await base44.entities.Project.filter({ access_token: token });
+      if (!projects || projects.length === 0) return null;
+      return projects[0];
+    },
+    enabled: !!token,
+  });
+
+  const projectId = project?.id;
+
+  const { data: files = [] } = useQuery({
+    queryKey: ["client-files", projectId],
+    queryFn: () => base44.entities.ProjectFile.filter({ project_id: projectId }, "-created_date"),
+    enabled: !!projectId && enteredName,
+  });
+
+  const { data: messages = [] } = useQuery({
+    queryKey: ["client-messages", projectId],
+    queryFn: () => base44.entities.Message.filter({ project_id: projectId }, "created_date"),
+    enabled: !!projectId && enteredName,
+  });
+
+  const { data: invoices = [] } = useQuery({
+    queryKey: ["client-invoices", projectId],
+    queryFn: () => base44.entities.Invoice.filter({ project_id: projectId }, "-created_date"),
+    enabled: !!projectId && enteredName,
+  });
+
+  const { data: activities = [] } = useQuery({
+    queryKey: ["client-activities", projectId],
+    queryFn: () => base44.entities.Activity.filter({ project_id: projectId }, "-created_date"),
+    enabled: !!projectId && enteredName,
+  });
+
+  const refreshAll = () => {
+    queryClient.invalidateQueries({ queryKey: ["client-files", projectId] });
+    queryClient.invalidateQueries({ queryKey: ["client-messages", projectId] });
+    queryClient.invalidateQueries({ queryKey: ["client-invoices", projectId] });
+    queryClient.invalidateQueries({ queryKey: ["client-activities", projectId] });
+    queryClient.invalidateQueries({ queryKey: ["client-project", token] });
+  };
+
+  const handleEnterName = () => {
+    if (!nameInput.trim()) return;
+    const name = nameInput.trim();
+    setClientName(name);
+    setEnteredName(true);
+    localStorage.setItem(`filmos_client_${token}`, name);
+  };
+
+  // Invalid or missing token
+  if (!token) {
+    return (
+      <div className="min-h-screen bg-zinc-50 flex items-center justify-center p-4">
+        <div className="text-center">
+          <AlertTriangle className="w-12 h-12 text-amber-500 mx-auto mb-4" />
+          <h1 className="text-xl font-bold text-zinc-900 mb-2">Invalid Link</h1>
+          <p className="text-sm text-zinc-500">This project link is not valid.</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-zinc-50 flex items-center justify-center">
+        <Loader2 className="w-6 h-6 animate-spin text-zinc-400" />
+      </div>
+    );
+  }
+
+  if (!project) {
+    return (
+      <div className="min-h-screen bg-zinc-50 flex items-center justify-center p-4">
+        <div className="text-center">
+          <AlertTriangle className="w-12 h-12 text-amber-500 mx-auto mb-4" />
+          <h1 className="text-xl font-bold text-zinc-900 mb-2">Project Not Found</h1>
+          <p className="text-sm text-zinc-500">This project link may have expired or is invalid.</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Name entry screen
+  if (!enteredName) {
+    return (
+      <div className="min-h-screen bg-zinc-50 flex items-center justify-center p-4">
+        <div className="bg-white border border-zinc-200 rounded-xl p-8 max-w-md w-full text-center">
+          <div className="w-12 h-12 bg-amber-500 rounded-xl flex items-center justify-center mx-auto mb-4">
+            <Film className="w-6 h-6 text-zinc-950" />
+          </div>
+          <h1 className="text-xl font-bold text-zinc-900 mb-1">Welcome to {project.name}</h1>
+          <p className="text-sm text-zinc-500 mb-6">Enter your name to access the project workspace.</p>
+
+          <div className="space-y-4">
+            <div className="text-left">
+              <Label>Your Name</Label>
+              <Input
+                placeholder="e.g. Sarah Johnson"
+                value={nameInput}
+                onChange={(e) => setNameInput(e.target.value)}
+                onKeyDown={(e) => e.key === "Enter" && handleEnterName()}
+                className="mt-1.5"
+              />
+            </div>
+            <Button
+              onClick={handleEnterName}
+              disabled={!nameInput.trim()}
+              className="w-full bg-zinc-900 hover:bg-zinc-800"
+            >
+              Enter Project
+            </Button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="min-h-screen bg-zinc-50">
+      {/* Client header */}
+      <header className="bg-white border-b border-zinc-200 px-4 md:px-8 py-4">
+        <div className="max-w-6xl mx-auto flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 bg-amber-500 rounded-lg flex items-center justify-center">
+              <Film className="w-4 h-4 text-zinc-950" />
+            </div>
+            <div>
+              <h1 className="font-semibold text-zinc-900 text-sm">{project.name}</h1>
+              <p className="text-xs text-zinc-400">FilmOS Client Portal</p>
+            </div>
+          </div>
+          <div className="flex items-center gap-2">
+            <div className="w-7 h-7 rounded-full bg-zinc-100 flex items-center justify-center text-xs font-semibold text-zinc-600">
+              {clientName[0]?.toUpperCase()}
+            </div>
+            <span className="text-sm text-zinc-600 hidden sm:inline">{clientName}</span>
+          </div>
+        </div>
+      </header>
+
+      <div className="max-w-6xl mx-auto p-4 md:p-8">
+        <Tabs defaultValue="overview" className="w-full">
+          <TabsList className="bg-zinc-100 p-1 mb-6">
+            <TabsTrigger value="overview" className="gap-2">
+              <LayoutGrid className="w-3.5 h-3.5" />
+              <span className="hidden sm:inline">Overview</span>
+            </TabsTrigger>
+            <TabsTrigger value="files" className="gap-2">
+              <FileText className="w-3.5 h-3.5" />
+              <span className="hidden sm:inline">Files</span>
+            </TabsTrigger>
+            <TabsTrigger value="messages" className="gap-2">
+              <MessageSquare className="w-3.5 h-3.5" />
+              <span className="hidden sm:inline">Messages</span>
+            </TabsTrigger>
+            <TabsTrigger value="invoices" className="gap-2">
+              <Receipt className="w-3.5 h-3.5" />
+              <span className="hidden sm:inline">Invoices</span>
+            </TabsTrigger>
+          </TabsList>
+
+          <TabsContent value="overview">
+            <OverviewTab
+              project={project}
+              activities={activities}
+              isClient={true}
+            />
+          </TabsContent>
+          <TabsContent value="files">
+            <FilesTab
+              files={files}
+              projectId={projectId}
+              isClient={true}
+              onFileUploaded={refreshAll}
+            />
+          </TabsContent>
+          <TabsContent value="messages">
+            <MessagesTab
+              messages={messages}
+              projectId={projectId}
+              senderName={clientName}
+              senderType="client"
+              onMessageSent={refreshAll}
+            />
+          </TabsContent>
+          <TabsContent value="invoices">
+            <InvoicesTab
+              invoices={invoices}
+              projectId={projectId}
+              projectName={project.name}
+              clientEmail={project.client_email}
+              isClient={true}
+              onInvoiceCreated={refreshAll}
+            />
+          </TabsContent>
+        </Tabs>
+      </div>
+    </div>
+  );
+}

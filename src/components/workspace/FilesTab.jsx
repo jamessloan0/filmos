@@ -1,0 +1,188 @@
+import React, { useState, useRef } from "react";
+import { base44 } from "@/api/base44Client";
+import { format } from "date-fns";
+import { Button } from "@/components/ui/button";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Upload, Download, FileText, Image, Film, File, Loader2 } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+
+const CATEGORIES = [
+  { value: "proposal", label: "Proposal" },
+  { value: "references", label: "References" },
+  { value: "drafts", label: "Drafts" },
+  { value: "deliverables", label: "Deliverables" },
+];
+
+const CATEGORY_COLORS = {
+  proposal: "bg-amber-50 text-amber-700 border-amber-200",
+  references: "bg-purple-50 text-purple-700 border-purple-200",
+  drafts: "bg-blue-50 text-blue-700 border-blue-200",
+  deliverables: "bg-emerald-50 text-emerald-700 border-emerald-200",
+};
+
+function getFileIcon(fileName) {
+  const ext = fileName?.split('.').pop()?.toLowerCase();
+  if (['jpg', 'jpeg', 'png', 'gif', 'webp', 'svg'].includes(ext)) return Image;
+  if (['mp4', 'mov', 'avi', 'mkv', 'webm'].includes(ext)) return Film;
+  return FileText;
+}
+
+export default function FilesTab({ files, projectId, isClient, onFileUploaded }) {
+  const [uploading, setUploading] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState("proposal");
+  const [filterCategory, setFilterCategory] = useState("all");
+  const fileInputRef = useRef(null);
+
+  const handleUpload = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    setUploading(true);
+    const { file_url } = await base44.integrations.Core.UploadFile({ file });
+    
+    await base44.entities.ProjectFile.create({
+      project_id: projectId,
+      file_name: file.name,
+      file_url,
+      category: selectedCategory,
+      uploaded_by: "Filmmaker",
+    });
+
+    await base44.entities.Activity.create({
+      project_id: projectId,
+      type: "file_upload",
+      description: `Uploaded "${file.name}" to ${selectedCategory}`,
+      actor_name: "Filmmaker",
+    });
+
+    setUploading(false);
+    fileInputRef.current.value = "";
+    onFileUploaded();
+  };
+
+  const filteredFiles = filterCategory === "all"
+    ? files
+    : files.filter((f) => f.category === filterCategory);
+
+  const groupedFiles = CATEGORIES.reduce((acc, cat) => {
+    acc[cat.value] = filteredFiles.filter((f) => f.category === cat.value);
+    return acc;
+  }, {});
+
+  return (
+    <div className="space-y-6">
+      {/* Upload bar */}
+      {!isClient && (
+        <div className="bg-white border border-zinc-200 rounded-xl p-4 flex flex-wrap items-center gap-3">
+          <Select value={selectedCategory} onValueChange={setSelectedCategory}>
+            <SelectTrigger className="w-40">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              {CATEGORIES.map((c) => (
+                <SelectItem key={c.value} value={c.value}>{c.label}</SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+          <input
+            ref={fileInputRef}
+            type="file"
+            onChange={handleUpload}
+            className="hidden"
+          />
+          <Button
+            onClick={() => fileInputRef.current?.click()}
+            disabled={uploading}
+            className="bg-zinc-900 hover:bg-zinc-800"
+          >
+            {uploading ? (
+              <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+            ) : (
+              <Upload className="w-4 h-4 mr-2" />
+            )}
+            {uploading ? "Uploading..." : "Upload File"}
+          </Button>
+        </div>
+      )}
+
+      {/* Filter */}
+      <div className="flex gap-2 flex-wrap">
+        <button
+          onClick={() => setFilterCategory("all")}
+          className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors ${
+            filterCategory === "all"
+              ? "bg-zinc-900 text-white"
+              : "bg-zinc-100 text-zinc-600 hover:bg-zinc-200"
+          }`}
+        >
+          All Files ({files.length})
+        </button>
+        {CATEGORIES.map((c) => {
+          const count = files.filter((f) => f.category === c.value).length;
+          return (
+            <button
+              key={c.value}
+              onClick={() => setFilterCategory(c.value)}
+              className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors ${
+                filterCategory === c.value
+                  ? "bg-zinc-900 text-white"
+                  : "bg-zinc-100 text-zinc-600 hover:bg-zinc-200"
+              }`}
+            >
+              {c.label} ({count})
+            </button>
+          );
+        })}
+      </div>
+
+      {/* Files list */}
+      {filteredFiles.length === 0 ? (
+        <div className="bg-white border border-zinc-200 rounded-xl p-12 text-center">
+          <File className="w-10 h-10 text-zinc-300 mx-auto mb-3" />
+          <p className="text-sm text-zinc-500">No files yet</p>
+        </div>
+      ) : (
+        Object.entries(groupedFiles).map(([category, catFiles]) => {
+          if (catFiles.length === 0) return null;
+          const catLabel = CATEGORIES.find((c) => c.value === category)?.label;
+          return (
+            <div key={category}>
+              <h3 className="text-sm font-medium text-zinc-500 uppercase tracking-wider mb-3">
+                {catLabel}
+              </h3>
+              <div className="bg-white border border-zinc-200 rounded-xl divide-y divide-zinc-100">
+                {catFiles.map((file) => {
+                  const FileIcon = getFileIcon(file.file_name);
+                  return (
+                    <div key={file.id} className="flex items-center gap-4 px-5 py-3.5">
+                      <div className="w-8 h-8 rounded-lg bg-zinc-100 flex items-center justify-center flex-shrink-0">
+                        <FileIcon className="w-4 h-4 text-zinc-500" />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-sm font-medium text-zinc-900 truncate">{file.file_name}</p>
+                        <p className="text-xs text-zinc-400">
+                          {format(new Date(file.created_date), "MMM d, yyyy")}
+                        </p>
+                      </div>
+                      <Badge variant="outline" className={`${CATEGORY_COLORS[file.category]} text-xs hidden sm:inline-flex`}>
+                        {catLabel}
+                      </Badge>
+                      <a
+                        href={file.file_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="p-2 rounded-lg hover:bg-zinc-100 transition-colors"
+                      >
+                        <Download className="w-4 h-4 text-zinc-500" />
+                      </a>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          );
+        })
+      )}
+    </div>
+  );
+}
