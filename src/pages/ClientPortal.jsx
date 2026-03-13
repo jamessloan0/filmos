@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { base44 } from "@/api/base44Client";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import { Film, Loader2, FileText, MessageSquare, Receipt, LayoutGrid, AlertTriangle, ThumbsUp } from "lucide-react";
+import { Film, Loader2, FileText, MessageSquare, Receipt, LayoutGrid, AlertTriangle, ThumbsUp, Presentation } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
@@ -12,6 +12,7 @@ import FilesTab from "@/components/workspace/FilesTab";
 import MessagesTab from "@/components/workspace/MessagesTab";
 import InvoicesTab from "@/components/workspace/InvoicesTab";
 import FeedbackTab from "@/components/workspace/FeedbackTab";
+import ProposalTab from "@/components/workspace/ProposalTab";
 
 export default function ClientPortal() {
   const params = new URLSearchParams(window.location.search);
@@ -73,12 +74,19 @@ export default function ClientPortal() {
     enabled: !!projectId && enteredName,
   });
 
+  const { data: proposals = [] } = useQuery({
+    queryKey: ["client-proposals", projectId],
+    queryFn: () => base44.entities.Proposal.filter({ project_id: projectId, status: "sent" }, "-created_date"),
+    enabled: !!projectId && enteredName,
+  });
+
   const refreshAll = () => {
     queryClient.invalidateQueries({ queryKey: ["client-files", projectId] });
     queryClient.invalidateQueries({ queryKey: ["client-messages", projectId] });
     queryClient.invalidateQueries({ queryKey: ["client-invoices", projectId] });
     queryClient.invalidateQueries({ queryKey: ["client-activities", projectId] });
     queryClient.invalidateQueries({ queryKey: ["client-feedback", projectId] });
+    queryClient.invalidateQueries({ queryKey: ["client-proposals", projectId] });
     queryClient.invalidateQueries({ queryKey: ["client-project", token] });
   };
 
@@ -209,6 +217,15 @@ export default function ClientPortal() {
                 </span>
               )}
             </TabsTrigger>
+            <TabsTrigger value="proposal" className="gap-2">
+              <Presentation className="w-3.5 h-3.5" />
+              <span className="hidden sm:inline">Proposal</span>
+              {proposals.filter(p => p.status === "sent").length > 0 && (
+                <span className="ml-1 text-[10px] bg-sky-200 text-sky-700 px-1.5 py-0.5 rounded-full">
+                  {proposals.filter(p => p.status === "sent").length}
+                </span>
+              )}
+            </TabsTrigger>
           </TabsList>
 
           <TabsContent value="overview">
@@ -248,6 +265,16 @@ export default function ClientPortal() {
           <TabsContent value="feedback">
             <FeedbackTab
               feedbackItems={feedbackItems}
+              projectId={projectId}
+              isClient={true}
+              clientName={clientName}
+              onUpdated={refreshAll}
+              files={files}
+            />
+          </TabsContent>
+          <TabsContent value="proposal">
+            <ProposalTab
+              proposals={proposals}
               projectId={projectId}
               isClient={true}
               clientName={clientName}
