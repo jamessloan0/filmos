@@ -87,7 +87,7 @@ export default function ClientPortal() {
     return (
       <div className="min-h-screen bg-zinc-50 flex items-center justify-center p-4">
         <div className="text-center">
-          <AlertTriangle className="w-12 h-12 text-amber-500 mx-auto mb-4" />
+          <AlertTriangle className="w-12 h-12 text-sky-500 mx-auto mb-4" />
           <h1 className="text-xl font-bold text-zinc-900 mb-2">Invalid Link</h1>
           <p className="text-sm text-zinc-500">This project link is not valid.</p>
         </div>
@@ -107,7 +107,7 @@ export default function ClientPortal() {
     return (
       <div className="min-h-screen bg-zinc-50 flex items-center justify-center p-4">
         <div className="text-center">
-          <AlertTriangle className="w-12 h-12 text-amber-500 mx-auto mb-4" />
+          <AlertTriangle className="w-12 h-12 text-sky-500 mx-auto mb-4" />
           <h1 className="text-xl font-bold text-zinc-900 mb-2">Project Not Found</h1>
           <p className="text-sm text-zinc-500">This project link may have expired or is invalid.</p>
         </div>
@@ -120,8 +120,8 @@ export default function ClientPortal() {
     return (
       <div className="min-h-screen bg-zinc-50 flex items-center justify-center p-4">
         <div className="bg-white border border-zinc-200 rounded-xl p-8 max-w-md w-full text-center">
-          <div className="w-12 h-12 bg-amber-500 rounded-xl flex items-center justify-center mx-auto mb-4">
-            <Film className="w-6 h-6 text-zinc-950" />
+          <div className="w-12 h-12 bg-sky-500 rounded-xl flex items-center justify-center mx-auto mb-4">
+            <Film className="w-6 h-6 text-white" />
           </div>
           <h1 className="text-xl font-bold text-zinc-900 mb-1">Welcome to {project.name}</h1>
           <p className="text-sm text-zinc-500 mb-6">Enter your name to access the project workspace.</p>
@@ -156,8 +156,8 @@ export default function ClientPortal() {
       <header className="bg-white border-b border-zinc-200 px-4 md:px-8 py-4">
         <div className="max-w-6xl mx-auto flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 bg-amber-500 rounded-lg flex items-center justify-center">
-              <Film className="w-4 h-4 text-zinc-950" />
+            <div className="w-8 h-8 bg-sky-500 rounded-lg flex items-center justify-center">
+              <Film className="w-4 h-4 text-white" />
             </div>
             <div>
               <h1 className="font-semibold text-zinc-900 text-sm">{project.name}</h1>

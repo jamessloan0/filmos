@@ -58,8 +58,8 @@ export default function Layout({ children, currentPageName }) {
             to={createPageUrl("Dashboard")}
             className="flex items-center gap-3"
           >
-            <div className="w-8 h-8 bg-amber-500 rounded-lg flex items-center justify-center">
-              <Film className="w-4 h-4 text-zinc-950" />
+            <div className="w-8 h-8 bg-sky-500 rounded-lg flex items-center justify-center">
+              <Film className="w-4 h-4 text-white" />
             </div>
             <span className="text-lg font-semibold tracking-tight">FilmOS</span>
           </Link>
@@ -94,7 +94,7 @@ export default function Layout({ children, currentPageName }) {
         {user && (
           <div className="px-3 py-4 border-t border-zinc-800">
             <div className="flex items-center gap-3 px-3 py-2">
-              <div className="w-8 h-8 rounded-full bg-amber-500/20 flex items-center justify-center text-amber-500 text-sm font-semibold">
+              <div className="w-8 h-8 rounded-full bg-sky-500/20 flex items-center justify-center text-sky-500 text-sm font-semibold">
                 {user.full_name?.[0] || user.email?.[0]?.toUpperCase() || "U"}
               </div>
               <div className="flex-1 min-w-0">
@@ -126,8 +126,8 @@ export default function Layout({ children, currentPageName }) {
             <Menu className="w-5 h-5 text-zinc-700" />
           </button>
           <div className="flex items-center gap-2">
-            <div className="w-6 h-6 bg-amber-500 rounded flex items-center justify-center">
-              <Film className="w-3 h-3 text-zinc-950" />
+            <div className="w-6 h-6 bg-sky-500 rounded flex items-center justify-center">
+              <Film className="w-3 h-3 text-white" />
             </div>
             <span className="font-semibold text-zinc-900">FilmOS</span>
           </div>
