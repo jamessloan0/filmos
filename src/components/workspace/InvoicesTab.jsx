@@ -22,7 +22,7 @@ const STATUS_CONFIG = {
   overdue: { label: "Overdue", className: "bg-red-50 text-red-700 border-red-200" },
 };
 
-export default function InvoicesTab({ invoices, projectId, projectName, clientEmail, isClient, onInvoiceCreated, filmmakerName, filmmakerEmail }) {
+export default function InvoicesTab({ invoices, projectId, projectName, clientName, clientEmail, isClient, onInvoiceCreated, filmmakerName, filmmakerEmail }) {
   const [open, setOpen] = useState(false);
   const [viewInvoice, setViewInvoice] = useState(null);
   const [creating, setCreating] = useState(false);
@@ -132,12 +132,16 @@ export default function InvoicesTab({ invoices, projectId, projectName, clientEm
             </div>
             <div>
               <div class="party-label">Bill To</div>
-              <div class="party-name">${projectName}</div>
+              <div class="party-name">${clientName || clientEmail}</div>
               <div class="party-sub">${clientEmail}</div>
             </div>
           </div>
 
           <div class="meta-row">
+            <div class="meta-item">
+              <div class="meta-label">Project</div>
+              <div class="meta-value">${projectName}</div>
+            </div>
             <div class="meta-item">
               <div class="meta-label">Invoice Date</div>
               <div class="meta-value">${format(new Date(invoice.created_date), "MMMM d, yyyy")}</div>
