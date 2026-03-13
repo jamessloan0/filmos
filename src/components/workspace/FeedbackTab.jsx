@@ -13,7 +13,8 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Plus, ThumbsUp, RotateCcw, Clock, MessageSquare, Loader2, CheckCircle2, XCircle } from "lucide-react";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Plus, ThumbsUp, RotateCcw, Clock, MessageSquare, Loader2, CheckCircle2, XCircle, Paperclip } from "lucide-react";
 
 const DECISION_CONFIG = {
   pending: { label: "Awaiting Review", icon: Clock, className: "bg-zinc-100 text-zinc-600 border-zinc-200" },
@@ -21,10 +22,10 @@ const DECISION_CONFIG = {
   changes_requested: { label: "Changes Requested", icon: XCircle, className: "bg-orange-50 text-orange-700 border-orange-200" },
 };
 
-export default function FeedbackTab({ feedbackItems, projectId, isClient, clientName, onUpdated }) {
+export default function FeedbackTab({ feedbackItems, projectId, isClient, clientName, onUpdated, files = [] }) {
   const [open, setOpen] = useState(false);
   const [creating, setCreating] = useState(false);
-  const [form, setForm] = useState({ title: "", description: "" });
+  const [form, setForm] = useState({ title: "", description: "", file_id: "", file_name: "" });
   const [respondingId, setRespondingId] = useState(null);
   const [responseForm, setResponseForm] = useState({ decision: "", client_note: "" });
 
@@ -35,6 +36,8 @@ export default function FeedbackTab({ feedbackItems, projectId, isClient, client
       project_id: projectId,
       title: form.title,
       description: form.description,
+      file_id: form.file_id || "",
+      file_name: form.file_name || "",
       decision: "pending",
     });
     await base44.entities.Activity.create({
@@ -43,7 +46,7 @@ export default function FeedbackTab({ feedbackItems, projectId, isClient, client
       description: `Feedback request created: "${form.title}"`,
       actor_name: "Filmmaker",
     });
-    setForm({ title: "", description: "" });
+    setForm({ title: "", description: "", file_id: "", file_name: "" });
     setCreating(false);
     setOpen(false);
     onUpdated();
@@ -93,6 +96,30 @@ export default function FeedbackTab({ feedbackItems, projectId, isClient, client
                   />
                 </div>
                 <div>
+                  <Label>Attach a File (optional)</Label>
+                  <Select
+                    value={form.file_id || "none"}
+                    onValueChange={(val) => {
+                      if (val === "none") {
+                        setForm({ ...form, file_id: "", file_name: "" });
+                      } else {
+                        const f = files.find(f => f.id === val);
+                        setForm({ ...form, file_id: val, file_name: f?.file_name || "" });
+                      }
+                    }}
+                  >
+                    <SelectTrigger className="mt-1.5">
+                      <SelectValue placeholder="Select a file..." />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="none">No file attached</SelectItem>
+                      {files.map(f => (
+                        <SelectItem key={f.id} value={f.id}>{f.file_name}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div>
                   <Label>Message to client</Label>
                   <Textarea
                     placeholder="Add context or instructions for your client..."
@@ -140,9 +167,17 @@ export default function FeedbackTab({ feedbackItems, projectId, isClient, client
                 <div className="flex items-start justify-between gap-4 mb-3">
                   <div className="flex-1 min-w-0">
                     <h3 className="font-semibold text-zinc-900">{item.title}</h3>
-                    <p className="text-xs text-zinc-400 mt-0.5">
-                      {format(new Date(item.created_date), "MMM d, yyyy")}
-                    </p>
+                    <div className="flex items-center gap-3 mt-0.5 flex-wrap">
+                      <p className="text-xs text-zinc-400">
+                        {format(new Date(item.created_date), "MMM d, yyyy")}
+                      </p>
+                      {item.file_name && (
+                        <span className="flex items-center gap-1 text-xs text-sky-600 bg-sky-50 border border-sky-200 px-2 py-0.5 rounded-full">
+                          <Paperclip className="w-2.5 h-2.5" />
+                          {item.file_name}
+                        </span>
+                      )}
+                    </div>
                   </div>
                   <Badge variant="outline" className={`${conf.className} flex items-center gap-1.5 flex-shrink-0`}>
                     <DecisionIcon className="w-3 h-3" />
