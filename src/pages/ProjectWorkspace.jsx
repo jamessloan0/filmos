@@ -4,13 +4,14 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import { ArrowLeft, Loader2, Copy, Check, LayoutGrid, FileText, MessageSquare, Receipt } from "lucide-react";
+import { ArrowLeft, Loader2, Copy, Check, LayoutGrid, FileText, MessageSquare, Receipt, ThumbsUp } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 import OverviewTab from "@/components/workspace/OverviewTab";
 import FilesTab from "@/components/workspace/FilesTab";
 import MessagesTab from "@/components/workspace/MessagesTab";
 import InvoicesTab from "@/components/workspace/InvoicesTab";
+import FeedbackTab from "@/components/workspace/FeedbackTab";
 
 export default function ProjectWorkspace() {
   const params = new URLSearchParams(window.location.search);
@@ -59,11 +60,18 @@ export default function ProjectWorkspace() {
     enabled: !!projectId,
   });
 
+  const { data: feedbackItems = [] } = useQuery({
+    queryKey: ["feedback", projectId],
+    queryFn: () => base44.entities.Feedback.filter({ project_id: projectId }, "-created_date"),
+    enabled: !!projectId,
+  });
+
   const refreshAll = () => {
     queryClient.invalidateQueries({ queryKey: ["files", projectId] });
     queryClient.invalidateQueries({ queryKey: ["messages", projectId] });
     queryClient.invalidateQueries({ queryKey: ["invoices", projectId] });
     queryClient.invalidateQueries({ queryKey: ["activities", projectId] });
+    queryClient.invalidateQueries({ queryKey: ["feedback", projectId] });
     queryClient.invalidateQueries({ queryKey: ["project", projectId] });
   };
 
@@ -155,6 +163,15 @@ export default function ProjectWorkspace() {
               </span>
             )}
           </TabsTrigger>
+          <TabsTrigger value="feedback" className="gap-2">
+            <ThumbsUp className="w-3.5 h-3.5" />
+            <span className="hidden sm:inline">Feedback</span>
+            {feedbackItems.filter(f => f.decision === "pending").length > 0 && (
+              <span className="ml-1 text-[10px] bg-sky-200 text-sky-700 px-1.5 py-0.5 rounded-full">
+                {feedbackItems.filter(f => f.decision === "pending").length}
+              </span>
+            )}
+          </TabsTrigger>
         </TabsList>
 
         <TabsContent value="overview">
@@ -190,6 +207,16 @@ export default function ProjectWorkspace() {
             clientEmail={project.client_email}
             isClient={false}
             onInvoiceCreated={refreshAll}
+            filmmakerName={user?.full_name || user?.email}
+            filmmakerEmail={user?.email}
+          />
+        </TabsContent>
+        <TabsContent value="feedback">
+          <FeedbackTab
+            feedbackItems={feedbackItems}
+            projectId={projectId}
+            isClient={false}
+            onUpdated={refreshAll}
           />
         </TabsContent>
       </Tabs>
