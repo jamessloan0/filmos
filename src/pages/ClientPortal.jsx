@@ -257,6 +257,7 @@ export default function ClientPortal() {
               invoices={invoices}
               projectId={projectId}
               projectName={project.name}
+              clientName={project.client_name}
               clientEmail={project.client_email}
               isClient={true}
               onInvoiceCreated={refreshAll}
