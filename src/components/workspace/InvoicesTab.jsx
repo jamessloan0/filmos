@@ -22,7 +22,7 @@ const STATUS_CONFIG = {
   overdue: { label: "Overdue", className: "bg-red-50 text-red-700 border-red-200" },
 };
 
-export default function InvoicesTab({ invoices, projectId, projectName, clientEmail, isClient, onInvoiceCreated }) {
+export default function InvoicesTab({ invoices, projectId, projectName, clientEmail, isClient, onInvoiceCreated, filmmakerName, filmmakerEmail }) {
   const [open, setOpen] = useState(false);
   const [viewInvoice, setViewInvoice] = useState(null);
   const [creating, setCreating] = useState(false);
@@ -63,59 +63,104 @@ export default function InvoicesTab({ invoices, projectId, projectName, clientEm
 
   const handlePrint = (invoice) => {
     const printWindow = window.open('', '_blank');
+    const statusLabel = (invoice.status || 'sent').charAt(0).toUpperCase() + (invoice.status || 'sent').slice(1);
+    const statusColor = invoice.status === 'paid' ? '#059669' : invoice.status === 'overdue' ? '#dc2626' : '#0284c7';
+    const fromName = filmmakerName || 'Filmmaker';
+    const fromEmail = filmmakerEmail || '';
     printWindow.document.write(`
+      <!DOCTYPE html>
       <html>
       <head>
+        <meta charset="utf-8" />
         <title>Invoice ${invoice.invoice_number}</title>
         <style>
-          body { font-family: 'Inter', Arial, sans-serif; padding: 40px; color: #1a1a1a; }
-          .header { display: flex; justify-content: space-between; margin-bottom: 40px; border-bottom: 2px solid #f4f4f5; padding-bottom: 24px; }
-          .logo { font-size: 24px; font-weight: 700; }
-          .invoice-number { color: #71717a; }
-          .details { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 40px; }
-          .label { font-size: 12px; color: #a1a1aa; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
-          .value { font-size: 15px; font-weight: 500; }
-          .amount-section { background: #fafafa; padding: 24px; border-radius: 12px; margin-bottom: 24px; }
-          .amount { font-size: 32px; font-weight: 700; }
-          .description { margin-top: 16px; color: #52525b; line-height: 1.6; }
-          .footer { margin-top: 60px; padding-top: 20px; border-top: 1px solid #f4f4f5; color: #a1a1aa; font-size: 12px; }
+          @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+          * { box-sizing: border-box; margin: 0; padding: 0; }
+          body { font-family: 'Inter', Arial, sans-serif; background: #fff; color: #18181b; padding: 0; }
+          .page { max-width: 720px; margin: 0 auto; padding: 56px 48px; }
+          .top-bar { background: #0ea5e9; height: 6px; width: 100%; margin-bottom: 48px; border-radius: 0 0 4px 4px; }
+          .header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 48px; }
+          .brand { display: flex; align-items: center; gap: 10px; }
+          .brand-icon { width: 36px; height: 36px; background: #0ea5e9; border-radius: 8px; display: flex; align-items: center; justify-content: center; }
+          .brand-name { font-size: 22px; font-weight: 700; color: #18181b; letter-spacing: -0.5px; }
+          .invoice-badge { text-align: right; }
+          .invoice-label { font-size: 11px; color: #a1a1aa; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+          .invoice-number { font-size: 18px; font-weight: 600; color: #18181b; }
+          .status-pill { display: inline-block; margin-top: 8px; padding: 4px 12px; border-radius: 100px; font-size: 11px; font-weight: 600; color: ${statusColor}; background: ${statusColor}18; border: 1px solid ${statusColor}30; }
+          .parties { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-bottom: 40px; padding: 28px; background: #f8fafc; border-radius: 12px; border: 1px solid #e4e4e7; }
+          .party-label { font-size: 10px; font-weight: 600; color: #a1a1aa; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+          .party-name { font-size: 15px; font-weight: 600; color: #18181b; margin-bottom: 2px; }
+          .party-sub { font-size: 13px; color: #71717a; }
+          .divider { height: 1px; background: #e4e4e7; margin: 32px 0; }
+          .meta-row { display: flex; gap: 40px; margin-bottom: 32px; }
+          .meta-item { }
+          .meta-label { font-size: 10px; font-weight: 600; color: #a1a1aa; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+          .meta-value { font-size: 14px; font-weight: 500; color: #18181b; }
+          .amount-block { background: #f0f9ff; border: 1px solid #bae6fd; border-radius: 12px; padding: 28px 32px; margin-bottom: 24px; }
+          .amount-label { font-size: 11px; font-weight: 600; color: #0284c7; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+          .amount-value { font-size: 40px; font-weight: 700; color: #0c4a6e; letter-spacing: -1px; }
+          .desc-label { font-size: 10px; font-weight: 600; color: #a1a1aa; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+          .desc-text { font-size: 14px; color: #52525b; line-height: 1.65; }
+          .footer { margin-top: 56px; padding-top: 20px; border-top: 1px solid #e4e4e7; display: flex; justify-content: space-between; align-items: center; }
+          .footer-brand { font-size: 12px; color: #a1a1aa; }
+          .footer-note { font-size: 12px; color: #a1a1aa; }
+          @media print { .page { padding: 32px; } }
         </style>
       </head>
       <body>
-        <div class="header">
-          <div>
-            <div class="logo">FilmOS</div>
-            <div class="invoice-number">${invoice.invoice_number}</div>
+        <div class="top-bar"></div>
+        <div class="page">
+          <div class="header">
+            <div class="brand">
+              <div class="brand-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"/><line x1="7" y1="2" x2="7" y2="22"/><line x1="17" y1="2" x2="17" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><line x1="2" y1="7" x2="7" y2="7"/><line x1="2" y1="17" x2="7" y2="17"/><line x1="17" y1="17" x2="22" y2="17"/><line x1="17" y1="7" x2="22" y2="7"/></svg>
+              </div>
+              <span class="brand-name">FilmOS</span>
+            </div>
+            <div class="invoice-badge">
+              <div class="invoice-label">Invoice</div>
+              <div class="invoice-number">${invoice.invoice_number}</div>
+              <div class="status-pill">${statusLabel}</div>
+            </div>
           </div>
-          <div style="text-align:right">
-            <div class="label">Status</div>
-            <div class="value">${(invoice.status || 'sent').toUpperCase()}</div>
+
+          <div class="parties">
+            <div>
+              <div class="party-label">From</div>
+              <div class="party-name">${fromName}</div>
+              <div class="party-sub">${fromEmail}</div>
+            </div>
+            <div>
+              <div class="party-label">Bill To</div>
+              <div class="party-name">${projectName}</div>
+              <div class="party-sub">${clientEmail}</div>
+            </div>
+          </div>
+
+          <div class="meta-row">
+            <div class="meta-item">
+              <div class="meta-label">Invoice Date</div>
+              <div class="meta-value">${format(new Date(invoice.created_date), "MMMM d, yyyy")}</div>
+            </div>
+            <div class="meta-item">
+              <div class="meta-label">Due Date</div>
+              <div class="meta-value">${format(new Date(invoice.due_date), "MMMM d, yyyy")}</div>
+            </div>
+          </div>
+
+          <div class="amount-block">
+            <div class="amount-label">Amount Due</div>
+            <div class="amount-value">$${invoice.amount?.toFixed(2)}</div>
+          </div>
+
+          <div class="desc-label">Description of Work</div>
+          <div class="desc-text">${invoice.description}</div>
+
+          <div class="footer">
+            <span class="footer-brand">Generated by FilmOS</span>
+            <span class="footer-note">Payment is not processed through FilmOS</span>
           </div>
         </div>
-        <div class="details">
-          <div>
-            <div class="label">Project</div>
-            <div class="value">${projectName}</div>
-          </div>
-          <div>
-            <div class="label">Client</div>
-            <div class="value">${clientEmail}</div>
-          </div>
-          <div>
-            <div class="label">Invoice Date</div>
-            <div class="value">${format(new Date(invoice.created_date), "MMMM d, yyyy")}</div>
-          </div>
-          <div>
-            <div class="label">Due Date</div>
-            <div class="value">${format(new Date(invoice.due_date), "MMMM d, yyyy")}</div>
-          </div>
-        </div>
-        <div class="amount-section">
-          <div class="label">Amount Due</div>
-          <div class="amount">$${invoice.amount?.toFixed(2)}</div>
-          <div class="description">${invoice.description}</div>
-        </div>
-        <div class="footer">Generated by FilmOS</div>
       </body>
       </html>
     `);
