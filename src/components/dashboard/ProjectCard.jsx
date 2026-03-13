@@ -23,7 +23,7 @@ export default function ProjectCard({ project }) {
       <div className="bg-white border border-zinc-200 rounded-xl p-5 hover:border-zinc-300 hover:shadow-sm transition-all duration-200">
         <div className="flex items-start justify-between">
           <div className="flex-1 min-w-0">
-            <h3 className="font-semibold text-zinc-900 group-hover:text-amber-600 transition-colors truncate">
+            <h3 className="font-semibold text-zinc-900 group-hover:text-sky-600 transition-colors truncate">
               {project.name}
             </h3>
             <div className="flex items-center gap-2 mt-2 text-sm text-zinc-500">
