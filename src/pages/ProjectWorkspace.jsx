@@ -4,7 +4,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import { ArrowLeft, Loader2, Copy, Check, LayoutGrid, FileText, MessageSquare, Receipt, ThumbsUp } from "lucide-react";
+import { ArrowLeft, Loader2, Copy, Check, LayoutGrid, FileText, MessageSquare, Receipt, ThumbsUp, Presentation } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 import OverviewTab from "@/components/workspace/OverviewTab";
@@ -12,6 +12,7 @@ import FilesTab from "@/components/workspace/FilesTab";
 import MessagesTab from "@/components/workspace/MessagesTab";
 import InvoicesTab from "@/components/workspace/InvoicesTab";
 import FeedbackTab from "@/components/workspace/FeedbackTab";
+import ProposalTab from "@/components/workspace/ProposalTab";
 
 export default function ProjectWorkspace() {
   const params = new URLSearchParams(window.location.search);
@@ -66,12 +67,19 @@ export default function ProjectWorkspace() {
     enabled: !!projectId,
   });
 
+  const { data: proposals = [] } = useQuery({
+    queryKey: ["proposals", projectId],
+    queryFn: () => base44.entities.Proposal.filter({ project_id: projectId }, "-created_date"),
+    enabled: !!projectId,
+  });
+
   const refreshAll = () => {
     queryClient.invalidateQueries({ queryKey: ["files", projectId] });
     queryClient.invalidateQueries({ queryKey: ["messages", projectId] });
     queryClient.invalidateQueries({ queryKey: ["invoices", projectId] });
     queryClient.invalidateQueries({ queryKey: ["activities", projectId] });
     queryClient.invalidateQueries({ queryKey: ["feedback", projectId] });
+    queryClient.invalidateQueries({ queryKey: ["proposals", projectId] });
     queryClient.invalidateQueries({ queryKey: ["project", projectId] });
   };
 
@@ -172,6 +180,10 @@ export default function ProjectWorkspace() {
               </span>
             )}
           </TabsTrigger>
+          <TabsTrigger value="proposal" className="gap-2">
+            <Presentation className="w-3.5 h-3.5" />
+            <span className="hidden sm:inline">Proposal</span>
+          </TabsTrigger>
         </TabsList>
 
         <TabsContent value="overview">
@@ -204,6 +216,7 @@ export default function ProjectWorkspace() {
             invoices={invoices}
             projectId={projectId}
             projectName={project.name}
+            clientName={project.client_name}
             clientEmail={project.client_email}
             isClient={false}
             onInvoiceCreated={refreshAll}
@@ -214,6 +227,15 @@ export default function ProjectWorkspace() {
         <TabsContent value="feedback">
           <FeedbackTab
             feedbackItems={feedbackItems}
+            projectId={projectId}
+            isClient={false}
+            onUpdated={refreshAll}
+            files={files}
+          />
+        </TabsContent>
+        <TabsContent value="proposal">
+          <ProposalTab
+            proposals={proposals}
             projectId={projectId}
             isClient={false}
             onUpdated={refreshAll}
