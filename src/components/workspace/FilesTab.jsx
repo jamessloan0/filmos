@@ -30,6 +30,7 @@ function getFileIcon(fileName) {
 
 export default function FilesTab({ files, projectId, isClient, onFileUploaded }) {
   const [uploading, setUploading] = useState(false);
+  const [uploadProgress, setUploadProgress] = useState(0);
   const [selectedCategory, setSelectedCategory] = useState("proposal");
   const [filterCategory, setFilterCategory] = useState("all");
   const fileInputRef = useRef(null);
