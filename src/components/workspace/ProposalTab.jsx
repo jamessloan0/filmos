@@ -33,7 +33,7 @@ function SlideEditor({ slide, onChange, onDelete, index }) {
     const file = e.target.files[0];
     if (!file) return;
     setUploading(true);
-    const { file_url } = await base44.integrations.Core.UploadFile({ file });
+    const { file_url } = await uploadToCloudinary(file, { folder: "filmos/proposals" });
     onChange({ ...slide, image_url: file_url });
     setUploading(false);
   };
