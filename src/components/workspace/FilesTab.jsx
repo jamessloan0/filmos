@@ -81,35 +81,45 @@ export default function FilesTab({ files, projectId, isClient, onFileUploaded })
     <div className="space-y-6">
       {/* Upload bar */}
       {!isClient && (
-        <div className="bg-white border border-zinc-200 rounded-xl p-4 flex flex-wrap items-center gap-3">
-          <Select value={selectedCategory} onValueChange={setSelectedCategory}>
-            <SelectTrigger className="w-40">
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-              {CATEGORIES.map((c) => (
-                <SelectItem key={c.value} value={c.value}>{c.label}</SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-          <input
-            ref={fileInputRef}
-            type="file"
-            onChange={handleUpload}
-            className="hidden"
-          />
-          <Button
-            onClick={() => fileInputRef.current?.click()}
-            disabled={uploading}
-            className="bg-zinc-900 hover:bg-zinc-800"
-          >
-            {uploading ? (
-              <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-            ) : (
-              <Upload className="w-4 h-4 mr-2" />
-            )}
-            {uploading ? "Uploading..." : "Upload File"}
-          </Button>
+        <div className="bg-white border border-zinc-200 rounded-xl p-4 space-y-3">
+          <div className="flex flex-wrap items-center gap-3">
+            <Select value={selectedCategory} onValueChange={setSelectedCategory}>
+              <SelectTrigger className="w-40">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                {CATEGORIES.map((c) => (
+                  <SelectItem key={c.value} value={c.value}>{c.label}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            <input
+              ref={fileInputRef}
+              type="file"
+              onChange={handleUpload}
+              className="hidden"
+            />
+            <Button
+              onClick={() => fileInputRef.current?.click()}
+              disabled={uploading}
+              className="bg-zinc-900 hover:bg-zinc-800"
+            >
+              {uploading ? (
+                <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+              ) : (
+                <Upload className="w-4 h-4 mr-2" />
+              )}
+              {uploading ? `Uploading ${uploadProgress}%` : "Upload File"}
+            </Button>
+          </div>
+          {uploading && (
+            <div className="w-full bg-zinc-100 rounded-full h-1.5 overflow-hidden">
+              <div
+                className="bg-sky-500 h-1.5 rounded-full transition-all duration-200"
+                style={{ width: `${uploadProgress}%` }}
+              />
+            </div>
+          )}
         </div>
       )}
 
