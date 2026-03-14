@@ -40,8 +40,13 @@ export default function FilesTab({ files, projectId, isClient, onFileUploaded })
     if (!file) return;
 
     setUploading(true);
-    const { file_url } = await base44.integrations.Core.UploadFile({ file });
-    
+    setUploadProgress(0);
+
+    const { file_url } = await uploadToCloudinary(file, {
+      folder: `filmos/projects/${projectId}`,
+      onProgress: setUploadProgress,
+    });
+
     await base44.entities.ProjectFile.create({
       project_id: projectId,
       file_name: file.name,
@@ -58,6 +63,7 @@ export default function FilesTab({ files, projectId, isClient, onFileUploaded })
     });
 
     setUploading(false);
+    setUploadProgress(0);
     fileInputRef.current.value = "";
     onFileUploaded();
   };
