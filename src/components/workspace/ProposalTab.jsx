@@ -5,6 +5,8 @@ import { Badge } from "@/components/ui/badge";
 import { Plus, CheckCircle2, XCircle, Clock, Presentation } from "lucide-react";
 import ProposalEditor from "@/components/proposals/ProposalEditor";
 import SlideViewer from "@/components/proposals/SlideViewer";
+import TemplateSelector from "@/components/proposals/TemplateSelector";
+import { PROPOSAL_TEMPLATES } from "@/components/proposals/proposalTemplates";
 
 const STATUS_CONFIG = {
   draft: { label: "Draft", color: "bg-zinc-100 text-zinc-600" },
@@ -15,9 +17,18 @@ const STATUS_CONFIG = {
 
 export default function ProposalTab({ proposals, projectId, isClient, clientName, onUpdated }) {
   const [editing, setEditing] = useState(null); // null | "new" | proposal object
+  const [selectingTemplate, setSelectingTemplate] = useState(false);
   const [viewingProposal, setViewingProposal] = useState(null);
   const [viewSlideIdx, setViewSlideIdx] = useState(0);
   const [responding, setResponding] = useState(false);
+
+  const handleCreateWithTemplate = (templateId) => {
+    const template = PROPOSAL_TEMPLATES[templateId];
+    setEditing({
+      slides: template.slides
+    });
+    setSelectingTemplate(false);
+  };
 
   const handleSave = async (title, slides, asDraft) => {
     const status = asDraft ? "draft" : "sent";
@@ -41,6 +52,17 @@ export default function ProposalTab({ proposals, projectId, isClient, clientName
     setResponding(false);
     onUpdated();
   };
+
+  if (selectingTemplate) {
+    return (
+      <div className="bg-white border border-zinc-200 rounded-xl p-6">
+        <TemplateSelector
+          onSelect={handleCreateWithTemplate}
+          onCancel={() => setSelectingTemplate(false)}
+        />
+      </div>
+    );
+  }
 
   if (editing) {
     return (
@@ -73,7 +95,7 @@ export default function ProposalTab({ proposals, projectId, isClient, clientName
     <div className="space-y-4">
       {!isClient && (
         <div className="flex justify-end">
-          <Button onClick={() => setEditing("new")} className="bg-zinc-900 hover:bg-zinc-800">
+          <Button onClick={() => setSelectingTemplate(true)} className="bg-zinc-900 hover:bg-zinc-800">
             <Plus className="w-4 h-4 mr-2" />
             New Proposal
           </Button>
