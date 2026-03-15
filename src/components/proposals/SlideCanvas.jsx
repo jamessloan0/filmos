@@ -171,7 +171,7 @@ export default function SlideCanvas({ slide, onUpdate, selectedElementId, onSele
               ) : (
                 <div
                   className="w-full h-full p-1 overflow-hidden leading-tight"
-                  style={{ fontSize: `${el.fontSize || 18}px`, color: el.color || "#000000", fontWeight: el.bold ? "bold" : "normal", fontStyle: el.italic ? "italic" : "normal", textAlign: el.align || "left", whiteSpace: "pre-wrap" }}
+                  style={{ fontSize: `${el.fontSize || 18}px`, color: el.color || "#000000", fontWeight: el.bold ? "bold" : "normal", fontStyle: el.italic ? "italic" : "normal", textAlign: el.align || "left", whiteSpace: "pre-wrap", fontFamily: el.fontFamily || "sans-serif" }}
                 >
                   {el.content || <span className="text-zinc-300 italic" style={{ fontSize: 12 }}>Double-click to edit</span>}
                 </div>
