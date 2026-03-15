@@ -25,8 +25,12 @@ export default function VideoPlayer({ src, comments = [], onAddComment, readOnly
   const togglePlay = () => {
     const v = videoRef.current;
     if (!v) return;
-    if (v.paused) { v.play(); setPlaying(true); }
-    else { v.pause(); setPlaying(false); }
+    if (v.paused) {
+      v.play().then(() => setPlaying(true)).catch(() => {});
+    } else {
+      v.pause();
+      setPlaying(false);
+    }
   };
 
   const handleTimeUpdate = () => {
