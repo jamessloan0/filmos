@@ -16,15 +16,15 @@ export default function MessagesTab({ messages, projectId, senderName, senderTyp
   }, [messages]);
 
   useEffect(() => {
+    if (!projectId) return;
+    
     const unsubscribe = base44.entities.Message.subscribe((event) => {
       if (event.type === "create" && event.data?.project_id === projectId) {
         setLiveMessages(prev => {
           const exists = prev.some(m => m.id === event.data.id);
           return exists ? prev : [...prev, event.data];
         });
-        if (onNewMessage) {
-          onNewMessage(event.data);
-        }
+        onNewMessage?.(event.data);
       }
     });
     return unsubscribe;
