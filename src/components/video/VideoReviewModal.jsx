@@ -66,7 +66,7 @@ export default function VideoReviewModal({ file, src, projectId, authorName, aut
           {/* Video */}
           <div className="flex-1 min-w-0 flex flex-col justify-center bg-black p-4">
             <VideoPlayerWithRef
-              src={file.file_url}
+              src={src || file.file_url}
               comments={comments}
               onAddComment={handleAddComment}
               ref={playerRef}
