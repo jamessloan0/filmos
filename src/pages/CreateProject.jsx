@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { ArrowLeft, FolderPlus, Loader2, Copy, Check, ExternalLink } from "lucide-react";
 import { Link } from "react-router-dom";
+import UpgradeModal from "@/components/dashboard/UpgradeModal";
 
 function generateToken() {
   const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -24,9 +25,20 @@ export default function CreateProject() {
   const [creating, setCreating] = useState(false);
   const [created, setCreated] = useState(null);
   const [copied, setCopied] = useState(false);
+  const [showUpgrade, setShowUpgrade] = useState(false);
+  const [checking, setChecking] = useState(true);
 
   useEffect(() => {
-    base44.auth.me().then(setUser).catch(() => {
+    base44.auth.me().then(async (u) => {
+      setUser(u);
+      // Check if user already has an active project (trial limit)
+      const existing = await base44.entities.Project.filter({ owner_email: u.email });
+      const active = existing.filter((p) => !p.archived);
+      if (active.length >= 1) {
+        setShowUpgrade(true);
+      }
+      setChecking(false);
+    }).catch(() => {
       base44.auth.redirectToLogin();
     });
   }, []);
@@ -66,59 +78,67 @@ export default function CreateProject() {
     setTimeout(() => setCopied(false), 2000);
   };
 
+  if (checking) {
+    return (
+      <div className="flex items-center justify-center min-h-[60vh]">
+        <Loader2 className="w-6 h-6 animate-spin text-zinc-300" />
+      </div>
+    );
+  }
+
   return (
     <div className="max-w-lg mx-auto">
       <Link
         to={createPageUrl("Dashboard")}
-        className="inline-flex items-center gap-2 text-sm text-zinc-500 hover:text-zinc-700 transition-colors mb-8"
+        className="inline-flex items-center gap-2 text-sm text-zinc-400 hover:text-zinc-700 transition-colors mb-8"
       >
         <ArrowLeft className="w-4 h-4" />
         Back to projects
       </Link>
 
       {!created ? (
-        <div className="bg-white border border-zinc-200 rounded-xl p-8">
-          <div className="mb-6">
-            <h1 className="text-xl font-bold text-zinc-900">Create New Project</h1>
-            <p className="text-sm text-zinc-500 mt-1">
+        <div className="bg-white rounded-2xl shadow-sm border border-zinc-100 p-8">
+          <div className="mb-7">
+            <h1 className="text-2xl font-bold text-zinc-900 tracking-tight">New Project</h1>
+            <p className="text-sm text-zinc-400 mt-1.5">
               Set up a workspace to collaborate with your client.
             </p>
           </div>
 
           <div className="space-y-5">
             <div>
-              <Label className="text-zinc-700">Project Name</Label>
+              <Label className="text-zinc-600 text-xs font-semibold uppercase tracking-wide">Project Name</Label>
               <Input
                 placeholder="e.g. Wedding Film — Sarah & John"
                 value={form.name}
                 onChange={(e) => setForm({ ...form, name: e.target.value })}
-                className="mt-1.5"
+                className="mt-2 rounded-xl border-zinc-200 h-11"
               />
             </div>
             <div>
-              <Label className="text-zinc-700">Client Name</Label>
+              <Label className="text-zinc-600 text-xs font-semibold uppercase tracking-wide">Client Name</Label>
               <Input
                 placeholder="e.g. Sarah Johnson"
                 value={form.client_name}
                 onChange={(e) => setForm({ ...form, client_name: e.target.value })}
-                className="mt-1.5"
+                className="mt-2 rounded-xl border-zinc-200 h-11"
               />
             </div>
             <div>
-              <Label className="text-zinc-700">Client Email</Label>
+              <Label className="text-zinc-600 text-xs font-semibold uppercase tracking-wide">Client Email</Label>
               <Input
                 type="email"
                 placeholder="client@example.com"
                 value={form.client_email}
                 onChange={(e) => setForm({ ...form, client_email: e.target.value })}
-                className="mt-1.5"
+                className="mt-2 rounded-xl border-zinc-200 h-11"
               />
             </div>
 
             <Button
               onClick={handleCreate}
               disabled={creating || !form.name || !form.client_email}
-              className="w-full bg-zinc-900 hover:bg-zinc-800 mt-2"
+              className="w-full bg-zinc-900 hover:bg-zinc-800 h-11 rounded-xl font-semibold mt-2"
             >
               {creating ? (
                 <Loader2 className="w-4 h-4 mr-2 animate-spin" />
@@ -130,37 +150,37 @@ export default function CreateProject() {
           </div>
         </div>
       ) : (
-        <div className="bg-white border border-zinc-200 rounded-xl p-8 text-center">
-          <div className="w-14 h-14 rounded-2xl bg-emerald-50 flex items-center justify-center mx-auto mb-4">
+        <div className="bg-white rounded-2xl shadow-sm border border-zinc-100 p-8 text-center">
+          <div className="w-14 h-14 rounded-2xl bg-emerald-50 flex items-center justify-center mx-auto mb-5">
             <Check className="w-7 h-7 text-emerald-600" />
           </div>
-          <h2 className="text-xl font-bold text-zinc-900 mb-2">Project Created!</h2>
-          <p className="text-sm text-zinc-500 mb-6">
+          <h2 className="text-2xl font-bold text-zinc-900 tracking-tight mb-2">Project Created!</h2>
+          <p className="text-sm text-zinc-400 mb-7 leading-relaxed">
             Share this link with your client so they can access the project workspace.
           </p>
 
-          <div className="bg-zinc-50 border border-zinc-200 rounded-lg p-3 flex items-center gap-2 mb-6">
+          <div className="bg-zinc-50 border border-zinc-100 rounded-xl p-3 flex items-center gap-2 mb-6">
             <input
               readOnly
               value={clientLink}
-              className="flex-1 bg-transparent text-sm text-zinc-700 outline-none truncate"
+              className="flex-1 bg-transparent text-sm text-zinc-600 outline-none truncate"
             />
             <Button
               variant="outline"
               size="sm"
               onClick={handleCopy}
-              className="flex-shrink-0"
+              className="flex-shrink-0 rounded-lg"
             >
-              {copied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
+              {copied ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
             </Button>
           </div>
 
           <div className="flex gap-3">
             <Link to={createPageUrl("Dashboard")} className="flex-1">
-              <Button variant="outline" className="w-full">Dashboard</Button>
+              <Button variant="outline" className="w-full rounded-xl h-10">Dashboard</Button>
             </Link>
             <Link to={createPageUrl("ProjectWorkspace") + `?id=${created.id}`} className="flex-1">
-              <Button className="w-full bg-zinc-900 hover:bg-zinc-800">
+              <Button className="w-full bg-zinc-900 hover:bg-zinc-800 rounded-xl h-10">
                 <ExternalLink className="w-4 h-4 mr-2" />
                 Open Project
               </Button>
@@ -168,6 +188,8 @@ export default function CreateProject() {
           </div>
         </div>
       )}
+
+      <UpgradeModal open={showUpgrade} onClose={() => { setShowUpgrade(false); navigate(createPageUrl("Dashboard")); }} />
     </div>
   );
 }

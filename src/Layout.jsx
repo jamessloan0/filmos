@@ -37,7 +37,7 @@ export default function Layout({ children, currentPageName }) {
   };
 
   return (
-    <div className="min-h-screen bg-zinc-50 flex">
+    <div className="min-h-screen bg-[#f5f5f7] flex">
       {/* Mobile overlay */}
       {sidebarOpen && (
         <div
