@@ -214,7 +214,18 @@ export default function ClientPortal() {
       </header>
 
       <div className="max-w-6xl mx-auto p-4 md:p-8">
-        <Tabs defaultValue="overview" className="w-full">
+        {/* Notifications */}
+        <div className="space-y-2 mb-6">
+          {notifications.map(notif => (
+            <NotificationBanner
+              key={notif.id}
+              notification={notif}
+              onDismiss={() => dismissNotification(notif.id)}
+            />
+          ))}
+        </div>
+
+        <Tabs defaultValue="overview" className="w-full" onValueChange={setCurrentTab}>
           <TabsList className="bg-zinc-100 p-1 mb-6">
             <TabsTrigger value="overview" className="gap-2">
               <LayoutGrid className="w-3.5 h-3.5" />
