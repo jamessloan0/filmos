@@ -11,7 +11,7 @@ export default function SlideToolbar({ slide, onUpdate, selectedElementId }) {
   const selectedEl = slide?.elements?.find(e => e.id === selectedElementId);
 
   const addText = () => {
-    const el = { id: nanoid(), type: "text", x: 10, y: 10, width: 40, height: 15, content: "", fontSize: 18, color: "#000000", align: "left", bold: false, italic: false };
+    const el = { id: nanoid(), type: "text", x: 10, y: 10, width: 40, height: 15, content: "", fontSize: 18, color: "#000000", align: "left", bold: false, italic: false, fontFamily: "Arial, sans-serif" };
     onUpdate({ ...slide, elements: [...(slide.elements || []), el] });
   };
 
