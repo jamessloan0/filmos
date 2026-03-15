@@ -87,6 +87,18 @@ export default function ProjectWorkspace() {
     queryClient.invalidateQueries({ queryKey: ["project", projectId] });
   };
 
+  // Subscribe to message changes at page level
+  useEffect(() => {
+    if (!projectId) return;
+    const unsubscribe = base44.entities.Message.subscribe((event) => {
+      if (event.type === "create" && event.data?.project_id === projectId) {
+        queryClient.invalidateQueries({ queryKey: ["messages", projectId] });
+        handleNewMessage(event.data);
+      }
+    });
+    return unsubscribe;
+  }, [projectId, queryClient]);
+
   const handleArchive = async () => {
     if (!window.confirm("Archive this project? It will be moved to the archived section.")) return;
     await base44.entities.Project.update(project.id, { archived: true });
