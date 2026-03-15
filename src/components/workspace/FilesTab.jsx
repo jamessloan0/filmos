@@ -192,14 +192,12 @@ export default function FilesTab({ files, projectId, isClient, onFileUploaded })
                       <Badge variant="outline" className={`${CATEGORY_COLORS[file.category]} text-xs hidden sm:inline-flex`}>
                         {catLabel}
                       </Badge>
-                      <a
-                        href={file.file_url}
-                        target="_blank"
-                        rel="noopener noreferrer"
+                      <button
+                        onClick={() => downloadFile(file)}
                         className="p-2 rounded-lg hover:bg-zinc-100 transition-colors"
                       >
                         <Download className="w-4 h-4 text-zinc-500" />
-                      </a>
+                      </button>
                     </div>
                   );
                 })}
