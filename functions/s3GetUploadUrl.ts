@@ -48,7 +48,7 @@ Deno.serve(async (req) => {
     });
 
     const uploadUrl = await getSignedUrl(s3, command, { expiresIn: 3600 });
-    const fileUrl = `https://${bucket}.s3.${region}.amazonaws.com/${key}`;
+    const fileUrl = `https://d1uwhxuquz3bk7.cloudfront.net/${key}`;
 
     return Response.json({ uploadUrl, fileUrl, expiresAt, key });
   } catch (error) {

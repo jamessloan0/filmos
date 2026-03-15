@@ -39,7 +39,7 @@ export async function uploadToS3(file, { projectId, onProgress } = {}) {
     projectId,
   });
 
-  const { uploadUrl, fileUrl, expiresAt, error } = response.data;
+  const { uploadUrl, fileUrl, expiresAt, key, error } = response.data;
   if (error) throw new Error(error);
 
   // Upload directly to S3 with progress tracking
