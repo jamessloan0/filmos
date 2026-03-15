@@ -46,11 +46,12 @@ export default function ShareFile() {
   return (
     <div className="min-h-screen bg-[#f5f5f7] flex flex-col items-center justify-center p-6">
       {/* Logo */}
-      <div className="flex items-center gap-2.5 mb-10">
-        <div className="w-8 h-8 bg-sky-500 rounded-lg flex items-center justify-center">
-          <Film className="w-4 h-4 text-white" />
-        </div>
-        <span className="text-lg font-semibold text-zinc-800 tracking-tight">FilmOS</span>
+      <div className="mb-10">
+        <img
+          src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/69b490115c68bd1fe6d609a8/88902e62f_filmOSlogomain.png"
+          alt="FilmOS"
+          className="h-9 w-auto"
+        />
       </div>
 
       {/* Card */}
