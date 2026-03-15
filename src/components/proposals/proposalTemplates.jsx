@@ -253,52 +253,66 @@ export const PROPOSAL_TEMPLATES = {
           {
             id: nanoid(),
             type: "text",
-            x: 0,
-            y: 0,
-            width: 100,
-            height: 35,
+            x: 5,
+            y: 8,
+            width: 90,
+            height: 2,
+            content: "YOUR STUDIO",
+            fontSize: 8,
+            bold: true,
+            color: "#003d5c",
+            fontFamily: "'SF Pro Display', -apple-system, sans-serif",
+            letterSpacing: 2
+          },
+          {
+            id: nanoid(),
+            type: "text",
+            x: 5,
+            y: 16,
+            width: 90,
+            height: 2,
             content: "",
             fontSize: 16,
             color: "#ffffff",
-            bgColor: "#003d5c"
+            bgColor: "#0ea5e9"
           },
           {
             id: nanoid(),
             type: "text",
-            x: 8,
-            y: 40,
-            width: 84,
-            height: 12,
+            x: 5,
+            y: 35,
+            width: 90,
+            height: 16,
             content: "Project Proposal",
-            fontSize: 52,
+            fontSize: 56,
             bold: true,
             color: "#003d5c",
-            fontFamily: "'Rubik', sans-serif"
+            fontFamily: "'Georgia', serif"
           },
           {
             id: nanoid(),
             type: "text",
-            x: 8,
-            y: 55,
-            width: 40,
+            x: 5,
+            y: 54,
+            width: 42,
             height: 3,
             content: "Prepared for [Client Name]",
-            fontSize: 12,
-            color: "#7a7a8e",
-            fontFamily: "'Rubik', sans-serif"
+            fontSize: 11,
+            color: "#6b7280",
+            fontFamily: "'SF Pro Display', -apple-system, sans-serif"
           },
           {
             id: nanoid(),
             type: "text",
-            x: 52,
-            y: 55,
-            width: 40,
+            x: 53,
+            y: 54,
+            width: 42,
             height: 3,
             content: "Q1 2025",
-            fontSize: 12,
-            color: "#7a7a8e",
+            fontSize: 11,
+            color: "#6b7280",
             align: "right",
-            fontFamily: "'Rubik', sans-serif"
+            fontFamily: "'SF Pro Display', -apple-system, sans-serif"
           }
         ]
       },
@@ -315,59 +329,46 @@ export const PROPOSAL_TEMPLATES = {
             content: "",
             fontSize: 16,
             color: "#ffffff",
-            bgColor: "#f8f9fa"
+            bgColor: "#ffffff"
           },
           {
             id: nanoid(),
             type: "text",
-            x: 8,
-            y: 8,
-            width: 84,
-            height: 2,
-            content: "",
-            fontSize: 16,
-            color: "#ffffff",
-            bgColor: "#0ea5e9",
-            borderRadius: 1
-          },
-          {
-            id: nanoid(),
-            type: "text",
-            x: 8,
-            y: 14,
-            width: 84,
-            height: 8,
+            x: 5,
+            y: 12,
+            width: 90,
+            height: 10,
             content: "Our Approach",
-            fontSize: 40,
+            fontSize: 48,
             bold: true,
             color: "#003d5c",
-            fontFamily: "'Rubik', sans-serif"
+            fontFamily: "'Georgia', serif"
           },
           {
             id: nanoid(),
             type: "text",
-            x: 8,
+            x: 5,
             y: 27,
-            width: 38,
+            width: 42,
             height: 55,
-            content: "01. Analysis\nComprehensive market and business analysis\n\n02. Planning\nStrategic roadmap development\n\n03. Execution\nPrecision implementation",
+            content: "01. Discovery\nUnderstanding your business, market, and objectives\n\n02. Strategy\nDeveloping a comprehensive roadmap\n\n03. Execution\nDelivering with precision and excellence",
             fontSize: 12,
-            color: "#4a4a5e",
-            fontFamily: "'Rubik', sans-serif",
-            lineHeight: 1.8
+            color: "#374151",
+            fontFamily: "'SF Pro Display', -apple-system, sans-serif",
+            lineHeight: 1.9
           },
           {
             id: nanoid(),
             type: "text",
-            x: 54,
+            x: 53,
             y: 27,
-            width: 38,
+            width: 42,
             height: 55,
-            content: "04. Testing\nRigorous quality assurance\n\n05. Delivery\nSeamless go-live\n\n06. Support\nOngoing partnership",
+            content: "04. Testing\nRigorous quality assurance\n\n05. Launch\nSeamless deployment\n\n06. Support\nOngoing partnership and growth",
             fontSize: 12,
-            color: "#4a4a5e",
-            fontFamily: "'Rubik', sans-serif",
-            lineHeight: 1.8
+            color: "#374151",
+            fontFamily: "'SF Pro Display', -apple-system, sans-serif",
+            lineHeight: 1.9
           }
         ]
       }
