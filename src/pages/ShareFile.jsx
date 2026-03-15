@@ -43,6 +43,7 @@ export default function ShareFile() {
 
   const video = isVideo(file.file_name);
   const image = isImage(file.file_name);
+  const mediaUrl = useSignedUrl(file);
 
   return (
     <div className="min-h-screen bg-[#f5f5f7] flex flex-col items-center justify-center p-6">
