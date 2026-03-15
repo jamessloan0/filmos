@@ -2,11 +2,9 @@ import React, { useState } from "react";
 import { base44 } from "@/api/base44Client";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Plus, CheckCircle2, XCircle, Clock, Presentation } from "lucide-react";
+import { Plus, CheckCircle2, XCircle, Presentation } from "lucide-react";
 import ProposalEditor from "@/components/proposals/ProposalEditor";
 import SlideViewer from "@/components/proposals/SlideViewer";
-import TemplateSelector from "@/components/proposals/TemplateSelector";
-import { PROPOSAL_TEMPLATES } from "@/components/proposals/proposalTemplates";
 
 const STATUS_CONFIG = {
   draft: { label: "Draft", color: "bg-zinc-100 text-zinc-600" },
