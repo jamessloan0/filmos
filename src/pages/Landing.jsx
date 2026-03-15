@@ -279,7 +279,7 @@ export default function Landing() {
 
       {/* ── PRICING ── */}
       <section id="pricing" className="py-24 px-6 bg-zinc-50/60">
-        <div className="max-w-lg mx-auto text-center">
+        <div className="max-w-2xl mx-auto text-center">
           <p className="text-sm font-semibold text-emerald-500 uppercase tracking-widest mb-3">Pricing</p>
           <h2 className="text-4xl md:text-5xl font-bold text-zinc-900 tracking-tight mb-4">
             Simple, honest pricing
