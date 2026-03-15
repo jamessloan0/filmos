@@ -270,11 +270,12 @@ export default function DeliverablesTab({ projectId, authorName, authorType = "f
       {reviewFile && (
         <VideoReviewModal
           file={reviewFile}
+          src={reviewSrc}
           projectId={projectId}
           authorName={authorName}
           authorType={authorType}
           open={!!reviewFile}
-          onClose={() => setReviewFile(null)}
+          onClose={() => { setReviewFile(null); setReviewSrc(null); }}
         />
       )}
     </div>
