@@ -99,7 +99,10 @@ export default function ClientPortal() {
     if (!projectId) return;
     const unsubscribe = base44.entities.Message.subscribe((event) => {
       if (event.type === "create" && event.data?.project_id === projectId) {
-        queryClient.invalidateQueries({ queryKey: ["client-messages", projectId] });
+        queryClient.setQueryData(["client-messages", projectId], (old) => {
+          if (!old) return [event.data];
+          return old.some(m => m.id === event.data.id) ? old : [...old, event.data];
+        });
         handleNewMessage(event.data);
       }
     });
