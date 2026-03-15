@@ -8,7 +8,7 @@ export default function NotificationBanner({ notification, onDismiss }) {
   }, [onDismiss]);
 
   return (
-    <div className="fixed top-4 right-4 bg-sky-600 text-white rounded-lg shadow-lg p-4 flex items-start gap-3 max-w-sm z-50 animate-in slide-in-from-top-2 duration-300">
+    <div className="fixed top-4 right-4 bg-sky-600 text-white rounded-lg shadow-lg p-4 flex items-start gap-3 max-w-sm z-50 animate-slide-down">
       <div className="flex items-center gap-3 flex-1">
         <MessageSquare className="w-5 h-5 flex-shrink-0" />
         <div className="min-w-0">
