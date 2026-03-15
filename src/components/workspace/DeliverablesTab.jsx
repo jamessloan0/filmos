@@ -52,38 +52,43 @@ export default function DeliverablesTab({ projectId, authorName, authorType = "f
     if (!file) return;
     setUploading(true);
     setUploadProgress(0);
-    const { file_url, expires_at } = await uploadToS3(file, {
-      projectId,
-      onProgress: setUploadProgress,
-    });
-    const versionNumber = parentFile
-      ? (getVersions(parentFile.id).length + 2)
-      : 1;
-    const created = await base44.entities.ProjectFile.create({
-      project_id: projectId,
-      file_name: file.name,
-      file_url,
-      category: "deliverables",
-      uploaded_by: authorName,
-      parent_file_id: parentFile?.id || null,
-      version_number: parentFile ? versionNumber : 1,
-      expires_at,
-    });
-    await base44.entities.Activity.create({
-      project_id: projectId,
-      type: "file_upload",
-      description: parentFile
-        ? `Uploaded version ${versionNumber} of "${parentFile.file_name}"`
-        : `Uploaded deliverable "${file.name}"`,
-      actor_name: authorName,
-    });
-    if (parentFile) {
-      setExpanded(prev => ({ ...prev, [parentFile.id]: true }));
+    try {
+      const { file_url, expires_at } = await uploadToS3(file, {
+        projectId,
+        onProgress: setUploadProgress,
+      });
+      const versionNumber = parentFile
+        ? (getVersions(parentFile.id).length + 2)
+        : 1;
+      await base44.entities.ProjectFile.create({
+        project_id: projectId,
+        file_name: file.name,
+        file_url,
+        category: "deliverables",
+        uploaded_by: authorName,
+        parent_file_id: parentFile?.id || null,
+        version_number: parentFile ? versionNumber : 1,
+        expires_at,
+      });
+      await base44.entities.Activity.create({
+        project_id: projectId,
+        type: "file_upload",
+        description: parentFile
+          ? `Uploaded version ${versionNumber} of "${parentFile.file_name}"`
+          : `Uploaded deliverable "${file.name}"`,
+        actor_name: authorName,
+      });
+      if (parentFile) {
+        setExpanded(prev => ({ ...prev, [parentFile.id]: true }));
+      }
+      refresh();
+    } catch (err) {
+      alert(`Upload failed: ${err.message}`);
+    } finally {
+      setUploading(false);
+      setUploadProgress(0);
+      setVersioningFor(null);
     }
-    setUploading(false);
-    setUploadProgress(0);
-    setVersioningFor(null);
-    refresh();
   };
 
   const handleGenerateShareLink = async (file) => {
