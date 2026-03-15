@@ -3,9 +3,9 @@ function nanoid() {
 }
 
 export const PROPOSAL_TEMPLATES = {
-  clean: {
-    name: "Clean",
-    description: "Modern and minimal",
+  elegant: {
+    name: "Elegant",
+    description: "Premium and sophisticated",
     icon: "✨",
     slides: [
       {
@@ -14,12 +14,178 @@ export const PROPOSAL_TEMPLATES = {
           {
             id: nanoid(),
             type: "text",
-            x: 8,
+            x: 0,
+            y: 0,
+            width: 100,
+            height: 100,
+            content: "",
+            fontSize: 16,
+            color: "#ffffff",
+            bgColor: "#1e3a5f"
+          },
+          {
+            id: nanoid(),
+            type: "text",
+            x: 5,
+            y: 4,
+            width: 20,
+            height: 4,
+            content: "YOUR STUDIO",
+            fontSize: 11,
+            bold: true,
+            color: "#ffffff",
+            fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI'"
+          },
+          {
+            id: nanoid(),
+            type: "text",
+            x: 12,
+            y: 22,
+            width: 76,
+            height: 8,
+            content: "Project",
+            fontSize: 32,
+            color: "#cbd5e1",
+            fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI'"
+          },
+          {
+            id: nanoid(),
+            type: "text",
+            x: 12,
+            y: 32,
+            width: 76,
+            height: 14,
+            content: "Proposal.",
+            fontSize: 64,
+            bold: true,
+            color: "#ffffff",
+            fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI'"
+          },
+          {
+            id: nanoid(),
+            type: "text",
+            x: 12,
+            y: 50,
+            width: 35,
+            height: 4,
+            content: "Prepared for [Client Name]",
+            fontSize: 13,
+            color: "#cbd5e1",
+            fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI'"
+          },
+          {
+            id: nanoid(),
+            type: "text",
+            x: 53,
+            y: 50,
+            width: 35,
+            height: 4,
+            content: "JAN 08 2024",
+            fontSize: 13,
+            color: "#cbd5e1",
+            align: "right",
+            fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI'"
+          },
+          {
+            id: nanoid(),
+            type: "text",
+            x: 5,
+            y: 92,
+            width: 20,
+            height: 3,
+            content: "www.yoursite.com",
+            fontSize: 10,
+            color: "#94a3b8",
+            fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI'"
+          }
+        ]
+      },
+      {
+        id: nanoid(),
+        elements: [
+          {
+            id: nanoid(),
+            type: "text",
+            x: 6,
+            y: 6,
+            width: 12,
+            height: 3,
+            content: "December 2024",
+            fontSize: 13,
+            color: "#64748b",
+            fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI'"
+          },
+          {
+            id: nanoid(),
+            type: "text",
+            x: 6,
+            y: 18,
+            width: 88,
+            height: 18,
+            content: "PROJECT\nPROPOSAL",
+            fontSize: 56,
+            bold: true,
+            color: "#1e3a5f",
+            fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI'"
+          },
+          {
+            id: nanoid(),
+            type: "text",
+            x: 6,
+            y: 40,
+            width: 40,
+            height: 4,
+            content: "Driving Success Forward",
+            fontSize: 14,
+            color: "#64748b",
+            fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI'"
+          },
+          {
+            id: nanoid(),
+            type: "text",
+            x: 6,
+            y: 75,
+            width: 35,
+            height: 4,
+            content: "Presented by [Your Name]",
+            fontSize: 13,
+            color: "#64748b",
+            fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI'"
+          },
+          {
+            id: nanoid(),
+            type: "text",
+            x: 82,
+            y: 0,
+            width: 18,
+            height: 100,
+            content: "",
+            fontSize: 16,
+            color: "#ffffff",
+            bgColor: "#1e3a5f"
+          }
+        ]
+      }
+    ]
+  },
+
+  minimal: {
+    name: "Minimal",
+    description: "Clean and spacious",
+    icon: "⬜",
+    slides: [
+      {
+        id: nanoid(),
+        elements: [
+          {
+            id: nanoid(),
+            type: "text",
+            x: 10,
             y: 25,
-            width: 84,
+            width: 80,
             height: 12,
-            content: "Project Proposal",
-            fontSize: 52,
+            content: "Proposal",
+            fontSize: 72,
             bold: true,
             color: "#0f172a",
             align: "left",
@@ -28,14 +194,123 @@ export const PROPOSAL_TEMPLATES = {
           {
             id: nanoid(),
             type: "text",
-            x: 8,
-            y: 40,
-            width: 84,
-            height: 25,
+            x: 10,
+            y: 42,
+            width: 80,
+            height: 5,
             content: "[Client Name]",
-            fontSize: 28,
-            color: "#64748b",
+            fontSize: 24,
+            color: "#94a3b8",
             align: "left",
+            fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI'"
+          },
+          {
+            id: nanoid(),
+            type: "text",
+            x: 10,
+            y: 52,
+            width: 80,
+            height: 3,
+            content: "January 2024",
+            fontSize: 13,
+            color: "#cbd5e1",
+            align: "left",
+            fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI'"
+          }
+        ]
+      },
+      {
+        id: nanoid(),
+        elements: [
+          {
+            id: nanoid(),
+            type: "text",
+            x: 10,
+            y: 8,
+            width: 80,
+            height: 12,
+            content: "What We'll Do",
+            fontSize: 48,
+            bold: true,
+            color: "#0f172a",
+            fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI'"
+          },
+          {
+            id: nanoid(),
+            type: "text",
+            x: 10,
+            y: 25,
+            width: 80,
+            height: 65,
+            content: "Discovery & Strategy\nUnderstand your goals and vision\n\nDesign & Development\nCreate quality deliverables\n\nLaunch & Support\nBring your project to life",
+            fontSize: 16,
+            color: "#475569",
+            fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI'"
+          }
+        ]
+      }
+    ]
+  },
+
+  professional: {
+    name: "Professional",
+    description: "Corporate excellence",
+    icon: "📊",
+    slides: [
+      {
+        id: nanoid(),
+        elements: [
+          {
+            id: nanoid(),
+            type: "text",
+            x: 8,
+            y: 20,
+            width: 84,
+            height: 10,
+            content: "Proposal",
+            fontSize: 60,
+            bold: true,
+            color: "#164e63",
+            align: "left",
+            fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI'"
+          },
+          {
+            id: nanoid(),
+            type: "text",
+            x: 8,
+            y: 33,
+            width: 40,
+            height: 4,
+            content: "Prepared for",
+            fontSize: 12,
+            color: "#78716c",
+            fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI'"
+          },
+          {
+            id: nanoid(),
+            type: "text",
+            x: 8,
+            y: 39,
+            width: 40,
+            height: 6,
+            content: "[Client Name]",
+            fontSize: 20,
+            bold: true,
+            color: "#0f172a",
+            fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI'"
+          },
+          {
+            id: nanoid(),
+            type: "text",
+            x: 52,
+            y: 33,
+            width: 40,
+            height: 12,
+            content: "2024",
+            fontSize: 40,
+            bold: true,
+            color: "#e5e7eb",
+            align: "right",
             fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI'"
           }
         ]
@@ -51,9 +326,9 @@ export const PROPOSAL_TEMPLATES = {
             width: 84,
             height: 10,
             content: "Overview",
-            fontSize: 40,
+            fontSize: 44,
             bold: true,
-            color: "#0f172a",
+            color: "#164e63",
             fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI'"
           },
           {
@@ -61,11 +336,23 @@ export const PROPOSAL_TEMPLATES = {
             type: "text",
             x: 8,
             y: 22,
-            width: 84,
-            height: 68,
-            content: "Project Goals\n[Add your main objectives and vision]\n\nDeliverables\n[List what we'll create]\n\nTimeline\n[Key milestones and dates]",
-            fontSize: 16,
-            color: "#334155",
+            width: 40,
+            height: 65,
+            content: "Timeline\n\n01 Research\n02 Strategy\n03 Execution\n04 Launch",
+            fontSize: 15,
+            color: "#475569",
+            fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI'"
+          },
+          {
+            id: nanoid(),
+            type: "text",
+            x: 52,
+            y: 22,
+            width: 40,
+            height: 65,
+            content: "Deliverables\n\n• Strategic plan\n• Design assets\n• Technical setup\n• Documentation",
+            fontSize: 15,
+            color: "#475569",
             fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI'"
           }
         ]
@@ -75,7 +362,7 @@ export const PROPOSAL_TEMPLATES = {
 
   bold: {
     name: "Bold",
-    description: "Eye-catching and modern",
+    description: "Modern and striking",
     icon: "🎯",
     slides: [
       {
@@ -87,234 +374,39 @@ export const PROPOSAL_TEMPLATES = {
             x: 0,
             y: 0,
             width: 100,
-            height: 55,
-            content: "Let's Build\nSomething Great",
+            height: 100,
+            content: "",
+            fontSize: 16,
+            color: "#ffffff",
+            bgColor: "#0f172a"
+          },
+          {
+            id: nanoid(),
+            type: "text",
+            x: 8,
+            y: 28,
+            width: 84,
+            height: 20,
+            content: "Let's Create\nSomething Great",
             fontSize: 56,
             bold: true,
             color: "#ffffff",
-            align: "center",
-            fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI'",
-            bgColor: "#1e293b"
+            fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI'"
           },
           {
             id: nanoid(),
             type: "text",
-            x: 0,
+            x: 8,
             y: 55,
-            width: 100,
-            height: 45,
-            content: "[Client Name]\nProject Proposal",
-            fontSize: 24,
-            color: "#0f172a",
-            align: "center",
-            fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI'",
-            bgColor: "#f1f5f9"
-          }
-        ]
-      },
-      {
-        id: nanoid(),
-        elements: [
-          {
-            id: nanoid(),
-            type: "text",
-            x: 8,
-            y: 10,
             width: 84,
-            height: 12,
-            content: "Our Approach",
-            fontSize: 42,
-            bold: true,
-            color: "#1e293b",
-            fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI'"
-          },
-          {
-            id: nanoid(),
-            type: "text",
-            x: 8,
-            y: 28,
-            width: 84,
-            height: 58,
-            content: "Strategy & Planning\nCreate clear roadmap\n\nExecution\nDeliver quality results\n\nOptimization\nContinue improving",
+            height: 6,
+            content: "Project Proposal for [Client Name]",
             fontSize: 18,
-            color: "#334155",
-            fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI'"
-          }
-        ]
-      }
-    ]
-  },
-
-  professional: {
-    name: "Professional",
-    description: "Corporate and trustworthy",
-    icon: "📊",
-    slides: [
-      {
-        id: nanoid(),
-        elements: [
-          {
-            id: nanoid(),
-            type: "text",
-            x: 8,
-            y: 15,
-            width: 84,
-            height: 15,
-            content: "Proposal",
-            fontSize: 56,
-            bold: true,
-            color: "#0369a1",
-            align: "left",
-            fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI'"
-          },
-          {
-            id: nanoid(),
-            type: "text",
-            x: 8,
-            y: 35,
-            width: 84,
-            height: 8,
-            content: "[Client Name]",
-            fontSize: 20,
-            color: "#64748b",
-            align: "left",
-            fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI'"
-          },
-          {
-            id: nanoid(),
-            type: "text",
-            x: 8,
-            y: 50,
-            width: 84,
-            height: 40,
-            content: "We're excited to work with you on this project",
-            fontSize: 18,
-            color: "#475569",
-            align: "left",
+            color: "#cbd5e1",
             fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI'"
           }
         ]
       },
-      {
-        id: nanoid(),
-        elements: [
-          {
-            id: nanoid(),
-            type: "text",
-            x: 8,
-            y: 8,
-            width: 84,
-            height: 10,
-            content: "Project Scope",
-            fontSize: 40,
-            bold: true,
-            color: "#0369a1",
-            fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI'"
-          },
-          {
-            id: nanoid(),
-            type: "text",
-            x: 8,
-            y: 22,
-            width: 42,
-            height: 65,
-            content: "Services\n—\n• Item one\n• Item two\n• Item three",
-            fontSize: 16,
-            color: "#334155",
-            fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI'"
-          },
-          {
-            id: nanoid(),
-            type: "text",
-            x: 50,
-            y: 22,
-            width: 42,
-            height: 65,
-            content: "Timeline\n—\nPhase 1: Research\nPhase 2: Development\nPhase 3: Launch",
-            fontSize: 16,
-            color: "#334155",
-            fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI'"
-          }
-        ]
-      }
-    ]
-  },
-
-  minimal: {
-    name: "Minimal",
-    description: "Simple and focused",
-    icon: "⬜",
-    slides: [
-      {
-        id: nanoid(),
-        elements: [
-          {
-            id: nanoid(),
-            type: "text",
-            x: 10,
-            y: 30,
-            width: 80,
-            height: 20,
-            content: "[Client Name]",
-            fontSize: 44,
-            bold: true,
-            color: "#0f172a",
-            align: "center",
-            fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI'"
-          },
-          {
-            id: nanoid(),
-            type: "text",
-            x: 10,
-            y: 53,
-            width: 80,
-            height: 12,
-            content: "Project Proposal",
-            fontSize: 18,
-            color: "#64748b",
-            align: "center",
-            fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI'"
-          }
-        ]
-      },
-      {
-        id: nanoid(),
-        elements: [
-          {
-            id: nanoid(),
-            type: "text",
-            x: 10,
-            y: 12,
-            width: 80,
-            height: 10,
-            content: "The Plan",
-            fontSize: 36,
-            bold: true,
-            color: "#0f172a",
-            fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI'"
-          },
-          {
-            id: nanoid(),
-            type: "text",
-            x: 10,
-            y: 28,
-            width: 80,
-            height: 60,
-            content: "Phase 1  Understanding\nDive deep into your needs\n\nPhase 2  Execution\nBuild the solution\n\nPhase 3  Launch\nDeliver results",
-            fontSize: 16,
-            color: "#475569",
-            fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI'"
-          }
-        ]
-      }
-    ]
-  },
-
-  modern: {
-    name: "Modern",
-    description: "Contemporary and vibrant",
-    icon: "🚀",
-    slides: [
       {
         id: nanoid(),
         elements: [
@@ -325,44 +417,34 @@ export const PROPOSAL_TEMPLATES = {
             y: 0,
             width: 100,
             height: 100,
-            content: "Proposal",
-            fontSize: 64,
-            bold: true,
+            content: "",
+            fontSize: 16,
             color: "#ffffff",
-            align: "center",
-            fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI'",
-            bgColor: "#06b6d4"
-          }
-        ]
-      },
-      {
-        id: nanoid(),
-        elements: [
-          {
-            id: nanoid(),
-            type: "text",
-            x: 0,
-            y: 0,
-            width: 100,
-            height: 35,
-            content: "[Client Name]",
-            fontSize: 40,
-            bold: true,
-            color: "#ffffff",
-            align: "center",
-            fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI'",
             bgColor: "#06b6d4"
           },
           {
             id: nanoid(),
             type: "text",
             x: 8,
-            y: 40,
+            y: 15,
+            width: 84,
+            height: 14,
+            content: "Our Approach",
+            fontSize: 48,
+            bold: true,
+            color: "#ffffff",
+            fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI'"
+          },
+          {
+            id: nanoid(),
+            type: "text",
+            x: 8,
+            y: 35,
             width: 84,
             height: 55,
-            content: "What We'll Do\n\n✓ Understand your goals\n✓ Create a custom strategy\n✓ Deliver exceptional results\n✓ Provide ongoing support",
-            fontSize: 18,
-            color: "#0f172a",
+            content: "Discovery\nUnderstand your needs deeply\n\nExecution\nDeliver quality results\n\nOptimization\nEnsure your success",
+            fontSize: 17,
+            color: "#ffffff",
             fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI'"
           }
         ]
