@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Upload, Download, FileText, Image, Film, File, Loader2 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import { uploadToCloudinary } from "@/components/utils/cloudinaryUpload";
+import { uploadToS3 } from "@/components/utils/s3Upload";
 
 const CATEGORIES = [
   { value: "proposal", label: "Proposal" },
