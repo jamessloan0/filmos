@@ -96,11 +96,17 @@ export default function ProjectWorkspace() {
           if (!old) return [event.data];
           return old.some(m => m.id === event.data.id) ? old : [...old, event.data];
         });
-        handleNewMessage(event.data);
+        if (currentTab !== "messages") {
+          setNotifications([{
+            id: event.data.id,
+            senderName: event.data.sender_name,
+            content: event.data.content
+          }]);
+        }
       }
     });
     return unsubscribe;
-  }, [projectId, queryClient]);
+  }, [projectId, queryClient, currentTab]);
 
   const handleArchive = async () => {
     if (!window.confirm("Archive this project? It will be moved to the archived section.")) return;
