@@ -6,7 +6,7 @@ import { X } from "lucide-react";
 import VideoPlayer from "./VideoPlayer";
 import VideoCommentsSidebar from "./VideoCommentsSidebar";
 
-export default function VideoReviewModal({ file, projectId, authorName, authorType, open, onClose }) {
+export default function VideoReviewModal({ file, src, projectId, authorName, authorType, open, onClose }) {
   const playerRef = useRef(null);
   const queryClient = useQueryClient();
 
