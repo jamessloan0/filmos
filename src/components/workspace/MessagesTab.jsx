@@ -73,7 +73,7 @@ export default function MessagesTab({ messages, projectId, senderName, senderTyp
             <p className="text-sm text-zinc-400">No messages yet. Start the conversation.</p>
           </div>
         ) : (
-          messages.map((msg) => {
+          liveMessages.map((msg) => {
             const isMe = msg.sender_type === senderType;
             return (
               <div key={msg.id} className={`flex ${isMe ? "justify-end" : "justify-start"}`}>
