@@ -180,31 +180,15 @@ export default function DeliverablesTab({ projectId, authorName, authorType = "f
 
                   {/* Actions */}
                   <div className="flex items-center gap-1.5 flex-shrink-0">
-                    {video && (
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() => setReviewFile(latestFile)}
-                        className="rounded-lg text-sky-600 border-sky-200 hover:bg-sky-50 text-xs gap-1.5"
-                      >
-                        <Play className="w-3.5 h-3.5" />
-                        Review
-                      </Button>
-                    )}
-                    <ShareLinkPopover
+                    <DeliverableFileRow
                       file={latestFile}
+                      isVideo={video}
+                      FileIcon={FileIcon}
                       shareUrl={shareUrl(latestFile)}
                       onGenerate={() => handleGenerateShareLink(latestFile)}
                       onDisable={() => handleDisableShare(latestFile)}
+                      onReview={(f, src) => { setReviewFile(f); setReviewSrc(src); }}
                     />
-                    <a
-                      href={latestFile.file_url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="p-2 rounded-lg hover:bg-zinc-100 transition-colors text-zinc-400 hover:text-zinc-700"
-                    >
-                      <Download className="w-4 h-4" />
-                    </a>
                     {!isClient && (
                       <button
                         onClick={() => setVersioningFor(file)}
