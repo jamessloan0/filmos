@@ -96,6 +96,30 @@ export default function Landing() {
 
   const goToLogin = () => base44.auth.redirectToLogin();
 
+  const handleProCheckout = async () => {
+    if (window.self !== window.top) {
+      alert("Checkout is only available from the published app. Please open the app in a new tab.");
+      return;
+    }
+    setCheckoutLoading(true);
+    try {
+      const res = await base44.functions.invoke("stripeCreateCheckout", {
+        priceId: PRICE_ID,
+        successUrl: `${window.location.origin}/Dashboard?upgraded=true`,
+        cancelUrl: window.location.origin,
+      });
+      if (res.data?.url) {
+        window.location.href = res.data.url;
+      } else {
+        alert("Could not start checkout. Please try again.");
+      }
+    } catch (err) {
+      alert("Something went wrong. Please try again.");
+    } finally {
+      setCheckoutLoading(false);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-white text-zinc-900 overflow-x-hidden">
 
