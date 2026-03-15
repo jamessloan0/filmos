@@ -114,6 +114,20 @@ export default function ProjectWorkspace() {
     setTimeout(() => setCopied(false), 2000);
   };
 
+  const handleNewMessage = (message) => {
+    if (currentTab !== "messages") {
+      setNotifications(prev => [...prev, {
+        id: message.id,
+        senderName: message.sender_name,
+        content: message.content
+      }]);
+    }
+  };
+
+  const dismissNotification = (id) => {
+    setNotifications(prev => prev.filter(n => n.id !== id));
+  };
+
   if (loadingProject || !project) {
     return (
       <div className="flex items-center justify-center min-h-[60vh]">
