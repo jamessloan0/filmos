@@ -9,8 +9,9 @@ function formatTime(seconds) {
   return `${m}:${s.toString().padStart(2, "0")}`;
 }
 
-export default function VideoPlayer({ src, comments = [], onAddComment, readOnly = false }) {
-  const videoRef = useRef(null);
+export default function VideoPlayer({ src, comments = [], onAddComment, readOnly = false, videoRef: externalRef }) {
+  const internalRef = useRef(null);
+  const videoRef = externalRef || internalRef;
   const [playing, setPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);

@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useImperativeHandle } from "react";
 import { base44 } from "@/api/base44Client";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
