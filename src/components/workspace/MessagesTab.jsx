@@ -67,7 +67,7 @@ export default function MessagesTab({ messages, projectId, senderName, senderTyp
     <div className="bg-white border border-zinc-200 rounded-xl flex flex-col" style={{ height: "calc(100vh - 320px)", minHeight: 400 }}>
       {/* Messages */}
       <div ref={scrollRef} className="flex-1 overflow-y-auto p-6 space-y-4 messages-scroll">
-        {messages.length === 0 ? (
+        {liveMessages.length === 0 ? (
           <div className="flex flex-col items-center justify-center h-full text-center">
             <MessageSquare className="w-10 h-10 text-zinc-200 mb-3" />
             <p className="text-sm text-zinc-400">No messages yet. Start the conversation.</p>
