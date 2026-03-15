@@ -44,7 +44,7 @@ export default function FilesTab({ files, projectId, isClient, onFileUploaded })
     setUploadProgress(0);
 
     try {
-      const { file_url, expires_at } = await uploadToS3(file, {
+      const { file_url, expires_at, s3_key } = await uploadToS3(file, {
         projectId,
         onProgress: setUploadProgress,
       });
@@ -53,6 +53,7 @@ export default function FilesTab({ files, projectId, isClient, onFileUploaded })
         project_id: projectId,
         file_name: file.name,
         file_url,
+        s3_key,
         category: selectedCategory,
         uploaded_by: "Filmmaker",
         expires_at,

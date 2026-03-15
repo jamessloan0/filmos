@@ -55,7 +55,7 @@ export default function DeliverablesTab({ projectId, authorName, authorType = "f
     setUploading(true);
     setUploadProgress(0);
     try {
-      const { file_url, expires_at } = await uploadToS3(file, {
+      const { file_url, expires_at, s3_key } = await uploadToS3(file, {
         projectId,
         onProgress: setUploadProgress,
       });
@@ -66,6 +66,7 @@ export default function DeliverablesTab({ projectId, authorName, authorType = "f
         project_id: projectId,
         file_name: file.name,
         file_url,
+        s3_key,
         category: "deliverables",
         uploaded_by: authorName,
         parent_file_id: parentFile?.id || null,
