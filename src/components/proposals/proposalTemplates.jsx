@@ -393,57 +393,58 @@ export const PROPOSAL_TEMPLATES = {
             content: "",
             fontSize: 16,
             color: "#ffffff",
-            bgColor: "#0f172a"
+            bgColor: "#ffffff"
           },
           {
             id: nanoid(),
             type: "text",
             x: 0,
-            y: 35,
+            y: 42,
             width: 100,
-            height: 30,
+            height: 58,
             content: "",
             fontSize: 16,
             color: "#ffffff",
-            bgColor: "#f97316"
+            bgColor: "#ea580c"
           },
           {
             id: nanoid(),
             type: "text",
-            x: 8,
-            y: 12,
-            width: 84,
-            height: 8,
-            content: "Let's Create",
-            fontSize: 56,
+            x: 5,
+            y: 10,
+            width: 90,
+            height: 2,
+            content: "YOUR STUDIO",
+            fontSize: 8,
             bold: true,
-            color: "#f97316",
-            fontFamily: "'Sora', sans-serif"
+            color: "#000000",
+            fontFamily: "'SF Pro Display', -apple-system, sans-serif",
+            letterSpacing: 2
           },
           {
             id: nanoid(),
             type: "text",
-            x: 8,
-            y: 42,
-            width: 84,
-            height: 8,
-            content: "Something Great",
-            fontSize: 56,
+            x: 5,
+            y: 24,
+            width: 90,
+            height: 14,
+            content: "Let's Create Something Great",
+            fontSize: 60,
             bold: true,
-            color: "#0f172a",
-            fontFamily: "'Sora', sans-serif"
+            color: "#ffffff",
+            fontFamily: "'Georgia', serif"
           },
           {
             id: nanoid(),
             type: "text",
-            x: 8,
-            y: 72,
-            width: 84,
-            height: 4,
-            content: "Project Proposal for [Client Name]",
-            fontSize: 16,
-            color: "#cbd5e1",
-            fontFamily: "'Sora', sans-serif"
+            x: 5,
+            y: 50,
+            width: 90,
+            height: 3,
+            content: "Project Proposal for [Client Name] • March 2025",
+            fontSize: 11,
+            color: "#ffffff",
+            fontFamily: "'SF Pro Display', -apple-system, sans-serif"
           }
         ]
       },
@@ -460,44 +461,32 @@ export const PROPOSAL_TEMPLATES = {
             content: "",
             fontSize: 16,
             color: "#ffffff",
-            bgColor: "#f97316"
+            bgColor: "#ea580c"
           },
           {
             id: nanoid(),
             type: "text",
-            x: 0,
-            y: 0,
-            width: 100,
-            height: 12,
-            content: "",
-            fontSize: 16,
-            color: "#ffffff",
-            bgColor: "#0f172a"
-          },
-          {
-            id: nanoid(),
-            type: "text",
-            x: 8,
-            y: 20,
-            width: 84,
-            height: 8,
+            x: 5,
+            y: 12,
+            width: 90,
+            height: 10,
             content: "Our Strategy",
             fontSize: 48,
             bold: true,
             color: "#ffffff",
-            fontFamily: "'Sora', sans-serif"
+            fontFamily: "'Georgia', serif"
           },
           {
             id: nanoid(),
             type: "text",
-            x: 8,
-            y: 32,
-            width: 84,
-            height: 50,
-            content: "Discovery\nUnderstanding your vision and market needs\n\nInnovation\nCrafting bold, original solutions\n\nExecution\nDelivering excellence with precision\n\nGrowth\nSupporting your success forward",
-            fontSize: 15,
+            x: 5,
+            y: 27,
+            width: 90,
+            height: 55,
+            content: "Discovery\nWe understand your vision, market, and objectives through deep collaboration\n\nInnovation\nWe craft bold, original solutions that set you apart\n\nExecution\nWe deliver with precision and excellence\n\nGrowth\nWe support your continued success beyond launch",
+            fontSize: 13,
             color: "#ffffff",
-            fontFamily: "'Sora', sans-serif",
+            fontFamily: "'SF Pro Display', -apple-system, sans-serif",
             lineHeight: 2
           }
         ]
