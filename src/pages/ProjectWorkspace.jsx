@@ -259,6 +259,7 @@ export default function ProjectWorkspace() {
             senderName={user?.full_name || user?.email || "Filmmaker"}
             senderType="filmmaker"
             onMessageSent={refreshAll}
+            onNewMessage={handleNewMessage}
           />
         </TabsContent>
         <TabsContent value="invoices">
