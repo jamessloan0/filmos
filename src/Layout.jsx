@@ -48,7 +48,7 @@ export default function Layout({ children, currentPageName }) {
 
       {/* Sidebar */}
       <aside
-        className={`fixed lg:static inset-y-0 left-0 z-50 w-64 bg-zinc-950 text-white flex flex-col transform transition-transform duration-200 ease-out ${
+        className={`fixed lg:static inset-y-0 left-0 z-50 w-60 bg-zinc-950 text-white flex flex-col transform transition-transform duration-300 ease-out ${
           sidebarOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
         }`}
       >
@@ -133,7 +133,7 @@ export default function Layout({ children, currentPageName }) {
           </div>
         </div>
 
-        <div className="p-4 md:p-8 max-w-7xl mx-auto">
+        <div className="p-6 md:p-10 max-w-6xl mx-auto">
           {children}
         </div>
       </main>
