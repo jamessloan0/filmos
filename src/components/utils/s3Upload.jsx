@@ -61,5 +61,5 @@ export async function uploadToS3(file, { projectId, onProgress } = {}) {
     xhr.send(file);
   });
 
-  return { file_url: fileUrl, expires_at: expiresAt };
+  return { file_url: fileUrl, expires_at: expiresAt, s3_key: key };
 }
