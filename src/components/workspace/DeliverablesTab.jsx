@@ -35,6 +35,7 @@ export default function DeliverablesTab({ projectId, authorName, authorType = "f
   const [uploadProgress, setUploadProgress] = useState(0);
   const [versioningFor, setVersioningFor] = useState(null);
   const [reviewFile, setReviewFile] = useState(null);
+  const [reviewSrc, setReviewSrc] = useState(null);
   const [expanded, setExpanded] = useState({});
 
   const { data: allFiles = [] } = useQuery({
