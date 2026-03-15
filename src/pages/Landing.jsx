@@ -75,9 +75,12 @@ const STEPS = [
   },
 ];
 
+const PRICE_ID = "price_1TBLFK8nkhCfa1Lbdbi4MdEe";
+
 export default function Landing() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [checkoutLoading, setCheckoutLoading] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
