@@ -1,6 +1,7 @@
 import React from "react";
 import { Type, Image, Bold, Italic, AlignLeft, AlignCenter, AlignRight, Minus, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 function nanoid() {
   return Math.random().toString(36).slice(2, 10);
