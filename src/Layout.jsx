@@ -59,7 +59,7 @@ export default function Layout({ children, currentPageName }) {
 
             <img src="https://media.base44.com/images/public/69b490115c68bd1fe6d609a8/19ed2b1d5_filmOSlogomain-removebg-preview.png"
 
-            alt="FilmOS" className="h-8 w-auto brightness-0 invert" />
+            alt="FilmOS" className="h-8 w-auto" />
 
 
           </Link>
