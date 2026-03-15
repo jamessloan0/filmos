@@ -4,7 +4,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { format } from "date-fns";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Upload, Download, Film, FileText, Image, Loader2, Play, Plus, Link2, Check, ChevronDown, ChevronRight } from "lucide-react";
+import { Upload, Film, FileText, Image, Loader2, Plus, ChevronDown, ChevronRight } from "lucide-react";
 import { uploadToS3 } from "@/components/utils/s3Upload";
 import VideoReviewModal from "@/components/video/VideoReviewModal";
 import ShareLinkPopover from "@/components/workspace/ShareLinkPopover";
