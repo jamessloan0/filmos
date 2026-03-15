@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { base44 } from "@/api/base44Client";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import { Film, Loader2, FileText, MessageSquare, Receipt, LayoutGrid, AlertTriangle, ThumbsUp, Presentation } from "lucide-react";
+import { Film, Loader2, FileText, MessageSquare, Receipt, LayoutGrid, AlertTriangle, ThumbsUp, Presentation, PackageCheck } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
@@ -13,6 +13,7 @@ import MessagesTab from "@/components/workspace/MessagesTab";
 import InvoicesTab from "@/components/workspace/InvoicesTab";
 import FeedbackTab from "@/components/workspace/FeedbackTab";
 import ProposalTab from "@/components/workspace/ProposalTab";
+import DeliverablesTab from "@/components/workspace/DeliverablesTab";
 
 export default function ClientPortal() {
   const params = new URLSearchParams(window.location.search);
@@ -226,6 +227,10 @@ export default function ClientPortal() {
                 </span>
               )}
             </TabsTrigger>
+            <TabsTrigger value="deliverables" className="gap-2">
+              <PackageCheck className="w-3.5 h-3.5" />
+              <span className="hidden sm:inline">Deliverables</span>
+            </TabsTrigger>
           </TabsList>
 
           <TabsContent value="overview">
@@ -280,6 +285,14 @@ export default function ClientPortal() {
               isClient={true}
               clientName={clientName}
               onUpdated={refreshAll}
+            />
+          </TabsContent>
+          <TabsContent value="deliverables">
+            <DeliverablesTab
+              projectId={projectId}
+              authorName={clientName}
+              authorType="client"
+              isClient={true}
             />
           </TabsContent>
         </Tabs>
