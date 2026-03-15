@@ -79,7 +79,7 @@ export default function ProposalTab({ proposals, projectId, isClient, clientName
     <div className="space-y-4">
       {!isClient && (
         <div className="flex justify-end">
-          <Button onClick={() => setSelectingTemplate(true)} className="bg-zinc-900 hover:bg-zinc-800">
+          <Button onClick={handleCreateBlank} className="bg-zinc-900 hover:bg-zinc-800">
             <Plus className="w-4 h-4 mr-2" />
             New Proposal
           </Button>
