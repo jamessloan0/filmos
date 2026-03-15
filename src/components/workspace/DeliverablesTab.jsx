@@ -228,24 +228,16 @@ export default function DeliverablesTab({ projectId, authorName, authorType = "f
                         <p className="text-[11px] text-zinc-400">{format(new Date(v.created_date), "MMM d, yyyy")}</p>
                       </div>
                       <div className="flex items-center gap-1.5">
-                        {vVideo && (
-                          <Button variant="outline" size="sm"
-                            onClick={() => setReviewFile(v)}
-                            className="rounded-lg text-sky-600 border-sky-200 hover:bg-sky-50 text-xs gap-1.5 h-7">
-                            <Play className="w-3 h-3" />Review
-                          </Button>
-                        )}
-                        <ShareLinkPopover
+                        <DeliverableFileRow
                           file={v}
+                          isVideo={vVideo}
+                          FileIcon={VersionIcon}
                           shareUrl={shareUrl(v)}
                           onGenerate={() => handleGenerateShareLink(v)}
                           onDisable={() => handleDisableShare(v)}
+                          onReview={(f, src) => { setReviewFile(f); setReviewSrc(src); }}
                           compact
                         />
-                        <a href={v.file_url} target="_blank" rel="noopener noreferrer"
-                          className="p-1.5 rounded-lg hover:bg-zinc-200 transition-colors text-zinc-400">
-                          <Download className="w-3.5 h-3.5" />
-                        </a>
                       </div>
                     </div>
                   );
