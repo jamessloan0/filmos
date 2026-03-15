@@ -139,7 +139,7 @@ export default function ClientPortal() {
         <div className="bg-white border border-zinc-200 rounded-xl p-8 max-w-md w-full text-center">
           <div className="flex items-center justify-center mx-auto mb-4">
             <img
-              src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/69b490115c68bd1fe6d609a8/88902e62f_filmOSlogomain.png"
+              src="https://media.base44.com/images/public/69b490115c68bd1fe6d609a8/19ed2b1d5_filmOSlogomain-removebg-preview.png"
               alt="FilmOS"
               className="h-10 w-auto"
             />
@@ -178,7 +178,7 @@ export default function ClientPortal() {
         <div className="max-w-6xl mx-auto flex items-center justify-between">
           <div className="flex items-center gap-3">
             <img
-              src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/69b490115c68bd1fe6d609a8/88902e62f_filmOSlogomain.png"
+              src="https://media.base44.com/images/public/69b490115c68bd1fe6d609a8/19ed2b1d5_filmOSlogomain-removebg-preview.png"
               alt="FilmOS"
               className="h-7 w-auto"
             />

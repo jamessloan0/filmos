@@ -57,7 +57,7 @@ export default function Layout({ children, currentPageName }) {
             to={createPageUrl("Dashboard")}
             className="flex items-center">
 
-            <img src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/69b490115c68bd1fe6d609a8/5053cc76b_filmOSlogomain-removebg-preview.png"
+            <img src="https://media.base44.com/images/public/69b490115c68bd1fe6d609a8/19ed2b1d5_filmOSlogomain-removebg-preview.png"
 
             alt="FilmOS" className="h-8 w-auto brightness-0 invert" />
 
@@ -126,7 +126,7 @@ export default function Layout({ children, currentPageName }) {
             <Menu className="w-5 h-5 text-zinc-700" />
           </button>
           <div className="flex items-center">
-            <img src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/69b490115c68bd1fe6d609a8/dc115084a_filmOSlogomain-removebg-preview.png"
+            <img src="https://media.base44.com/images/public/69b490115c68bd1fe6d609a8/19ed2b1d5_filmOSlogomain-removebg-preview.png"
 
             alt="FilmOS" className="h-7 w-auto" />
 
