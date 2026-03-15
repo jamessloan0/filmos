@@ -162,7 +162,7 @@ export default function SlideCanvas({ slide, onUpdate, selectedElementId, onSele
                 <textarea
                   autoFocus
                   className="w-full h-full resize-none border-none outline-none bg-transparent p-1 leading-tight"
-                  style={{ fontSize: `${el.fontSize || 18}px`, color: el.color || "#000000", fontWeight: el.bold ? "bold" : "normal", fontStyle: el.italic ? "italic" : "normal", textAlign: el.align || "left" }}
+                  style={{ fontSize: `${el.fontSize || 18}px`, color: el.color || "#000000", fontWeight: el.bold ? "bold" : "normal", fontStyle: el.italic ? "italic" : "normal", textAlign: el.align || "left", fontFamily: el.fontFamily || "sans-serif" }}
                   value={el.content || ""}
                   onChange={(e) => onUpdate({ ...slide, elements: slide.elements.map(x => x.id === el.id ? { ...x, content: e.target.value } : x) })}
                   onMouseDown={(e) => e.stopPropagation()}
