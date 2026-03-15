@@ -131,7 +131,7 @@ export default function ProjectWorkspace() {
 
   const handleNewMessage = (message) => {
     if (currentTab !== "messages") {
-      setNotifications(prev => [...prev, {
+      setNotifications([{
         id: message.id,
         senderName: message.sender_name,
         content: message.content
