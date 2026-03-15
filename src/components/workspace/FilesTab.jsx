@@ -42,8 +42,8 @@ export default function FilesTab({ files, projectId, isClient, onFileUploaded })
     setUploading(true);
     setUploadProgress(0);
 
-    const { file_url } = await uploadToCloudinary(file, {
-      folder: `filmos/projects/${projectId}`,
+    const { file_url, expires_at } = await uploadToS3(file, {
+      projectId,
       onProgress: setUploadProgress,
     });
 
@@ -53,6 +53,7 @@ export default function FilesTab({ files, projectId, isClient, onFileUploaded })
       file_url,
       category: selectedCategory,
       uploaded_by: "Filmmaker",
+      expires_at,
     });
 
     await base44.entities.Activity.create({

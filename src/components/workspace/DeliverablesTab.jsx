@@ -52,8 +52,8 @@ export default function DeliverablesTab({ projectId, authorName, authorType = "f
     if (!file) return;
     setUploading(true);
     setUploadProgress(0);
-    const { file_url } = await uploadToCloudinary(file, {
-      folder: `filmos/projects/${projectId}/deliverables`,
+    const { file_url, expires_at } = await uploadToS3(file, {
+      projectId,
       onProgress: setUploadProgress,
     });
     const versionNumber = parentFile
@@ -67,6 +67,7 @@ export default function DeliverablesTab({ projectId, authorName, authorType = "f
       uploaded_by: authorName,
       parent_file_id: parentFile?.id || null,
       version_number: parentFile ? versionNumber : 1,
+      expires_at,
     });
     await base44.entities.Activity.create({
       project_id: projectId,
