@@ -286,43 +286,77 @@ export default function Landing() {
           </h2>
           <p className="text-zinc-500 mb-12">Start free. Upgrade when you're ready.</p>
 
-          <div className="bg-white rounded-3xl border border-zinc-100 shadow-xl overflow-hidden">
-            <div className="bg-zinc-50 border-b border-zinc-100 px-8 py-4 flex items-center justify-between">
-              <span className="text-sm text-zinc-500 font-medium">Free Trial</span>
-              <span className="text-sm text-zinc-700 font-semibold">1 project included</span>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 text-left max-w-2xl mx-auto">
+            {/* Free */}
+            <div className="bg-white rounded-3xl border border-zinc-200 shadow-sm overflow-hidden flex flex-col">
+              <div className="px-7 pt-7 pb-6 flex-1">
+                <p className="text-xs font-semibold text-zinc-400 uppercase tracking-widest mb-4">Free</p>
+                <div className="flex items-end gap-1 mb-1">
+                  <span className="text-4xl font-bold text-zinc-900">$0</span>
+                  <span className="text-zinc-400 mb-1">/ month</span>
+                </div>
+                <p className="text-sm text-zinc-400 mb-6">Try FilmOS with your first project.</p>
+                <ul className="space-y-2.5">
+                  {[
+                    "1 project",
+                    "All core features included",
+                    "Video review & comments",
+                    "Proposals & invoicing",
+                    "File uploads up to 2 GB",
+                  ].map((item) => (
+                    <li key={item} className="flex items-center gap-2.5 text-sm text-zinc-600">
+                      <CheckCircle2 className="w-4 h-4 text-zinc-400 flex-shrink-0" />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div className="px-7 pb-7">
+                <button
+                  onClick={goToLogin}
+                  className="w-full border border-zinc-200 hover:border-zinc-300 text-zinc-700 font-semibold py-3 rounded-2xl text-sm transition-colors"
+                >
+                  Get Started Free
+                </button>
+              </div>
             </div>
 
-            <div className="px-8 py-8">
-              <div className="flex items-end gap-2 mb-1">
-                <span className="text-5xl font-bold text-zinc-900">$20</span>
-                <span className="text-zinc-400 mb-2">/ month</span>
+            {/* Pro */}
+            <div className="bg-zinc-900 rounded-3xl border border-zinc-800 shadow-xl overflow-hidden flex flex-col relative">
+              <div className="absolute top-4 right-4">
+                <span className="text-xs font-semibold bg-sky-500 text-white px-2.5 py-1 rounded-full">Popular</span>
               </div>
-              <p className="text-sm text-zinc-400 mb-8">Pro Plan — everything unlocked</p>
-
-              <ul className="space-y-3 mb-8 text-left">
-                {[
-                  "Unlimited projects",
-                  "Client proposals with approval workflow",
-                  "Invoicing with PDF export",
-                  "Video review with timeline comments",
-                  "Large file uploads (up to 20 GB)",
-                  "Version history & revision tracking",
-                  "Secure share links",
-                ].map((item) => (
-                  <li key={item} className="flex items-center gap-3 text-sm text-zinc-700">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-500 flex-shrink-0" />
-                    {item}
-                  </li>
-                ))}
-              </ul>
-
-              <button
-                onClick={goToLogin}
-                className="w-full bg-zinc-900 hover:bg-zinc-700 text-white font-semibold py-3.5 rounded-2xl text-base transition-all duration-200 shadow-md hover:shadow-lg hover:-translate-y-0.5 flex items-center justify-center gap-2"
-              >
-                Start Free Trial
-                <ChevronRight className="w-4 h-4" />
-              </button>
+              <div className="px-7 pt-7 pb-6 flex-1">
+                <p className="text-xs font-semibold text-zinc-500 uppercase tracking-widest mb-4">Pro</p>
+                <div className="flex items-end gap-1 mb-1">
+                  <span className="text-4xl font-bold text-white">$20</span>
+                  <span className="text-zinc-400 mb-1">/ month</span>
+                </div>
+                <p className="text-sm text-zinc-500 mb-6">For filmmakers running a real business.</p>
+                <ul className="space-y-2.5">
+                  {[
+                    "Unlimited projects",
+                    "Everything in Free",
+                    "File uploads up to 20 GB",
+                    "Extended file storage (14 days)",
+                    "Priority support",
+                  ].map((item) => (
+                    <li key={item} className="flex items-center gap-2.5 text-sm text-zinc-300">
+                      <CheckCircle2 className="w-4 h-4 text-sky-400 flex-shrink-0" />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div className="px-7 pb-7">
+                <button
+                  onClick={goToLogin}
+                  className="w-full bg-white hover:bg-zinc-100 text-zinc-900 font-semibold py-3 rounded-2xl text-sm transition-colors shadow-md flex items-center justify-center gap-2"
+                >
+                  Start Free Trial
+                  <ChevronRight className="w-4 h-4" />
+                </button>
+              </div>
             </div>
           </div>
         </div>
