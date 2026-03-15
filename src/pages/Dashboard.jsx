@@ -29,9 +29,11 @@ export default function Dashboard() {
   const activeProjects = projects.filter((p) => !p.archived);
   const archivedProjects = projects.filter((p) => !!p.archived);
 
+  const isPro = user?.plan === 'pro';
+
   const handleNewProject = () => {
-    // Free trial: allow only 1 project
-    if (activeProjects.length >= 1) {
+    // Free tier: allow only 1 project
+    if (!isPro && activeProjects.length >= 1) {
       setShowUpgrade(true);
       return;
     }
