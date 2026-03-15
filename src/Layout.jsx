@@ -57,7 +57,7 @@ export default function Layout({ children, currentPageName }) {
             to={createPageUrl("Dashboard")}
             className="flex items-center">
 
-            <img src="https://media.base44.com/images/public/69b490115c68bd1fe6d609a8/19ed2b1d5_filmOSlogomain-removebg-preview.png"
+            <img src="https://media.base44.com/images/public/69b490115c68bd1fe6d609a8/9151e3cc6_filmoslogolight.png"
 
             alt="FilmOS" className="h-8 w-auto" />
 
