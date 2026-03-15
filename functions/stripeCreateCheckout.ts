@@ -18,6 +18,7 @@ Deno.serve(async (req) => {
       cancel_url: cancelUrl,
       metadata: {
         base44_app_id: Deno.env.get('BASE44_APP_ID'),
+        user_email: userEmail || '',
       },
     };
 
