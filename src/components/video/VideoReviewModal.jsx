@@ -1,4 +1,4 @@
-import React, { useRef, useImperativeHandle } from "react";
+import React, { useRef } from "react";
 import { base44 } from "@/api/base44Client";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
@@ -95,6 +95,7 @@ const VideoPlayerWithRef = React.forwardRef(function VideoPlayerWithRef(props, r
     seekTo: (time) => {
       if (videoRef.current) {
         videoRef.current.currentTime = time;
+        videoRef.current.play();
       }
     },
   }));
