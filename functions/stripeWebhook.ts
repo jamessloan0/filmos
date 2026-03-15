@@ -24,14 +24,21 @@ Deno.serve(async (req) => {
   try {
     if (event.type === 'checkout.session.completed') {
       const session = event.data.object;
-      const customerEmail = session.customer_email || session.customer_details?.email;
+      // Prefer metadata email (set at checkout creation), fallback to customer details
+      const customerEmail = session.metadata?.user_email || session.customer_email || session.customer_details?.email;
+      console.log(`checkout.session.completed — email: ${customerEmail}, session: ${session.id}`);
 
       if (customerEmail) {
         const users = await base44.asServiceRole.entities.User.filter({ email: customerEmail });
+        console.log(`Found ${users?.length} user(s) for email ${customerEmail}`);
         if (users && users.length > 0) {
           await base44.asServiceRole.entities.User.update(users[0].id, { plan: 'pro' });
           console.log(`Upgraded user ${customerEmail} to pro`);
+        } else {
+          console.error(`No user found for email ${customerEmail}`);
         }
+      } else {
+        console.error('No email found in checkout session', JSON.stringify(session));
       }
     }
 
