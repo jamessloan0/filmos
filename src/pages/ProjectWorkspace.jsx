@@ -125,9 +125,9 @@ export default function ProjectWorkspace() {
         <div>
           <Link
             to={createPageUrl("Dashboard")}
-            className="inline-flex items-center gap-2 text-sm text-zinc-500 hover:text-zinc-700 transition-colors mb-2"
+            className="inline-flex items-center gap-1.5 text-xs text-zinc-400 hover:text-zinc-600 transition-colors mb-2"
           >
-            <ArrowLeft className="w-3.5 h-3.5" />
+            <ArrowLeft className="w-3 h-3" />
             Projects
           </Link>
           <h1 className="text-2xl font-bold text-zinc-900 tracking-tight">{project.name}</h1>
@@ -156,7 +156,7 @@ export default function ProjectWorkspace() {
 
       {/* Tabs */}
       <Tabs defaultValue="overview" className="w-full">
-        <TabsList className="bg-zinc-100 p-1 mb-6">
+        <TabsList className="bg-white border border-zinc-100 shadow-sm p-1 mb-8 rounded-xl">
           <TabsTrigger value="overview" className="gap-2">
             <LayoutGrid className="w-3.5 h-3.5" />
             <span className="hidden sm:inline">Overview</span>
