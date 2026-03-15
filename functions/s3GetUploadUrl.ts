@@ -8,6 +8,8 @@ const s3 = new S3Client({
     accessKeyId: Deno.env.get("AWS_ACCESS_KEY_ID"),
     secretAccessKey: Deno.env.get("AWS_SECRET_ACCESS_KEY"),
   },
+  requestChecksumCalculation: "WHEN_REQUIRED",
+  responseChecksumValidation: "WHEN_REQUIRED",
 });
 
 const FREE_LIMIT_BYTES = 2 * 1024 * 1024 * 1024;   // 2 GB
