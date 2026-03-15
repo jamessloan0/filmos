@@ -14,6 +14,7 @@ import InvoicesTab from "@/components/workspace/InvoicesTab";
 import FeedbackTab from "@/components/workspace/FeedbackTab";
 import ProposalTab from "@/components/workspace/ProposalTab";
 import DeliverablesTab from "@/components/workspace/DeliverablesTab";
+import NotificationBanner from "@/components/workspace/NotificationBanner";
 
 export default function ProjectWorkspace() {
   const params = new URLSearchParams(window.location.search);
