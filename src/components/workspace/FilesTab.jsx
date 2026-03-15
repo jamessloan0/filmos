@@ -42,31 +42,36 @@ export default function FilesTab({ files, projectId, isClient, onFileUploaded })
     setUploading(true);
     setUploadProgress(0);
 
-    const { file_url, expires_at } = await uploadToS3(file, {
-      projectId,
-      onProgress: setUploadProgress,
-    });
+    try {
+      const { file_url, expires_at } = await uploadToS3(file, {
+        projectId,
+        onProgress: setUploadProgress,
+      });
 
-    await base44.entities.ProjectFile.create({
-      project_id: projectId,
-      file_name: file.name,
-      file_url,
-      category: selectedCategory,
-      uploaded_by: "Filmmaker",
-      expires_at,
-    });
+      await base44.entities.ProjectFile.create({
+        project_id: projectId,
+        file_name: file.name,
+        file_url,
+        category: selectedCategory,
+        uploaded_by: "Filmmaker",
+        expires_at,
+      });
 
-    await base44.entities.Activity.create({
-      project_id: projectId,
-      type: "file_upload",
-      description: `Uploaded "${file.name}" to ${selectedCategory}`,
-      actor_name: "Filmmaker",
-    });
+      await base44.entities.Activity.create({
+        project_id: projectId,
+        type: "file_upload",
+        description: `Uploaded "${file.name}" to ${selectedCategory}`,
+        actor_name: "Filmmaker",
+      });
 
-    setUploading(false);
-    setUploadProgress(0);
-    fileInputRef.current.value = "";
-    onFileUploaded();
+      onFileUploaded();
+    } catch (err) {
+      alert(`Upload failed: ${err.message}`);
+    } finally {
+      setUploading(false);
+      setUploadProgress(0);
+      if (fileInputRef.current) fileInputRef.current.value = "";
+    }
   };
 
   const filteredFiles = filterCategory === "all"
