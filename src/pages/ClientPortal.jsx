@@ -123,15 +123,7 @@ export default function ClientPortal() {
     localStorage.setItem(`filmos_client_${token}`, name);
   };
 
-  const handleNewMessage = (message) => {
-    if (currentTab !== "messages") {
-      setNotifications([{
-        id: message.id,
-        senderName: message.sender_name,
-        content: message.content
-      }]);
-    }
-  };
+
 
   const dismissNotification = (id) => {
     setNotifications(prev => prev.filter(n => n.id !== id));
