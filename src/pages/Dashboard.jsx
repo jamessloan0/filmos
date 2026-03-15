@@ -166,7 +166,7 @@ export default function Dashboard() {
         </div>
       )}
 
-      <UpgradeModal open={showUpgrade} onClose={() => setShowUpgrade(false)} />
+      <UpgradeModal open={showUpgrade} onClose={() => setShowUpgrade(false)} userEmail={user?.email} />
     </div>
   );
 }
