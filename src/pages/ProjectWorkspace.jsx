@@ -172,8 +172,19 @@ export default function ProjectWorkspace() {
         </div>
       </div>
 
+      {/* Notifications */}
+      <div className="space-y-2">
+        {notifications.map(notif => (
+          <NotificationBanner
+            key={notif.id}
+            notification={notif}
+            onDismiss={() => dismissNotification(notif.id)}
+          />
+        ))}
+      </div>
+
       {/* Tabs */}
-      <Tabs defaultValue="overview" className="w-full">
+      <Tabs defaultValue="overview" className="w-full" onValueChange={setCurrentTab}>
         <TabsList className="bg-white border border-zinc-100 shadow-sm p-1 mb-8 rounded-xl">
           <TabsTrigger value="overview" className="gap-2">
             <LayoutGrid className="w-3.5 h-3.5" />
