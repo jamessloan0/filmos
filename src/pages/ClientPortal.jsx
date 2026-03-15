@@ -12,7 +12,7 @@ import FilesTab from "@/components/workspace/FilesTab";
 import MessagesTab from "@/components/workspace/MessagesTab";
 import InvoicesTab from "@/components/workspace/InvoicesTab";
 import FeedbackTab from "@/components/workspace/FeedbackTab";
-import ProposalTab from "@/components/workspace/ProposalTab";
+import ProposalTab from "@/components/workspace/ProposalTab.jsx";
 import DeliverablesTab from "@/components/workspace/DeliverablesTab";
 
 export default function ClientPortal() {
