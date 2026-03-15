@@ -5,16 +5,33 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Send, MessageSquare } from "lucide-react";
 
-export default function MessagesTab({ messages, projectId, senderName, senderType, onMessageSent }) {
+export default function MessagesTab({ messages, projectId, senderName, senderType, onMessageSent, onNewMessage }) {
   const [content, setContent] = useState("");
   const [sending, setSending] = useState(false);
+  const [liveMessages, setLiveMessages] = useState(messages);
   const scrollRef = useRef(null);
+
+  useEffect(() => {
+    setLiveMessages(messages);
+  }, [messages]);
+
+  useEffect(() => {
+    const unsubscribe = base44.entities.Message.subscribe((event) => {
+      if (event.type === "create" && event.data?.project_id === projectId) {
+        setLiveMessages(prev => [...prev, event.data]);
+        if (event.data.sender_type !== senderType && onNewMessage) {
+          onNewMessage(event.data);
+        }
+      }
+    });
+    return unsubscribe;
+  }, [projectId, senderType, onNewMessage]);
 
   useEffect(() => {
     if (scrollRef.current) {
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
     }
-  }, [messages]);
+  }, [liveMessages]);
 
   const handleSend = async () => {
     if (!content.trim()) return;
