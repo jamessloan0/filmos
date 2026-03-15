@@ -24,11 +24,10 @@ export default function MessagesTab({ messages, projectId, senderName, senderTyp
           const exists = prev.some(m => m.id === event.data.id);
           return exists ? prev : [...prev, event.data];
         });
-        onNewMessage?.(event.data);
       }
     });
     return unsubscribe;
-  }, [projectId, onNewMessage]);
+  }, [projectId]);
 
   useEffect(() => {
     if (scrollRef.current) {
