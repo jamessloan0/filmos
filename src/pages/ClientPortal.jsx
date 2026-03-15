@@ -94,6 +94,18 @@ export default function ClientPortal() {
     queryClient.invalidateQueries({ queryKey: ["client-project", token] });
   };
 
+  // Subscribe to message changes at page level
+  useEffect(() => {
+    if (!projectId) return;
+    const unsubscribe = base44.entities.Message.subscribe((event) => {
+      if (event.type === "create" && event.data?.project_id === projectId) {
+        queryClient.invalidateQueries({ queryKey: ["client-messages", projectId] });
+        handleNewMessage(event.data);
+      }
+    });
+    return unsubscribe;
+  }, [projectId, queryClient]);
+
   const handleEnterName = () => {
     if (!nameInput.trim()) return;
     const name = nameInput.trim();
