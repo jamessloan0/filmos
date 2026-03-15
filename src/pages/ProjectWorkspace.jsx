@@ -4,7 +4,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import { ArrowLeft, Loader2, Copy, Check, LayoutGrid, FileText, MessageSquare, Receipt, ThumbsUp, Presentation, Archive } from "lucide-react";
+import { ArrowLeft, Loader2, Copy, Check, LayoutGrid, FileText, MessageSquare, Receipt, ThumbsUp, Presentation, Archive, PackageCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 import OverviewTab from "@/components/workspace/OverviewTab";
@@ -13,6 +13,7 @@ import MessagesTab from "@/components/workspace/MessagesTab";
 import InvoicesTab from "@/components/workspace/InvoicesTab";
 import FeedbackTab from "@/components/workspace/FeedbackTab";
 import ProposalTab from "@/components/workspace/ProposalTab";
+import DeliverablesTab from "@/components/workspace/DeliverablesTab";
 
 export default function ProjectWorkspace() {
   const params = new URLSearchParams(window.location.search);
@@ -201,6 +202,10 @@ export default function ProjectWorkspace() {
             <Presentation className="w-3.5 h-3.5" />
             <span className="hidden sm:inline">Proposal</span>
           </TabsTrigger>
+          <TabsTrigger value="deliverables" className="gap-2">
+            <PackageCheck className="w-3.5 h-3.5" />
+            <span className="hidden sm:inline">Deliverables</span>
+          </TabsTrigger>
         </TabsList>
 
         <TabsContent value="overview">
@@ -256,6 +261,14 @@ export default function ProjectWorkspace() {
             projectId={projectId}
             isClient={false}
             onUpdated={refreshAll}
+          />
+        </TabsContent>
+        <TabsContent value="deliverables">
+          <DeliverablesTab
+            projectId={projectId}
+            authorName={user?.full_name || user?.email || "Filmmaker"}
+            authorType="filmmaker"
+            isClient={false}
           />
         </TabsContent>
       </Tabs>
