@@ -302,7 +302,6 @@ export default function ClientPortal() {
               senderName={clientName}
               senderType="client"
               onMessageSent={refreshAll}
-              onNewMessage={handleNewMessage}
             />
           </TabsContent>
           <TabsContent value="invoices">
