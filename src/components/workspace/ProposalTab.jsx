@@ -48,17 +48,6 @@ export default function ProposalTab({ proposals, projectId, isClient, clientName
     onUpdated();
   };
 
-  if (selectingTemplate) {
-    return (
-      <div className="bg-white border border-zinc-200 rounded-xl p-6">
-        <TemplateSelector
-          onSelect={handleCreateWithTemplate}
-          onCancel={() => setSelectingTemplate(false)}
-        />
-      </div>
-    );
-  }
-
   if (editing) {
     return (
       <div className="bg-white border border-zinc-200 rounded-xl p-6" style={{ minHeight: 600 }}>
