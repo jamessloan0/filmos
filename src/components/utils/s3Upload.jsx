@@ -8,11 +8,33 @@ import { base44 } from "@/api/base44Client";
  * @param {function} [options.onProgress] - called with 0-100 percent
  * @returns {Promise<{file_url: string, expires_at: string}>}
  */
+const MIME_MAP = {
+  mov: 'video/quicktime',
+  mp4: 'video/mp4',
+  avi: 'video/x-msvideo',
+  mkv: 'video/x-matroska',
+  webm: 'video/webm',
+  m4v: 'video/x-m4v',
+  jpg: 'image/jpeg',
+  jpeg: 'image/jpeg',
+  png: 'image/png',
+  gif: 'image/gif',
+  webp: 'image/webp',
+  pdf: 'application/pdf',
+};
+
+function getMimeType(file) {
+  if (file.type) return file.type;
+  const ext = file.name.split('.').pop()?.toLowerCase();
+  return MIME_MAP[ext] || 'application/octet-stream';
+}
+
 export async function uploadToS3(file, { projectId, onProgress } = {}) {
+  const mimeType = getMimeType(file);
   // Ask backend for a presigned PUT URL
   const response = await base44.functions.invoke('s3GetUploadUrl', {
     fileName: file.name,
-    fileType: file.type || 'application/octet-stream',
+    fileType: mimeType,
     fileSize: file.size,
     projectId,
   });
