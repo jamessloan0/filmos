@@ -17,17 +17,12 @@ const STATUS_CONFIG = {
 
 export default function ProposalTab({ proposals, projectId, isClient, clientName, onUpdated }) {
   const [editing, setEditing] = useState(null); // null | "new" | proposal object
-  const [selectingTemplate, setSelectingTemplate] = useState(false);
   const [viewingProposal, setViewingProposal] = useState(null);
   const [viewSlideIdx, setViewSlideIdx] = useState(0);
   const [responding, setResponding] = useState(false);
 
-  const handleCreateWithTemplate = (templateId) => {
-    const template = PROPOSAL_TEMPLATES[templateId];
-    setEditing({
-      slides: template.slides
-    });
-    setSelectingTemplate(false);
+  const handleCreateBlank = () => {
+    setEditing("new");
   };
 
   const handleSave = async (title, slides, asDraft) => {
