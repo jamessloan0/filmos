@@ -1,5 +1,6 @@
 import React, { useRef } from "react";
 import { base44 } from "@/api/base44Client";
+import { getFileUrl } from "@/components/utils/useSignedUrl";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { X } from "lucide-react";
