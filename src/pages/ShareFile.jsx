@@ -61,12 +61,15 @@ export default function ShareFile() {
         {/* Preview area */}
         {video ? (
           <div className="bg-zinc-950">
-            <VideoPlayer src={file.file_url} comments={[]} readOnly />
+            {mediaUrl
+              ? <VideoPlayer src={mediaUrl} comments={[]} readOnly />
+              : <div className="flex items-center justify-center aspect-video"><Loader2 className="w-6 h-6 animate-spin text-zinc-500" /></div>
+            }
           </div>
         ) : image ? (
           <div className="bg-zinc-100 flex items-center justify-center p-4" style={{ maxHeight: 400 }}>
             <img
-              src={file.file_url}
+              src={mediaUrl || file.file_url}
               alt={file.file_name}
               className="max-h-96 max-w-full rounded-xl object-contain shadow-md"
             />
