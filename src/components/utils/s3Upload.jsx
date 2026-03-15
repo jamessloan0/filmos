@@ -57,7 +57,7 @@ export async function uploadToS3(file, { projectId, onProgress } = {}) {
     xhr.addEventListener('error', () => reject(new Error('Upload network error — check S3 bucket CORS policy allows PUT from this origin.')));
     xhr.addEventListener('abort', () => reject(new Error('Upload aborted')));
     xhr.open('PUT', uploadUrl);
-    xhr.setRequestHeader('Content-Type', file.type || 'application/octet-stream');
+    xhr.setRequestHeader('Content-Type', mimeType);
     xhr.send(file);
   });
 
