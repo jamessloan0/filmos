@@ -377,11 +377,11 @@ export default function Landing() {
               </div>
               <div className="px-7 pb-7">
                 <button
-                  onClick={goToLogin}
-                  className="w-full bg-white hover:bg-zinc-100 text-zinc-900 font-semibold py-3 rounded-2xl text-sm transition-colors shadow-md flex items-center justify-center gap-2"
+                  onClick={handleProCheckout}
+                  disabled={checkoutLoading}
+                  className="w-full bg-white hover:bg-zinc-100 text-zinc-900 font-semibold py-3 rounded-2xl text-sm transition-colors shadow-md flex items-center justify-center gap-2 disabled:opacity-60"
                 >
-                  Start Free Trial
-                  <ChevronRight className="w-4 h-4" />
+                  {checkoutLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : <>Subscribe — $20/month <ChevronRight className="w-4 h-4" /></>}
                 </button>
               </div>
             </div>
