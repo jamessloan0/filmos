@@ -18,14 +18,17 @@ export default function MessagesTab({ messages, projectId, senderName, senderTyp
   useEffect(() => {
     const unsubscribe = base44.entities.Message.subscribe((event) => {
       if (event.type === "create" && event.data?.project_id === projectId) {
-        setLiveMessages(prev => [...prev, event.data]);
-        if (event.data.sender_type !== senderType && onNewMessage) {
+        setLiveMessages(prev => {
+          const exists = prev.some(m => m.id === event.data.id);
+          return exists ? prev : [...prev, event.data];
+        });
+        if (onNewMessage) {
           onNewMessage(event.data);
         }
       }
     });
     return unsubscribe;
-  }, [projectId, senderType, onNewMessage]);
+  }, [projectId, onNewMessage]);
 
   useEffect(() => {
     if (scrollRef.current) {
