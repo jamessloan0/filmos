@@ -8,6 +8,7 @@ import { Upload, Download, Film, FileText, Image, Loader2, Play, Plus, Link2, Ch
 import { uploadToS3 } from "@/components/utils/s3Upload";
 import VideoReviewModal from "@/components/video/VideoReviewModal";
 import ShareLinkPopover from "@/components/workspace/ShareLinkPopover";
+import DeliverableFileRow from "@/components/workspace/DeliverableFileRow";
 
 function isVideo(fileName) {
   return /\.(mp4|mov|avi|mkv|webm|m4v)$/i.test(fileName || "");
