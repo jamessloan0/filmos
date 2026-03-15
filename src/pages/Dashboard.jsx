@@ -84,7 +84,7 @@ export default function Dashboard() {
       </div>
 
       {/* Free trial banner */}
-      {activeProjects.length >= 1 && (
+      {!isPro && activeProjects.length >= 1 && (
         <div
           className="bg-gradient-to-r from-zinc-900 to-zinc-800 rounded-2xl p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 cursor-pointer"
           onClick={() => setShowUpgrade(true)}
