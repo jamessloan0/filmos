@@ -3,7 +3,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import { base44 } from "@/api/base44Client";
 import {
-  Film,
   LayoutDashboard,
   Plus,
   LogOut,
