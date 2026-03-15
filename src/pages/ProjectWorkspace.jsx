@@ -4,7 +4,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import { ArrowLeft, Loader2, Copy, Check, LayoutGrid, FileText, MessageSquare, Receipt, ThumbsUp, Presentation } from "lucide-react";
+import { ArrowLeft, Loader2, Copy, Check, LayoutGrid, FileText, MessageSquare, Receipt, ThumbsUp, Presentation, Archive } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 import OverviewTab from "@/components/workspace/OverviewTab";
@@ -83,6 +83,12 @@ export default function ProjectWorkspace() {
     queryClient.invalidateQueries({ queryKey: ["project", projectId] });
   };
 
+  const handleArchive = async () => {
+    if (!window.confirm("Archive this project? It will be moved to the archived section.")) return;
+    await base44.entities.Project.update(project.id, { archived: true });
+    window.location.href = createPageUrl("Dashboard");
+  };
+
   const handleStatusChange = async (newStatus) => {
     await base44.entities.Project.update(project.id, { status: newStatus });
     await base44.entities.Activity.create({
@@ -126,15 +132,26 @@ export default function ProjectWorkspace() {
           </Link>
           <h1 className="text-2xl font-bold text-zinc-900 tracking-tight">{project.name}</h1>
         </div>
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={handleCopyLink}
-          className="self-start"
-        >
-          {copied ? <Check className="w-3.5 h-3.5 mr-2" /> : <Copy className="w-3.5 h-3.5 mr-2" />}
-          {copied ? "Copied!" : "Copy Client Link"}
-        </Button>
+        <div className="flex items-center gap-2 self-start">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={handleArchive}
+            className="rounded-lg text-zinc-500 hover:text-zinc-700"
+          >
+            <Archive className="w-3.5 h-3.5 mr-1.5" />
+            Archive
+          </Button>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={handleCopyLink}
+            className="rounded-lg"
+          >
+            {copied ? <Check className="w-3.5 h-3.5 mr-2" /> : <Copy className="w-3.5 h-3.5 mr-2" />}
+            {copied ? "Copied!" : "Copy Client Link"}
+          </Button>
+        </div>
       </div>
 
       {/* Tabs */}
