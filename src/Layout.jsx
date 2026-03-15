@@ -126,10 +126,10 @@ export default function Layout({ children, currentPageName }) {
             <Menu className="w-5 h-5 text-zinc-700" />
           </button>
           <div className="flex items-center">
-            <img
-              src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/69b490115c68bd1fe6d609a8/88902e62f_filmOSlogomain.png"
-              alt="FilmOS"
-              className="h-7 w-auto" />
+            <img src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/69b490115c68bd1fe6d609a8/dc115084a_filmOSlogomain-removebg-preview.png"
+
+            alt="FilmOS" className="h-7 w-auto" />
+
 
           </div>
         </div>
