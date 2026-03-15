@@ -103,11 +103,17 @@ export default function ClientPortal() {
           if (!old) return [event.data];
           return old.some(m => m.id === event.data.id) ? old : [...old, event.data];
         });
-        handleNewMessage(event.data);
+        if (currentTab !== "messages") {
+          setNotifications([{
+            id: event.data.id,
+            senderName: event.data.sender_name,
+            content: event.data.content
+          }]);
+        }
       }
     });
     return unsubscribe;
-  }, [projectId, queryClient]);
+  }, [projectId, queryClient, currentTab]);
 
   const handleEnterName = () => {
     if (!nameInput.trim()) return;
