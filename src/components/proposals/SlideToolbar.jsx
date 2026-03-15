@@ -63,18 +63,18 @@ export default function SlideToolbar({ slide, onUpdate, selectedElementId }) {
 
           {/* Font family */}
           <div className="border-r border-zinc-200 pr-2">
-            <Select value={selectedEl.fontFamily || "sans-serif"} onValueChange={(val) => updateEl({ fontFamily: val })}>
+            <Select value={selectedEl.fontFamily || "Arial, sans-serif"} onValueChange={(val) => updateEl({ fontFamily: val })}>
               <SelectTrigger className="h-8 w-32 text-xs">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="Arial, sans-serif">Arial</SelectItem>
-                <SelectItem value="'Georgia', serif">Georgia</SelectItem>
-                <SelectItem value="'Courier New', monospace">Courier New</SelectItem>
-                <SelectItem value="'Times New Roman', serif">Times New Roman</SelectItem>
-                <SelectItem value="'Trebuchet MS', sans-serif">Trebuchet MS</SelectItem>
-                <SelectItem value="'Verdana', sans-serif">Verdana</SelectItem>
-                <SelectItem value="'Comic Sans MS', cursive">Comic Sans</SelectItem>
+                <SelectItem value="Georgia, serif">Georgia</SelectItem>
+                <SelectItem value="Courier New, monospace">Courier New</SelectItem>
+                <SelectItem value="Times New Roman, serif">Times New Roman</SelectItem>
+                <SelectItem value="Trebuchet MS, sans-serif">Trebuchet MS</SelectItem>
+                <SelectItem value="Verdana, sans-serif">Verdana</SelectItem>
+                <SelectItem value="Comic Sans MS, cursive">Comic Sans</SelectItem>
               </SelectContent>
             </Select>
           </div>
