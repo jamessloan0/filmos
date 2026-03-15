@@ -492,5 +492,469 @@ export const PROPOSAL_TEMPLATES = {
         ]
       }
     ]
+  },
+
+  professional_blue: {
+    name: "Professional Blue",
+    description: "Corporate with navy accent",
+    icon: "📋",
+    slides: [
+      {
+        id: nanoid(),
+        elements: [
+          {
+            id: nanoid(),
+            type: "text",
+            x: 0,
+            y: 0,
+            width: 100,
+            height: 100,
+            content: "",
+            fontSize: 16,
+            color: "#ffffff",
+            bgColor: "#faf8f3"
+          },
+          {
+            id: nanoid(),
+            type: "text",
+            x: 85,
+            y: 0,
+            width: 15,
+            height: 100,
+            content: "",
+            fontSize: 16,
+            color: "#ffffff",
+            bgColor: "#1f3a5f"
+          },
+          {
+            id: nanoid(),
+            type: "text",
+            x: 5,
+            y: 8,
+            width: 40,
+            height: 2,
+            content: "October [Year]",
+            fontSize: 10,
+            color: "#1f3a5f",
+            fontFamily: "'Inter', sans-serif"
+          },
+          {
+            id: nanoid(),
+            type: "text",
+            x: 5,
+            y: 25,
+            width: 75,
+            height: 20,
+            content: "PROJECT\nPROPOSAL",
+            fontSize: 56,
+            bold: true,
+            color: "#1f3a5f",
+            fontFamily: "'Georgia', serif",
+            lineHeight: 1.1
+          },
+          {
+            id: nanoid(),
+            type: "text",
+            x: 5,
+            y: 50,
+            width: 35,
+            height: 5,
+            content: "Driving Visual Innovation Forward",
+            fontSize: 10,
+            color: "#1f3a5f",
+            fontFamily: "'Inter', sans-serif",
+            border: "2px solid #1f3a5f",
+            padding: "8px 15px",
+            borderRadius: "25px"
+          },
+          {
+            id: nanoid(),
+            type: "text",
+            x: 5,
+            y: 80,
+            width: 40,
+            height: 2,
+            content: "Presented by [Your Name]",
+            fontSize: 10,
+            color: "#1f3a5f",
+            fontFamily: "'Inter', sans-serif"
+          }
+        ]
+      },
+      {
+        id: nanoid(),
+        elements: [
+          {
+            id: nanoid(),
+            type: "text",
+            x: 0,
+            y: 0,
+            width: 100,
+            height: 100,
+            content: "",
+            fontSize: 16,
+            color: "#ffffff",
+            bgColor: "#faf8f3"
+          },
+          {
+            id: nanoid(),
+            type: "text",
+            x: 0,
+            y: 0,
+            width: 100,
+            height: 12,
+            content: "",
+            fontSize: 16,
+            color: "#ffffff",
+            bgColor: "#1f3a5f"
+          },
+          {
+            id: nanoid(),
+            type: "text",
+            x: 5,
+            y: 20,
+            width: 90,
+            height: 8,
+            content: "OUR CONTENTS",
+            fontSize: 44,
+            bold: true,
+            color: "#1f3a5f",
+            fontFamily: "'Georgia', serif"
+          },
+          {
+            id: nanoid(),
+            type: "text",
+            x: 5,
+            y: 32,
+            width: 90,
+            height: 50,
+            content: "01. My Profile\n02. Introduction\n03. Project Timeline\n04. The Vision\n05. Our Expert Team\n06. Objectives\n07. Idea Blueprint\n08. Conceptual Framework\n09. Visual Infographic\n10. Conclusion",
+            fontSize: 12,
+            color: "#1f3a5f",
+            fontFamily: "'Inter', sans-serif",
+            lineHeight: 2
+          }
+        ]
+      },
+      {
+        id: nanoid(),
+        elements: [
+          {
+            id: nanoid(),
+            type: "text",
+            x: 0,
+            y: 0,
+            width: 100,
+            height: 100,
+            content: "",
+            fontSize: 16,
+            color: "#ffffff",
+            bgColor: "#faf8f3"
+          },
+          {
+            id: nanoid(),
+            type: "text",
+            x: 5,
+            y: 8,
+            width: 90,
+            height: 10,
+            content: "MY PROFILE",
+            fontSize: 48,
+            bold: true,
+            color: "#1f3a5f",
+            fontFamily: "'Georgia', serif"
+          },
+          {
+            id: nanoid(),
+            type: "text",
+            x: 5,
+            y: 30,
+            width: 45,
+            height: 50,
+            content: "[Your Name]\n\nAs a dedicated professional with a passion for visual communication, I bring a unique blend of creativity and strategic thinking to every project. My expertise lies in transforming complex ideas into compelling visual narratives that resonate with audiences and drive engagement.",
+            fontSize: 12,
+            color: "#1f3a5f",
+            fontFamily: "'Inter', sans-serif",
+            lineHeight: 1.8
+          }
+        ]
+      },
+      {
+        id: nanoid(),
+        elements: [
+          {
+            id: nanoid(),
+            type: "text",
+            x: 0,
+            y: 0,
+            width: 100,
+            height: 100,
+            content: "",
+            fontSize: 16,
+            color: "#ffffff",
+            bgColor: "#faf8f3"
+          },
+          {
+            id: nanoid(),
+            type: "text",
+            x: 0,
+            y: 0,
+            width: 100,
+            height: 20,
+            content: "",
+            fontSize: 16,
+            color: "#ffffff",
+            bgColor: "#1f3a5f"
+          },
+          {
+            id: nanoid(),
+            type: "text",
+            x: 5,
+            y: 25,
+            width: 90,
+            height: 10,
+            content: "INTRODUCTION",
+            fontSize: 48,
+            bold: true,
+            color: "#1f3a5f",
+            fontFamily: "'Georgia', serif"
+          },
+          {
+            id: nanoid(),
+            type: "text",
+            x: 5,
+            y: 40,
+            width: 90,
+            height: 45,
+            content: "In today's dynamic landscape, visual impact is paramount. This proposal outlines a transformative project designed to leverage cutting-edge visual graphics to solve challenges and create unparalleled opportunities. We aim to set new benchmarks in how information is conveyed and absorbed.",
+            fontSize: 14,
+            color: "#374151",
+            fontFamily: "'Inter', sans-serif",
+            lineHeight: 1.9
+          }
+        ]
+      },
+      {
+        id: nanoid(),
+        elements: [
+          {
+            id: nanoid(),
+            type: "text",
+            x: 0,
+            y: 0,
+            width: 100,
+            height: 100,
+            content: "",
+            fontSize: 16,
+            color: "#ffffff",
+            bgColor: "#faf8f3"
+          },
+          {
+            id: nanoid(),
+            type: "text",
+            x: 5,
+            y: 8,
+            width: 90,
+            height: 8,
+            content: "PROJECT TIMELINE",
+            fontSize: 44,
+            bold: true,
+            color: "#1f3a5f",
+            fontFamily: "'Georgia', serif"
+          },
+          {
+            id: nanoid(),
+            type: "text",
+            x: 5,
+            y: 20,
+            width: 40,
+            height: 55,
+            content: "Phase 1\nInitial Concept & Research\nLaying the groundwork for innovative visual strategies.\n\nPhase 2\nStrategic Planning & Development\nRefining methodologies and developing core frameworks.",
+            fontSize: 11,
+            color: "#1f3a5f",
+            fontFamily: "'Inter', sans-serif",
+            lineHeight: 1.8
+          },
+          {
+            id: nanoid(),
+            type: "text",
+            x: 55,
+            y: 20,
+            width: 40,
+            height: 55,
+            content: "Phase 3\nImplementation & Execution\nBringing the vision to life with precision and creativity.\n\nPhase 4\nEvaluation & Future Scaling\nAssessing impact and planning for sustained growth.",
+            fontSize: 11,
+            color: "#1f3a5f",
+            fontFamily: "'Inter', sans-serif",
+            lineHeight: 1.8
+          }
+        ]
+      },
+      {
+        id: nanoid(),
+        elements: [
+          {
+            id: nanoid(),
+            type: "text",
+            x: 0,
+            y: 0,
+            width: 100,
+            height: 100,
+            content: "",
+            fontSize: 16,
+            color: "#ffffff",
+            bgColor: "#faf8f3"
+          },
+          {
+            id: nanoid(),
+            type: "text",
+            x: 5,
+            y: 8,
+            width: 90,
+            height: 8,
+            content: "OBJECTIVES",
+            fontSize: 44,
+            bold: true,
+            color: "#1f3a5f",
+            fontFamily: "'Georgia', serif"
+          },
+          {
+            id: nanoid(),
+            type: "text",
+            x: 5,
+            y: 22,
+            width: 40,
+            height: 55,
+            content: "Objective 1\n\nTo develop and implement a robust visual graphics framework that enhances user engagement and clarifies complex data, ensuring seamless information delivery across all platforms.",
+            fontSize: 12,
+            color: "#1f3a5f",
+            fontFamily: "'Inter', sans-serif",
+            lineHeight: 1.8
+          },
+          {
+            id: nanoid(),
+            type: "text",
+            x: 55,
+            y: 22,
+            width: 40,
+            height: 55,
+            content: "Objective 2\n\nTo establish a scalable and adaptable system for visual content creation, enabling rapid response to evolving market needs and maintaining a competitive edge through visual innovation.",
+            fontSize: 12,
+            color: "#1f3a5f",
+            fontFamily: "'Inter', sans-serif",
+            lineHeight: 1.8
+          }
+        ]
+      },
+      {
+        id: nanoid(),
+        elements: [
+          {
+            id: nanoid(),
+            type: "text",
+            x: 0,
+            y: 0,
+            width: 100,
+            height: 100,
+            content: "",
+            fontSize: 16,
+            color: "#ffffff",
+            bgColor: "#faf8f3"
+          },
+          {
+            id: nanoid(),
+            type: "text",
+            x: 5,
+            y: 8,
+            width: 90,
+            height: 8,
+            content: "CONCLUSION",
+            fontSize: 44,
+            bold: true,
+            color: "#1f3a5f",
+            fontFamily: "'Georgia', serif"
+          },
+          {
+            id: nanoid(),
+            type: "text",
+            x: 5,
+            y: 22,
+            width: 90,
+            height: 60,
+            content: "This proposal represents a comprehensive roadmap for transformative visual innovation. By implementing our strategic framework and leveraging cutting-edge design methodologies, we are confident in delivering exceptional results that will elevate your brand and drive measurable impact.",
+            fontSize: 13,
+            color: "#374151",
+            fontFamily: "'Inter', sans-serif",
+            lineHeight: 1.9
+          }
+        ]
+      },
+      {
+        id: nanoid(),
+        elements: [
+          {
+            id: nanoid(),
+            type: "text",
+            x: 0,
+            y: 0,
+            width: 100,
+            height: 100,
+            content: "",
+            fontSize: 16,
+            color: "#ffffff",
+            bgColor: "#faf8f3"
+          },
+          {
+            id: nanoid(),
+            type: "text",
+            x: 0,
+            y: 30,
+            width: 100,
+            height: 40,
+            content: "",
+            fontSize: 16,
+            color: "#ffffff",
+            bgColor: "#1f3a5f"
+          },
+          {
+            id: nanoid(),
+            type: "text",
+            x: 5,
+            y: 35,
+            width: 90,
+            height: 8,
+            content: "THANK YOU",
+            fontSize: 56,
+            bold: true,
+            color: "#ffffff",
+            fontFamily: "'Georgia', serif"
+          },
+          {
+            id: nanoid(),
+            type: "text",
+            x: 5,
+            y: 50,
+            width: 90,
+            height: 2,
+            content: "Thanks For Watching",
+            fontSize: 12,
+            color: "#ffffff",
+            fontFamily: "'Inter', sans-serif"
+          },
+          {
+            id: nanoid(),
+            type: "text",
+            x: 5,
+            y: 58,
+            width: 90,
+            height: 2,
+            content: "[Your Name]",
+            fontSize: 11,
+            color: "#ffffff",
+            fontFamily: "'Inter', sans-serif"
+          }
+        ]
+      }
+    ]
   }
 };
