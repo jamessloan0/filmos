@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Sparkles, CheckCircle2, X } from "lucide-react";
 import { base44 } from "@/api/base44Client";
 
-const PRICE_ID = "price_1TBLFK8nkhCfa1Lbdbi4MdEe";
+const PRICE_ID = "price_1TBjPC7bpL2WPaP2w4XyIimC";
 
 const PRO_FEATURES = [
   "Unlimited projects",

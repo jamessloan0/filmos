@@ -7,27 +7,25 @@ Deno.serve(async (req) => {
   try {
     const base44 = createClientFromRequest(req);
 
-    // Require authentication to prevent checkout link abuse
-    const user = await base44.auth.me();
-    if (!user) {
-      return Response.json({ error: 'Unauthorized: Please log in to subscribe' }, { status: 401 });
-    }
-
-    const { priceId, successUrl, cancelUrl } = await req.json();
+    const { priceId, successUrl, cancelUrl, userEmail } = await req.json();
 
     if (!priceId || !successUrl || !cancelUrl) {
       return Response.json({ error: 'Missing required parameters' }, { status: 400 });
     }
+
+    // Try to get authenticated user email, fall back to passed userEmail
+    const user = await base44.auth.me().catch(() => null);
+    const customerEmail = user?.email || userEmail || undefined;
 
     const sessionParams = {
       mode: 'subscription',
       line_items: [{ price: priceId, quantity: 1 }],
       success_url: successUrl,
       cancel_url: cancelUrl,
-      customer_email: user.email,
+      ...(customerEmail ? { customer_email: customerEmail } : {}),
       metadata: {
         base44_app_id: Deno.env.get('BASE44_APP_ID'),
-        user_email: user.email,
+        ...(customerEmail ? { user_email: customerEmail } : {}),
       },
     };
 

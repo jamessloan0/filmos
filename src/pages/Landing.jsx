@@ -75,7 +75,7 @@ const STEPS = [
   },
 ];
 
-const PRICE_ID = "price_1TBLFK8nkhCfa1Lbdbi4MdEe";
+const PRICE_ID = "price_1TBjPC7bpL2WPaP2w4XyIimC";
 
 export default function Landing() {
   const [menuOpen, setMenuOpen] = useState(false);
