@@ -71,8 +71,7 @@ Deno.serve(async (req) => {
         </div>
       `;
 
-      await resend.emails.send({
-        from: 'FilmOS <notifications@filmos.co>',
+      await sendEmail({
         to: email,
         subject: `FilmOS: ${count} unread notification${count !== 1 ? 's' : ''} today`,
         html: body,
