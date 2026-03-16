@@ -5,6 +5,12 @@ Deno.serve(async (req) => {
   try {
     const base44 = createClientFromRequest(req);
 
+    // Only allow admin users or internal scheduled calls
+    const user = await base44.auth.me().catch(() => null);
+    if (!user || user.role !== 'admin') {
+      return Response.json({ error: 'Forbidden: Admin access required' }, { status: 403 });
+    }
+
     // Get all unread notifications
     const unread = await base44.asServiceRole.entities.Notification.filter({ read: false });
     console.log(`Found ${unread?.length || 0} unread notifications`);
