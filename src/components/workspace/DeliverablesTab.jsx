@@ -34,6 +34,7 @@ export default function DeliverablesTab({ projectId, authorName, authorType = "f
   const [uploading, setUploading] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
   const [versioningFor, setVersioningFor] = useState(null);
+  const [versionNote, setVersionNote] = useState("");
   const [reviewFile, setReviewFile] = useState(null);
   const [reviewSrc, setReviewSrc] = useState(null);
   const [expanded, setExpanded] = useState({});
@@ -71,6 +72,7 @@ export default function DeliverablesTab({ projectId, authorName, authorType = "f
         uploaded_by: authorName,
         parent_file_id: parentFile?.id || null,
         version_number: parentFile ? versionNumber : 1,
+        version_note: versionNote.trim() || null,
         expires_at,
       });
       await base44.entities.Activity.create({
@@ -91,6 +93,7 @@ export default function DeliverablesTab({ projectId, authorName, authorType = "f
       setUploading(false);
       setUploadProgress(0);
       setVersioningFor(null);
+      setVersionNote("");
     }
   };
 
@@ -246,19 +249,28 @@ export default function DeliverablesTab({ projectId, authorName, authorType = "f
 
                 {/* Version upload inline */}
                 {versioningFor?.id === file.id && (
-                  <div className="border-t border-zinc-100 px-5 py-3 bg-zinc-50 flex items-center gap-3">
+                  <div className="border-t border-zinc-100 px-5 py-4 bg-zinc-50 space-y-3">
                     <input ref={versionInputRef} type="file" className="hidden"
                       onChange={(e) => { handleUpload(e.target.files[0], file); e.target.value = ""; }} />
-                    <Button
-                      size="sm"
-                      onClick={() => versionInputRef.current?.click()}
-                      disabled={uploading}
-                      className="bg-sky-600 hover:bg-sky-700 text-white rounded-lg text-xs"
-                    >
-                      {uploading ? <Loader2 className="w-3.5 h-3.5 mr-1.5 animate-spin" /> : <Upload className="w-3.5 h-3.5 mr-1.5" />}
-                      {uploading ? `${uploadProgress}%` : "Choose File"}
-                    </Button>
-                    <button onClick={() => setVersioningFor(null)} className="text-xs text-zinc-400 hover:text-zinc-600">Cancel</button>
+                    <input
+                      type="text"
+                      placeholder="What changed? (optional note for client)"
+                      value={versionNote}
+                      onChange={(e) => setVersionNote(e.target.value)}
+                      className="w-full text-xs border border-zinc-200 rounded-lg px-3 py-2 bg-white outline-none focus:border-sky-400 transition-colors"
+                    />
+                    <div className="flex items-center gap-3">
+                      <Button
+                        size="sm"
+                        onClick={() => versionInputRef.current?.click()}
+                        disabled={uploading}
+                        className="bg-sky-600 hover:bg-sky-700 text-white rounded-lg text-xs"
+                      >
+                        {uploading ? <Loader2 className="w-3.5 h-3.5 mr-1.5 animate-spin" /> : <Upload className="w-3.5 h-3.5 mr-1.5" />}
+                        {uploading ? `${uploadProgress}%` : "Choose File"}
+                      </Button>
+                      <button onClick={() => { setVersioningFor(null); setVersionNote(""); }} className="text-xs text-zinc-400 hover:text-zinc-600">Cancel</button>
+                    </div>
                   </div>
                 )}
               </div>

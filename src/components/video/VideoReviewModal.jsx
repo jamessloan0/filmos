@@ -80,6 +80,7 @@ export default function VideoReviewModal({ file, src, projectId, authorName, aut
               onSeek={handleSeek}
               onDelete={handleDeleteComment}
               currentUserName={authorName}
+              fileId={file?.id}
             />
           </div>
         </div>
