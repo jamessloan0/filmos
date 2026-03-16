@@ -198,7 +198,7 @@ export default function ProjectWorkspace() {
       </div>
 
       {/* Tabs */}
-      <Tabs defaultValue="overview" className="w-full" onValueChange={setCurrentTab}>
+      <Tabs defaultValue="overview" className="w-full" onValueChange={(tab) => { setCurrentTab(tab); if (tab === "messages") setSeenMessageCount(messages.length); }}>
         <TabsList className="bg-white border border-zinc-100 shadow-sm p-1 mb-8 rounded-xl">
           <TabsTrigger value="overview" className="gap-2">
             <LayoutGrid className="w-3.5 h-3.5" />

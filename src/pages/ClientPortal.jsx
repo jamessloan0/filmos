@@ -239,7 +239,7 @@ export default function ClientPortal() {
           ))}
         </div>
 
-        <Tabs defaultValue="overview" className="w-full" onValueChange={setCurrentTab}>
+        <Tabs defaultValue="overview" className="w-full" onValueChange={(tab) => { setCurrentTab(tab); if (tab === "messages") setSeenMessageCount(messages.length); }}>
           <TabsList className="bg-zinc-100 p-1 mb-6">
             <TabsTrigger value="overview" className="gap-2">
               <LayoutGrid className="w-3.5 h-3.5" />
