@@ -41,8 +41,7 @@ Deno.serve(async (req) => {
       byRecipient[n.recipient_email].push(n);
     }
 
-    let sent = 0;
-    for (const [email, notifs] of Object.entries(byRecipient)) {
+    const buildHtml = (notifs) => {
       const count = notifs.length;
       const rows = notifs.map(n => `
         <tr>
@@ -53,35 +52,35 @@ Deno.serve(async (req) => {
           </td>
         </tr>
       `).join('');
-
-      const body = `
+      return `
         <div style="font-family: Inter, Arial, sans-serif; max-width: 520px; margin: 0 auto; color: #18181b;">
           <div style="padding: 32px 0 16px;">
             <img src="https://media.base44.com/images/public/69b490115c68bd1fe6d609a8/19ed2b1d5_filmOSlogomain-removebg-preview.png" alt="FilmOS" style="height: 32px;" />
           </div>
           <h2 style="font-size: 20px; font-weight: 700; margin: 0 0 6px;">You have ${count} unread notification${count !== 1 ? 's' : ''}</h2>
           <p style="color: #71717a; font-size: 14px; margin: 0 0 24px;">Here's a summary of what you missed today.</p>
-          <table style="width: 100%; border-collapse: collapse;">
-            ${rows}
-          </table>
+          <table style="width: 100%; border-collapse: collapse;">${rows}</table>
           <div style="margin-top: 28px; padding-top: 16px; border-top: 1px solid #e4e4e7;">
-            <a href="https://app.base44.com" style="display: inline-block; background: #18181b; color: white; text-decoration: none; padding: 10px 22px; border-radius: 8px; font-size: 13px; font-weight: 600;">Open FilmOS</a>
+            <a href="https://filmos.co" style="display: inline-block; background: #18181b; color: white; text-decoration: none; padding: 10px 22px; border-radius: 8px; font-size: 13px; font-weight: 600;">Open FilmOS</a>
           </div>
           <p style="color: #a1a1aa; font-size: 11px; margin-top: 24px;">You're receiving this because you have unread notifications in FilmOS.</p>
         </div>
       `;
+    };
 
-      await sendEmail({
-        to: email,
-        subject: `FilmOS: ${count} unread notification${count !== 1 ? 's' : ''} today`,
-        html: body,
-      });
+    const results = await Promise.all(
+      Object.entries(byRecipient).map(async ([email, notifs]) => {
+        await sendEmail({
+          to: email,
+          subject: `FilmOS: ${notifs.length} unread notification${notifs.length !== 1 ? 's' : ''} today`,
+          html: buildHtml(notifs),
+        });
+        console.log(`Sent digest to ${email} with ${notifs.length} notifications`);
+        return email;
+      })
+    );
 
-      console.log(`Sent digest to ${email} with ${count} notifications`);
-      sent++;
-    }
-
-    return Response.json({ sent, recipients: Object.keys(byRecipient).length });
+    return Response.json({ sent: results.length, recipients: results.length });
   } catch (error) {
     console.error('dailyNotificationDigest error:', error.message);
     return Response.json({ error: error.message }, { status: 500 });
