@@ -25,6 +25,7 @@ export default function ProjectWorkspace() {
   const [copied, setCopied] = useState(false);
   const [currentTab, setCurrentTab] = useState("overview");
   const [notifications, setNotifications] = useState([]);
+  const [seenMessageCount, setSeenMessageCount] = useState(0);
 
   useEffect(() => {
     base44.auth.me().then(setUser).catch(() => {

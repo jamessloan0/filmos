@@ -26,6 +26,7 @@ export default function ClientPortal() {
   const [nameInput, setNameInput] = useState("");
   const [currentTab, setCurrentTab] = useState("overview");
   const [notifications, setNotifications] = useState([]);
+  const [seenMessageCount, setSeenMessageCount] = useState(0);
 
   // Load saved client name
   useEffect(() => {
