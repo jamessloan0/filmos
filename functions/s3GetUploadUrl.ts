@@ -25,6 +25,14 @@ Deno.serve(async (req) => {
 
     const { fileName, fileType, fileSize, projectId } = await req.json();
 
+    if (!projectId) return Response.json({ error: 'Missing projectId' }, { status: 400 });
+
+    // Verify the project belongs to the authenticated user
+    const projects = await base44.asServiceRole.entities.Project.filter({ id: projectId, owner_email: user.email });
+    if (!projects || projects.length === 0) {
+      return Response.json({ error: 'Project not found or access denied' }, { status: 403 });
+    }
+
     const isPro = user.plan === 'pro';
     const sizeLimit = isPro ? PRO_LIMIT_BYTES : FREE_LIMIT_BYTES;
 
@@ -39,7 +47,6 @@ Deno.serve(async (req) => {
     const safeFileName = fileName.replace(/[^a-zA-Z0-9._-]/g, '_');
     const key = `filmos/projects/${projectId}/${Date.now()}-${safeFileName}`;
     const bucket = Deno.env.get("AWS_S3_BUCKET");
-    const region = Deno.env.get("AWS_REGION");
 
     const command = new PutObjectCommand({
       Bucket: bucket,
@@ -52,6 +59,7 @@ Deno.serve(async (req) => {
 
     return Response.json({ uploadUrl, fileUrl, expiresAt, key });
   } catch (error) {
+    console.error('s3GetUploadUrl error:', error.message);
     return Response.json({ error: error.message }, { status: 500 });
   }
 });

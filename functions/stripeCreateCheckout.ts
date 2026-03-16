@@ -5,7 +5,15 @@ const stripe = new Stripe(Deno.env.get('STRIPE_SECRET_KEY'));
 
 Deno.serve(async (req) => {
   try {
-    const { priceId, successUrl, cancelUrl, userEmail } = await req.json();
+    const base44 = createClientFromRequest(req);
+
+    // Require authentication to prevent checkout link abuse
+    const user = await base44.auth.me();
+    if (!user) {
+      return Response.json({ error: 'Unauthorized: Please log in to subscribe' }, { status: 401 });
+    }
+
+    const { priceId, successUrl, cancelUrl } = await req.json();
 
     if (!priceId || !successUrl || !cancelUrl) {
       return Response.json({ error: 'Missing required parameters' }, { status: 400 });
@@ -16,15 +24,12 @@ Deno.serve(async (req) => {
       line_items: [{ price: priceId, quantity: 1 }],
       success_url: successUrl,
       cancel_url: cancelUrl,
+      customer_email: user.email,
       metadata: {
         base44_app_id: Deno.env.get('BASE44_APP_ID'),
-        user_email: userEmail || '',
+        user_email: user.email,
       },
     };
-
-    if (userEmail) {
-      sessionParams.customer_email = userEmail;
-    }
 
     const session = await stripe.checkout.sessions.create(sessionParams);
 

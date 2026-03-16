@@ -12,9 +12,15 @@ const s3 = new S3Client({
 Deno.serve(async (req) => {
   try {
     const base44 = createClientFromRequest(req);
+
+    // Only admins can trigger this operation
+    const user = await base44.auth.me();
+    if (!user || user.role !== 'admin') {
+      return Response.json({ error: 'Forbidden: Admin access required' }, { status: 403 });
+    }
+
     const now = new Date().toISOString();
 
-    // Fetch all project files (service role — no user auth for scheduled task)
     const allFiles = await base44.asServiceRole.entities.ProjectFile.list('-created_date', 1000);
 
     const expired = allFiles.filter(
@@ -25,7 +31,7 @@ Deno.serve(async (req) => {
     for (const file of expired) {
       try {
         const url = new URL(file.file_url);
-        const key = url.pathname.slice(1); // strip leading "/"
+        const key = url.pathname.slice(1);
         await s3.send(new DeleteObjectCommand({
           Bucket: Deno.env.get("AWS_S3_BUCKET"),
           Key: key,
@@ -39,6 +45,7 @@ Deno.serve(async (req) => {
 
     return Response.json({ deleted, checked: allFiles.length });
   } catch (error) {
+    console.error('s3CleanupFiles error:', error.message);
     return Response.json({ error: error.message }, { status: 500 });
   }
 });
