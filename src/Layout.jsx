@@ -91,6 +91,9 @@ export default function Layout({ children, currentPageName }) {
           })}
         </nav>
 
+        {/* Notifications */}
+        {user && <NotificationHub user={user} />}
+
         {/* User section */}
         {user &&
         <div className="px-3 py-4 border-t border-zinc-800">

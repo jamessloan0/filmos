@@ -168,6 +168,7 @@ export default function ProjectWorkspace() {
           <h1 className="text-2xl font-bold text-zinc-900 tracking-tight">{project.name}</h1>
         </div>
         <div className="flex items-center gap-2 self-start">
+          <NotificationSettingsPanel projectId={projectId} user={user} />
           <Button
             variant="outline"
             size="sm"
