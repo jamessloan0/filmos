@@ -16,6 +16,7 @@ import ProposalTab from "@/components/workspace/ProposalTab";
 import DeliverablesTab from "@/components/workspace/DeliverablesTab";
 import NotificationBanner from "@/components/workspace/NotificationBanner";
 import NotificationSettingsPanel from "@/components/notifications/NotificationSettingsPanel";
+import ErrorBoundary from "@/lib/ErrorBoundary";
 
 export default function ProjectWorkspace() {
   const params = new URLSearchParams(window.location.search);
@@ -206,7 +207,8 @@ export default function ProjectWorkspace() {
 
       {/* Tabs */}
       <Tabs defaultValue="overview" className="w-full" onValueChange={(tab) => { setCurrentTab(tab); if (tab === "messages") { setSeenMessageCount(messages.length); localStorage.setItem(lsKey, messages.length); } }}>
-        <TabsList className="bg-white border border-zinc-100 shadow-sm p-1 mb-8 rounded-xl">
+        <div className="overflow-x-auto pb-1">
+        <TabsList className="bg-white border border-zinc-100 shadow-sm p-1 mb-8 rounded-xl w-max min-w-full">
           <TabsTrigger value="overview" className="gap-2">
             <LayoutGrid className="w-3.5 h-3.5" />
             <span className="hidden sm:inline">Overview</span>
@@ -256,22 +258,27 @@ export default function ProjectWorkspace() {
             <span className="hidden sm:inline">Deliverables</span>
           </TabsTrigger>
         </TabsList>
+        </div>
 
         <TabsContent value="overview">
+          <ErrorBoundary>
           <OverviewTab
             project={project}
             activities={activities}
             onStatusChange={handleStatusChange}
             isClient={false}
           />
+          </ErrorBoundary>
         </TabsContent>
         <TabsContent value="files">
+          <ErrorBoundary>
           <FilesTab
             files={files}
             projectId={projectId}
             isClient={false}
             onFileUploaded={refreshAll}
           />
+          </ErrorBoundary>
         </TabsContent>
         <TabsContent value="messages">
           <MessagesTab
@@ -313,12 +320,14 @@ export default function ProjectWorkspace() {
           />
         </TabsContent>
         <TabsContent value="deliverables">
+          <ErrorBoundary>
           <DeliverablesTab
             projectId={projectId}
             authorName={user?.full_name || user?.email || "Filmmaker"}
             authorType="filmmaker"
             isClient={false}
           />
+          </ErrorBoundary>
         </TabsContent>
       </Tabs>
     </div>
