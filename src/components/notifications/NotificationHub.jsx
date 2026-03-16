@@ -67,6 +67,11 @@ export default function NotificationHub({ user }) {
     );
   };
 
+  const clearAll = async () => {
+    await Promise.all(notifications.map(n => base44.entities.Notification.delete(n.id)));
+    queryClient.setQueryData(["notifications", user?.email], []);
+  };
+
   return (
     <div className="relative" ref={panelRef}>
       <button
