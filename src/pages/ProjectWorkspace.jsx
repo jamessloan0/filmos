@@ -97,7 +97,9 @@ export default function ProjectWorkspace() {
           if (!old) return [event.data];
           return old.some(m => m.id === event.data.id) ? old : [...old, event.data];
         });
-        if (currentTab !== "messages") {
+        if (currentTab === "messages") {
+          setSeenMessageCount(prev => prev + 1);
+        } else {
           setNotifications([{
             id: event.data.id,
             senderName: event.data.sender_name,
