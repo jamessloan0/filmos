@@ -180,6 +180,9 @@ export default function DeliverablesTab({ projectId, authorName, authorType = "f
                     <p className="text-xs text-zinc-400 mt-0.5">
                       {format(new Date(file.created_date), "MMM d, yyyy")} · by {file.uploaded_by}
                     </p>
+                    {file.version_note && (
+                      <p className="text-xs text-zinc-500 mt-1 italic">"{file.version_note}"</p>
+                    )}
                   </div>
 
                   {/* Actions */}
