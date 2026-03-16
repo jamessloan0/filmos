@@ -1,7 +1,25 @@
 import { createClientFromRequest } from 'npm:@base44/sdk@0.8.20';
-import { Resend } from 'npm:resend@4.0.0';
 
-const resend = new Resend(Deno.env.get('RESEND_API_KEY'));
+async function sendEmail({ to, subject, html }) {
+  const res = await fetch('https://api.resend.com/emails', {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${Deno.env.get('RESEND_API_KEY')}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      from: 'FilmOS <notifications@filmos.co>',
+      to,
+      subject,
+      html,
+    }),
+  });
+  if (!res.ok) {
+    const err = await res.text();
+    throw new Error(`Resend error: ${err}`);
+  }
+  return res.json();
+}
 
 Deno.serve(async (req) => {
   try {
