@@ -10,6 +10,7 @@ import {
   X,
   ChevronRight } from
 "lucide-react";
+import NotificationHub from "@/components/notifications/NotificationHub";
 import { Button } from "@/components/ui/button";
 
 const NAV_ITEMS = [

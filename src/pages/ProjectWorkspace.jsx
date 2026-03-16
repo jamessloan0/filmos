@@ -15,6 +15,7 @@ import FeedbackTab from "@/components/workspace/FeedbackTab";
 import ProposalTab from "@/components/workspace/ProposalTab";
 import DeliverablesTab from "@/components/workspace/DeliverablesTab";
 import NotificationBanner from "@/components/workspace/NotificationBanner";
+import NotificationSettingsPanel from "@/components/notifications/NotificationSettingsPanel";
 
 export default function ProjectWorkspace() {
   const params = new URLSearchParams(window.location.search);
