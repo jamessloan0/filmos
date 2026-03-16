@@ -26,7 +26,10 @@ export default function ProjectWorkspace() {
   const [copied, setCopied] = useState(false);
   const [currentTab, setCurrentTab] = useState("overview");
   const [notifications, setNotifications] = useState([]);
-  const [seenMessageCount, setSeenMessageCount] = useState(0);
+  const lsKey = `filmos_seen_messages_${projectId}`;
+  const [seenMessageCount, setSeenMessageCount] = useState(() =>
+    parseInt(localStorage.getItem(`filmos_seen_messages_${params.get("id")}`) || "0")
+  );
 
   useEffect(() => {
     base44.auth.me().then(setUser).catch(() => {
@@ -99,7 +102,7 @@ export default function ProjectWorkspace() {
           return old.some(m => m.id === event.data.id) ? old : [...old, event.data];
         });
         if (currentTab === "messages") {
-          setSeenMessageCount(prev => prev + 1);
+          setSeenMessageCount(prev => { const next = prev + 1; localStorage.setItem(lsKey, next); return next; });
         } else {
           setNotifications([{
             id: event.data.id,
@@ -202,7 +205,7 @@ export default function ProjectWorkspace() {
       </div>
 
       {/* Tabs */}
-      <Tabs defaultValue="overview" className="w-full" onValueChange={(tab) => { setCurrentTab(tab); if (tab === "messages") setSeenMessageCount(messages.length); }}>
+      <Tabs defaultValue="overview" className="w-full" onValueChange={(tab) => { setCurrentTab(tab); if (tab === "messages") { setSeenMessageCount(messages.length); localStorage.setItem(lsKey, messages.length); } }}>
         <TabsList className="bg-white border border-zinc-100 shadow-sm p-1 mb-8 rounded-xl">
           <TabsTrigger value="overview" className="gap-2">
             <LayoutGrid className="w-3.5 h-3.5" />

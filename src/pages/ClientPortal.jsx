@@ -26,7 +26,10 @@ export default function ClientPortal() {
   const [nameInput, setNameInput] = useState("");
   const [currentTab, setCurrentTab] = useState("overview");
   const [notifications, setNotifications] = useState([]);
-  const [seenMessageCount, setSeenMessageCount] = useState(0);
+  const lsKey = `filmos_seen_messages_client_${token}`;
+  const [seenMessageCount, setSeenMessageCount] = useState(() =>
+    parseInt(localStorage.getItem(`filmos_seen_messages_client_${params.get("token")}`) || "0")
+  );
 
   // Load saved client name
   useEffect(() => {
@@ -105,7 +108,7 @@ export default function ClientPortal() {
           return old.some(m => m.id === event.data.id) ? old : [...old, event.data];
         });
         if (currentTab === "messages") {
-          setSeenMessageCount(prev => prev + 1);
+          setSeenMessageCount(prev => { const next = prev + 1; localStorage.setItem(lsKey, next); return next; });
         } else {
           setNotifications([{
             id: event.data.id,
@@ -241,7 +244,7 @@ export default function ClientPortal() {
           ))}
         </div>
 
-        <Tabs defaultValue="overview" className="w-full" onValueChange={(tab) => { setCurrentTab(tab); if (tab === "messages") setSeenMessageCount(messages.length); }}>
+        <Tabs defaultValue="overview" className="w-full" onValueChange={(tab) => { setCurrentTab(tab); if (tab === "messages") { setSeenMessageCount(messages.length); localStorage.setItem(lsKey, messages.length); } }}>
           <TabsList className="bg-zinc-100 p-1 mb-6">
             <TabsTrigger value="overview" className="gap-2">
               <LayoutGrid className="w-3.5 h-3.5" />

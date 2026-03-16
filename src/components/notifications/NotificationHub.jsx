@@ -17,9 +17,10 @@ export default function NotificationHub({ user }) {
 
   const { data: notifications = [] } = useQuery({
     queryKey: ["notifications", user?.email],
-    queryFn: () => base44.entities.Notification.filter({}, "-created_date", 50),
+    queryFn: () => base44.entities.Notification.filter({ recipient_email: user.email }, "-created_date", 50),
     enabled: !!user?.email,
-    refetchInterval: 30000,
+    refetchInterval: 15000,
+    refetchOnWindowFocus: true,
   });
 
   // Real-time updates
