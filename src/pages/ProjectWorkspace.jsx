@@ -216,9 +216,9 @@ export default function ProjectWorkspace() {
           <TabsTrigger value="messages" className="gap-2">
             <MessageSquare className="w-3.5 h-3.5" />
             <span className="hidden sm:inline">Messages</span>
-            {messages.length > 0 && (
-              <span className="ml-1 text-[10px] bg-zinc-200 text-zinc-600 px-1.5 py-0.5 rounded-full">
-                {messages.length}
+            {messages.length - seenMessageCount > 0 && (
+              <span className="ml-1 text-[10px] bg-sky-200 text-sky-700 px-1.5 py-0.5 rounded-full">
+                {messages.length - seenMessageCount}
               </span>
             )}
           </TabsTrigger>

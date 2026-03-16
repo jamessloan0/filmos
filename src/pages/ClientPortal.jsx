@@ -252,6 +252,11 @@ export default function ClientPortal() {
             <TabsTrigger value="messages" className="gap-2">
               <MessageSquare className="w-3.5 h-3.5" />
               <span className="hidden sm:inline">Messages</span>
+              {messages.length - seenMessageCount > 0 && (
+                <span className="ml-1 text-[10px] bg-sky-200 text-sky-700 px-1.5 py-0.5 rounded-full">
+                  {messages.length - seenMessageCount}
+                </span>
+              )}
             </TabsTrigger>
             <TabsTrigger value="invoices" className="gap-2">
               <Receipt className="w-3.5 h-3.5" />
