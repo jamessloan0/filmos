@@ -8,7 +8,8 @@ import {
   LogOut,
   Menu,
   X,
-  ChevronRight } from
+  ChevronRight,
+  CreditCard } from
 "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -104,6 +105,20 @@ export default function Layout({ children, currentPageName }) {
                 <p className="text-xs text-zinc-500 truncate">{user.email}</p>
               </div>
             </div>
+            {user?.plan === 'pro' && (
+              <button
+              onClick={async () => {
+                try {
+                  const { base44: b44 } = await import('@/api/base44Client');
+                  const res = await b44.functions.invoke('stripeBillingPortal', { returnUrl: window.location.href });
+                  if (res.data?.url) window.location.href = res.data.url;
+                } catch (e) { alert('Could not open billing portal.'); }
+              }}
+              className="flex items-center gap-3 px-3 py-2 w-full rounded-lg text-sm text-zinc-500 hover:text-zinc-300 hover:bg-zinc-900 transition-colors mt-1">
+                <CreditCard className="w-4 h-4" />
+                Manage Billing
+              </button>
+            )}
             <button
             onClick={handleLogout}
             className="flex items-center gap-3 px-3 py-2 w-full rounded-lg text-sm text-zinc-500 hover:text-zinc-300 hover:bg-zinc-900 transition-colors mt-1">

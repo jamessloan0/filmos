@@ -68,7 +68,11 @@ export default function FilesTab({ files, projectId, isClient, onFileUploaded })
 
       onFileUploaded();
     } catch (err) {
-      alert(`Upload failed: ${err.message}`);
+      console.error('Upload failed:', err.message);
+      // show error via toast if available, else alert
+      const { toast } = await import('@/components/ui/use-toast').then(m => ({ toast: m.toast })).catch(() => ({ toast: null }));
+      if (toast) toast({ title: "Upload failed", description: err.message, variant: "destructive" });
+      else alert(`Upload failed: ${err.message}`);
     } finally {
       setUploading(false);
       setUploadProgress(0);
