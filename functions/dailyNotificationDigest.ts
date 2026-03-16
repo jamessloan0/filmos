@@ -1,24 +1,33 @@
 import { createClientFromRequest } from 'npm:@base44/sdk@0.8.20';
 
 async function sendEmail({ to, subject, html }) {
-  const res = await fetch('https://api.resend.com/emails', {
-    method: 'POST',
-    headers: {
-      'Authorization': `Bearer ${Deno.env.get('RESEND_API_KEY')}`,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      from: 'FilmOS <notifications@filmos.co>',
-      to,
-      subject,
-      html,
-    }),
-  });
-  if (!res.ok) {
-    const err = await res.text();
-    throw new Error(`Resend error: ${err}`);
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 15000);
+  try {
+    const res = await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${Deno.env.get('RESEND_API_KEY')}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        from: 'FilmOS <notifications@filmos.co>',
+        to,
+        subject,
+        html,
+      }),
+      signal: controller.signal,
+    });
+    const body = await res.json();
+    if (!res.ok) {
+      console.error('Resend error:', JSON.stringify(body));
+      throw new Error(`Resend error: ${JSON.stringify(body)}`);
+    }
+    console.log('Resend success:', JSON.stringify(body));
+    return body;
+  } finally {
+    clearTimeout(timeout);
   }
-  return res.json();
 }
 
 Deno.serve(async (req) => {
