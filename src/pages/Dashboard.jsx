@@ -15,6 +15,7 @@ export default function Dashboard() {
   const [showUpgrade, setShowUpgrade] = useState(false);
   const [showArchived, setShowArchived] = useState(false);
   const queryClient = useQueryClient();
+  const { toast } = useToast();
 
   useEffect(() => {
     base44.auth.me().then(setUser).catch(() => {
