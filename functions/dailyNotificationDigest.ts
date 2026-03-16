@@ -53,10 +53,11 @@ Deno.serve(async (req) => {
         </div>
       `;
 
-      await base44.asServiceRole.integrations.Core.SendEmail({
+      await resend.emails.send({
+        from: 'FilmOS <notifications@filmos.co>',
         to: email,
         subject: `FilmOS: ${count} unread notification${count !== 1 ? 's' : ''} today`,
-        body,
+        html: body,
       });
 
       console.log(`Sent digest to ${email} with ${count} notifications`);
