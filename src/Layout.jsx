@@ -10,7 +10,6 @@ import {
   X,
   ChevronRight } from
 "lucide-react";
-import NotificationHub from "@/components/notifications/NotificationHub";
 import { Button } from "@/components/ui/button";
 
 const NAV_ITEMS = [
@@ -90,9 +89,6 @@ export default function Layout({ children, currentPageName }) {
 
           })}
         </nav>
-
-        {/* Notifications */}
-        {user && <NotificationHub user={user} />}
 
         {/* User section */}
         {user &&

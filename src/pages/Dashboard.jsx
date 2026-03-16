@@ -7,6 +7,7 @@ import { Plus, FolderOpen, Loader2, Archive, ChevronDown, ChevronUp } from "luci
 import { Button } from "@/components/ui/button";
 import ProjectCard from "@/components/dashboard/ProjectCard";
 import UpgradeModal from "@/components/dashboard/UpgradeModal";
+import NotificationHub from "@/components/notifications/NotificationHub";
 
 export default function Dashboard() {
   const [user, setUser] = useState(null);
@@ -74,13 +75,16 @@ export default function Dashboard() {
             {activeProjects.length} active project{activeProjects.length !== 1 ? "s" : ""}
           </p>
         </div>
-        <Button
-          onClick={handleNewProject}
-          className="bg-zinc-900 hover:bg-zinc-800 rounded-xl h-10 px-5 shadow-sm font-medium"
-        >
-          <Plus className="w-4 h-4 mr-2" />
-          New Project
-        </Button>
+        <div className="flex items-center gap-2">
+          <NotificationHub user={user} />
+          <Button
+            onClick={handleNewProject}
+            className="bg-zinc-900 hover:bg-zinc-800 rounded-xl h-10 px-5 shadow-sm font-medium"
+          >
+            <Plus className="w-4 h-4 mr-2" />
+            New Project
+          </Button>
+        </div>
       </div>
 
       {/* Free trial banner */}
