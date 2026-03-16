@@ -23,6 +23,18 @@ export default function Dashboard() {
     });
   }, []);
 
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("upgraded") === "true") {
+      toast({
+        title: "🎉 Welcome to Pro!",
+        description: "Your account has been upgraded. Enjoy unlimited projects!",
+      });
+      // Clean the URL
+      window.history.replaceState({}, "", window.location.pathname);
+    }
+  }, []);
+
   const { data: projects = [], isLoading } = useQuery({
     queryKey: ["projects", user?.email],
     queryFn: () => base44.entities.Project.filter({ owner_email: user.email }, "-updated_date"),
