@@ -22,7 +22,10 @@ export default function ShareFile() {
     queryFn: async () => {
       const files = await base44.entities.ProjectFile.filter({ share_token: token, share_enabled: true });
       if (!files || files.length === 0) return null;
-      return files[0];
+      const f = files[0];
+      // Enforce share link expiry
+      if (f.share_expires_at && new Date(f.share_expires_at) < new Date()) return null;
+      return f;
     },
     enabled: !!token,
   });
