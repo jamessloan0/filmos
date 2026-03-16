@@ -15,7 +15,7 @@ const s3 = new S3Client({
 Deno.serve(async (req) => {
   try {
     const base44 = createClientFromRequest(req);
-    const { s3Key } = await req.json();
+    const { s3Key, fileName } = await req.json();
 
     if (!s3Key) return Response.json({ error: 'Missing s3Key' }, { status: 400 });
 
@@ -25,9 +25,13 @@ Deno.serve(async (req) => {
       return Response.json({ error: 'File not found or access denied' }, { status: 403 });
     }
 
+    // ResponseContentDisposition: attachment forces browser to download the original,
+    // uncompressed file directly from S3 — no transcoding or compression is applied.
+    const safeFileName = (fileName || 'download').replace(/[^\w.\-]/g, '_');
     const command = new GetObjectCommand({
       Bucket: Deno.env.get("AWS_S3_BUCKET"),
       Key: s3Key,
+      ResponseContentDisposition: `attachment; filename="${safeFileName}"`,
     });
 
     const signedUrl = await getSignedUrl(s3, command, { expiresIn: 3600 });
