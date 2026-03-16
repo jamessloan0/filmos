@@ -92,15 +92,26 @@ export default function NotificationHub({ user }) {
           <div className="flex items-center justify-between px-4 py-3 border-b border-zinc-100">
             <span className="text-sm font-semibold text-zinc-900">Notifications</span>
             <div className="flex items-center gap-2">
-              {unreadCount > 0 && (
-                <button
-                  onClick={markAllRead}
-                  className="flex items-center gap-1 text-xs text-sky-600 hover:text-sky-700 font-medium transition-colors"
-                >
-                  <CheckCheck className="w-3.5 h-3.5" />
-                  Mark all read
-                </button>
-              )}
+              <div className="flex items-center gap-3">
+                {unreadCount > 0 && (
+                  <button
+                    onClick={markAllRead}
+                    className="flex items-center gap-1 text-xs text-sky-600 hover:text-sky-700 font-medium transition-colors"
+                  >
+                    <CheckCheck className="w-3.5 h-3.5" />
+                    Mark all read
+                  </button>
+                )}
+                {notifications.length > 0 && (
+                  <button
+                    onClick={clearAll}
+                    className="flex items-center gap-1 text-xs text-zinc-400 hover:text-red-500 font-medium transition-colors"
+                  >
+                    <X className="w-3.5 h-3.5" />
+                    Clear all
+                  </button>
+                )}
+              </div>
             </div>
           </div>
 
