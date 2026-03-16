@@ -9,6 +9,8 @@ Deno.serve(async (req) => {
     const entityName = event?.entity_name;
     const eventType = event?.type;
 
+    console.log(`notificationHandler: ${entityName} ${eventType}`);
+
     if (!entityName || !eventType || !data) {
       return Response.json({ skipped: 'missing payload' });
     }
@@ -98,7 +100,7 @@ Deno.serve(async (req) => {
 
     return Response.json({ success: true });
   } catch (error) {
-    console.error('notificationHandler error:', error.message, error.stack);
+    console.error('notificationHandler error:', error.message);
     return Response.json({ error: error.message }, { status: 500 });
   }
 });
