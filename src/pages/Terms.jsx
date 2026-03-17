@@ -110,6 +110,6 @@ export default function Terms() {
           </div>
         </div>
       </footer>
-    </div>
-  );
+    </div>);
+
 }
