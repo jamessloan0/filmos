@@ -28,8 +28,9 @@ Deno.serve(async (req) => {
     if (!projectId) return Response.json({ error: 'Missing projectId' }, { status: 400 });
 
     // Verify the project belongs to the authenticated user
-    const projects = await base44.asServiceRole.entities.Project.filter({ id: projectId, owner_email: user.email });
-    if (!projects || projects.length === 0) {
+    const projects = await base44.asServiceRole.entities.Project.filter({ owner_email: user.email });
+    const project = projects.find(p => p.id === projectId);
+    if (!project) {
       return Response.json({ error: 'Project not found or access denied' }, { status: 403 });
     }
 
