@@ -431,8 +431,12 @@ export default function Landing() {
             <button onClick={goToLogin} className="text-sm text-zinc-500 hover:text-zinc-900 transition-colors">Sign up</button>
           </div>
         </div>
-        <div className="max-w-6xl mx-auto mt-8 pt-6 border-t border-zinc-100">
-          <p className="text-xs text-zinc-400 text-center">© {new Date().getFullYear()} FilmOS. All rights reserved.</p>
+        <div className="max-w-6xl mx-auto mt-8 pt-6 border-t border-zinc-100 flex flex-col sm:flex-row items-center justify-between gap-3">
+          <p className="text-xs text-zinc-400">© {new Date().getFullYear()} FilmOS. All rights reserved.</p>
+          <div className="flex items-center gap-4">
+            <a href="/Terms" className="text-xs text-zinc-400 hover:text-zinc-700 transition-colors">Terms of Service</a>
+            <a href="/Privacy" className="text-xs text-zinc-400 hover:text-zinc-700 transition-colors">Privacy Policy</a>
+          </div>
         </div>
       </footer>
     </div>
