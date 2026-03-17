@@ -3,7 +3,8 @@ import { base44 } from "@/api/base44Client";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
-import { Plus, FolderOpen, Loader2, Archive, ChevronDown, ChevronUp, PartyPopper } from "lucide-react";
+import { Plus, FolderOpen, Loader2, Archive, ChevronDown, ChevronUp, HelpCircle } from "lucide-react";
+import TutorialModal from "@/components/dashboard/TutorialModal";
 import { useToast } from "@/components/ui/use-toast";
 import { Button } from "@/components/ui/button";
 import ProjectCard from "@/components/dashboard/ProjectCard";
@@ -14,6 +15,15 @@ export default function Dashboard() {
   const [user, setUser] = useState(null);
   const [showUpgrade, setShowUpgrade] = useState(false);
   const [showArchived, setShowArchived] = useState(false);
+  const [showTutorial, setShowTutorial] = useState(false);
+
+  useEffect(() => {
+    const seen = localStorage.getItem("filmos_tutorial_seen");
+    if (!seen) {
+      setShowTutorial(true);
+      localStorage.setItem("filmos_tutorial_seen", "1");
+    }
+  }, []);
   const queryClient = useQueryClient();
   const { toast } = useToast();
 
@@ -90,6 +100,14 @@ export default function Dashboard() {
           </p>
         </div>
         <div className="flex items-center gap-2">
+          <button
+            onClick={() => setShowTutorial(true)}
+            className="flex items-center gap-1.5 text-xs text-zinc-400 hover:text-zinc-700 border border-zinc-200 hover:border-zinc-300 rounded-lg px-3 py-2 transition-colors bg-white"
+            title="Help & Tutorial"
+          >
+            <HelpCircle className="w-3.5 h-3.5" />
+            <span className="hidden sm:inline">Help</span>
+          </button>
           <NotificationHub user={user} />
           <Button
             onClick={handleNewProject}
@@ -187,6 +205,7 @@ export default function Dashboard() {
       )}
 
       <UpgradeModal open={showUpgrade} onClose={() => setShowUpgrade(false)} userEmail={user?.email} />
+      <TutorialModal open={showTutorial} onClose={() => setShowTutorial(false)} />
     </div>
   );
 }
