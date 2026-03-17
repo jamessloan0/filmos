@@ -1,23 +1,34 @@
 import React from "react";
-import { format } from "date-fns";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Download, Play, Loader2 } from "lucide-react";
+import { Download, Play, Loader2, Clock } from "lucide-react";
 import { useSignedUrl, downloadFile } from "@/components/utils/useSignedUrl";
 import ShareLinkPopover from "@/components/workspace/ShareLinkPopover";
 
 export default function DeliverableFileRow({ file, isVideo, FileIcon, shareUrl, onGenerate, onDisable, onReview, compact = false }) {
   const mediaUrl = useSignedUrl(file);
 
+  const isProcessing = isVideo && file.proxy_status === 'processing';
+  const proxyFailed = isVideo && file.proxy_status === 'failed';
+  // Show review button when: no proxy attempted yet (legacy/image), proxy ready, or proxy failed (fall back to original)
+  const canReview = isVideo && !isProcessing;
+
   return (
     <>
-      {isVideo && (
+      {isVideo && isProcessing && (
+        <span className={`flex items-center gap-1 text-zinc-400 text-xs ${compact ? "" : "px-1"}`}>
+          <Loader2 className={`${compact ? "w-3 h-3" : "w-3.5 h-3.5"} animate-spin`} />
+          {!compact && "Processing…"}
+        </span>
+      )}
+
+      {canReview && (
         <Button
           variant="outline"
-          size={compact ? "sm" : "sm"}
+          size="sm"
           onClick={() => mediaUrl && onReview(file, mediaUrl)}
           disabled={!mediaUrl}
           className={`rounded-lg text-sky-600 border-sky-200 hover:bg-sky-50 text-xs gap-1.5 ${compact ? "h-7" : ""}`}
+          title={proxyFailed ? "Playing original (proxy failed)" : file.proxy_status === 'ready' ? "Playing optimized proxy" : "Review video"}
         >
           {!mediaUrl
             ? <Loader2 className={`${compact ? "w-3 h-3" : "w-3.5 h-3.5"} animate-spin`} />
@@ -26,6 +37,7 @@ export default function DeliverableFileRow({ file, isVideo, FileIcon, shareUrl, 
           Review
         </Button>
       )}
+
       <ShareLinkPopover
         file={file}
         shareUrl={shareUrl}
@@ -36,6 +48,7 @@ export default function DeliverableFileRow({ file, isVideo, FileIcon, shareUrl, 
       <button
         onClick={() => downloadFile(file)}
         className={`${compact ? "p-1.5" : "p-2"} rounded-lg hover:bg-zinc-100 transition-colors text-zinc-400 hover:text-zinc-700`}
+        title="Download original file"
       >
         <Download className={compact ? "w-3.5 h-3.5" : "w-4 h-4"} />
       </button>

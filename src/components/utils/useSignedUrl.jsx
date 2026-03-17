@@ -3,9 +3,7 @@ import { base44 } from "@/api/base44Client";
 const CLOUDFRONT_BASE = 'https://d1uwhxuquz3bk7.cloudfront.net';
 
 /**
- * Returns the delivery URL for a file.
- * If the file has an s3_key, constructs a CloudFront URL (for streaming/preview).
- * Falls back to file_url for older files (e.g. Cloudinary).
+ * Returns the CloudFront URL for a file (for streaming/preview when no proxy exists).
  */
 export function getFileUrl(file) {
   if (!file) return null;
@@ -14,18 +12,27 @@ export function getFileUrl(file) {
 }
 
 /**
- * Hook version of getFileUrl for components (used for video playback preview).
+ * Returns the best URL for video playback:
+ * - If a low-bitrate proxy is ready (Cloudinary), use it for smooth streaming.
+ * - Otherwise fall back to the original CloudFront URL.
  */
-export function useSignedUrl(file) {
+export function getPlaybackUrl(file) {
+  if (!file) return null;
+  if (file.proxy_status === 'ready' && file.proxy_url) return file.proxy_url;
   return getFileUrl(file);
 }
 
 /**
- * Forces browser to download the original, uncompressed file.
- * For S3 files: calls backend to get a presigned URL with Content-Disposition: attachment,
- * which instructs the browser to save the file rather than open it.
- * The file is served directly from S3 — no transcoding or compression is applied.
- * For legacy (non-S3) files: falls back to opening the URL in a new tab.
+ * Hook version — returns playback URL (proxy if ready, else original).
+ */
+export function useSignedUrl(file) {
+  return getPlaybackUrl(file);
+}
+
+/**
+ * Forces browser to download the ORIGINAL, uncompressed file from S3.
+ * Gets a presigned S3 URL with Content-Disposition: attachment.
+ * Falls back to opening the URL in a new tab for non-S3 files.
  */
 export async function downloadFile(file) {
   if (!file) return;
@@ -51,7 +58,7 @@ export async function downloadFile(file) {
     }
   }
 
-  // Fallback for non-S3 files (Cloudinary etc.)
+  // Fallback for legacy (non-S3) files
   const url = getFileUrl(file);
   if (url) window.open(url, '_blank');
 }
