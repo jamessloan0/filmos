@@ -97,7 +97,7 @@ export default function Privacy() {
               <li><strong>Portability:</strong> Request your data in a portable format</li>
               <li><strong>Opt-out:</strong> Unsubscribe from marketing communications at any time</li>
             </ul>
-            <p className="mt-3">To exercise any of these rights, contact us at <a href="mailto:hello@filmos.co" className="text-sky-600 hover:underline">hello@filmos.co</a>.</p>
+            <p className="mt-3">To exercise any of these rights, contact us at <a href="mailto:support@filmos.co" className="text-sky-600 hover:underline">support@filmos.co</a>.</p>
           </section>
 
           <section>
@@ -120,7 +120,7 @@ export default function Privacy() {
             <p>If you have questions, concerns, or requests regarding this Privacy Policy or our data practices, please contact us at:</p>
             <p className="mt-2 text-sm">
               <strong>FilmOS</strong><br />
-              Email: <a href="mailto:hello@filmos.co" className="text-sky-600 hover:underline">hello@filmos.co</a>
+              Email: <a href="mailto:support@filmos.co" className="text-sky-600 hover:underline">support@filmos.co</a>
             </p>
           </section>
         </div>

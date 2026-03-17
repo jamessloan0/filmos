@@ -96,7 +96,7 @@ export default function Terms() {
 
           <section>
             <h2 className="text-xl font-semibold text-zinc-900 mb-3">14. Contact</h2>
-            <p>If you have any questions about these Terms, please contact us at <a href="mailto:hello@filmos.co" className="text-sky-600 hover:underline">hello@filmos.co</a>.</p>
+            <p>If you have any questions about these Terms, please contact us at <a href="mailto:support@filmos.co" className="text-sky-600 hover:underline">support@filmos.co</a>.</p>
           </section>
         </div>
       </div>
