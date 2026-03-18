@@ -42,6 +42,16 @@ export default function ClientPortal() {
     }
   }, [token]);
 
+  // Show tutorial on first visit (after name is set)
+  useEffect(() => {
+    if (!enteredName || !token) return;
+    const tutorialKey = `filmos_client_tutorial_${token}`;
+    if (!localStorage.getItem(tutorialKey)) {
+      setShowTutorial(true);
+      localStorage.setItem(tutorialKey, "1");
+    }
+  }, [enteredName, token]);
+
   const { data: project, isLoading, error } = useQuery({
     queryKey: ["client-project", token],
     queryFn: async () => {
