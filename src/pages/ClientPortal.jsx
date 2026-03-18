@@ -15,6 +15,7 @@ import FeedbackTab from "@/components/workspace/FeedbackTab";
 import ProposalTab from "@/components/workspace/ProposalTab";
 import DeliverablesTab from "@/components/workspace/DeliverablesTab";
 import NotificationBanner from "@/components/workspace/NotificationBanner";
+import ClientTutorialModal from "@/components/dashboard/ClientTutorialModal";
 
 export default function ClientPortal() {
   const params = new URLSearchParams(window.location.search);
