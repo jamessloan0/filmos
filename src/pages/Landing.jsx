@@ -427,13 +427,30 @@ export default function Landing() {
             <p className="relative text-zinc-400 mb-8 text-base">
               Join filmmakers who use FilmOS to win more clients and deliver work they're proud of.
             </p>
-            <button
-              onClick={goToLogin}
-              className="relative inline-flex items-center gap-2 bg-white text-zinc-900 font-semibold px-8 py-3.5 rounded-2xl text-base hover:bg-zinc-100 transition-all duration-200 shadow-lg"
-            >
-              Create Free Account
-              <ArrowRight className="w-4 h-4" />
-            </button>
+            {waitlistDone ? (
+              <div className="relative inline-flex items-center gap-2 bg-emerald-500/20 border border-emerald-400/40 text-emerald-300 font-semibold px-7 py-3.5 rounded-2xl text-base">
+                <CheckCircle2 className="w-5 h-5" />
+                You're on the list!
+              </div>
+            ) : (
+              <form onSubmit={(e) => handleWaitlistSubmit(e, "cta")} className="relative flex flex-col sm:flex-row items-center gap-3 max-w-md mx-auto">
+                <input
+                  type="email"
+                  required
+                  value={waitlistEmail}
+                  onChange={(e) => setWaitlistEmail(e.target.value)}
+                  placeholder="Enter your email"
+                  className="flex-1 w-full px-5 py-3.5 rounded-2xl border border-zinc-700 bg-zinc-800 text-white placeholder-zinc-500 text-sm outline-none focus:border-sky-500 transition-colors"
+                />
+                <button
+                  type="submit"
+                  disabled={waitlistSubmitting}
+                  className="flex items-center gap-2 bg-white hover:bg-zinc-100 text-zinc-900 font-semibold px-7 py-3.5 rounded-2xl text-sm shadow-lg transition-all duration-200 whitespace-nowrap disabled:opacity-60"
+                >
+                  {waitlistSubmitting ? <Loader2 className="w-4 h-4 animate-spin" /> : <><Send className="w-4 h-4" /> Join Waitlist</>}
+                </button>
+              </form>
+            )}
           </div>
         </div>
       </section>
