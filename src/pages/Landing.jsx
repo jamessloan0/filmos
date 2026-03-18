@@ -81,12 +81,29 @@ export default function Landing() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [checkoutLoading, setCheckoutLoading] = useState(false);
+  const [waitlistEmail, setWaitlistEmail] = useState("");
+  const [waitlistSubmitting, setWaitlistSubmitting] = useState(false);
+  const [waitlistDone, setWaitlistDone] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Redirect authenticated users to dashboard
-    base44.auth.me().then(() => navigate("/Dashboard")).catch(() => {});
+    // Redirect admin users to dashboard
+    base44.auth.me().then((u) => {
+      if (u?.role === 'admin') navigate("/Dashboard");
+    }).catch(() => {});
   }, []);
+
+  const handleWaitlistSubmit = async (e, source = "hero") => {
+    e?.preventDefault();
+    if (!waitlistEmail.trim()) return;
+    setWaitlistSubmitting(true);
+    try {
+      await base44.entities.WaitlistEmail.create({ email: waitlistEmail.trim(), source });
+      setWaitlistDone(true);
+      setWaitlistEmail("");
+    } catch (_) {}
+    setWaitlistSubmitting(false);
+  };
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
