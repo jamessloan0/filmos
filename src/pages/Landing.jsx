@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import {
   Film, MessageSquareText, FolderKanban, HardDrive,
   GitBranch, CheckCircle2, Lock, ChevronRight, Play,
-  Star, ArrowRight, Menu, X, FileText, Receipt, Heart, Loader2
+  Star, ArrowRight, Menu, X, FileText, Receipt, Heart, Loader2, Send
 } from "lucide-react";
 
 const FEATURES = [
