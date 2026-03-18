@@ -211,22 +211,30 @@ export default function Landing() {
             We built the tool we always wished we had — proposals, feedback, invoicing, and file delivery in one place. No more juggling apps.
           </p>
 
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <button
-              onClick={goToLogin}
-              className="flex items-center gap-2 bg-zinc-900 hover:bg-zinc-700 text-white font-semibold px-8 py-3.5 rounded-2xl text-base shadow-lg transition-all duration-200 hover:shadow-xl hover:-translate-y-0.5"
-            >
-              Get Started Free
-              <ArrowRight className="w-4 h-4" />
-            </button>
-            <button
-              onClick={goToLogin}
-              className="flex items-center gap-2 bg-white/80 backdrop-blur-sm border border-zinc-200 hover:border-zinc-300 text-zinc-700 font-medium px-8 py-3.5 rounded-2xl text-base shadow-sm transition-all duration-200 hover:shadow-md"
-            >
-              <Play className="w-4 h-4 text-sky-500" />
-              Log In
-            </button>
-          </div>
+          {waitlistDone ? (
+            <div className="inline-flex items-center gap-2 bg-emerald-50 border border-emerald-200 text-emerald-700 font-semibold px-7 py-3.5 rounded-2xl text-base">
+              <CheckCircle2 className="w-5 h-5" />
+              You're on the list — we'll be in touch!
+            </div>
+          ) : (
+            <form onSubmit={(e) => handleWaitlistSubmit(e, "hero")} className="flex flex-col sm:flex-row items-center gap-3 max-w-md mx-auto w-full">
+              <input
+                type="email"
+                required
+                value={waitlistEmail}
+                onChange={(e) => setWaitlistEmail(e.target.value)}
+                placeholder="Enter your email address"
+                className="flex-1 w-full px-5 py-3.5 rounded-2xl border border-zinc-200 bg-white/80 backdrop-blur-sm text-sm outline-none focus:border-sky-400 shadow-sm transition-colors"
+              />
+              <button
+                type="submit"
+                disabled={waitlistSubmitting}
+                className="flex items-center gap-2 bg-zinc-900 hover:bg-zinc-700 text-white font-semibold px-7 py-3.5 rounded-2xl text-sm shadow-lg transition-all duration-200 hover:shadow-xl whitespace-nowrap disabled:opacity-60"
+              >
+                {waitlistSubmitting ? <Loader2 className="w-4 h-4 animate-spin" /> : <><Send className="w-4 h-4" /> Join Waitlist</>}
+              </button>
+            </form>
+          )}
         </div>
 
         {/* Hero visual */}
