@@ -129,6 +129,12 @@ export default function ClientPortal() {
     setClientName(name);
     setEnteredName(true);
     localStorage.setItem(`filmos_client_${token}`, name);
+    // Show tutorial on first visit
+    const tutorialKey = `filmos_client_tutorial_${token}`;
+    if (!localStorage.getItem(tutorialKey)) {
+      setShowTutorial(true);
+      localStorage.setItem(tutorialKey, "1");
+    }
   };
 
 
