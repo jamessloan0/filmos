@@ -237,6 +237,14 @@ export default function ClientPortal() {
             </div>
           </div>
           <div className="flex items-center gap-2">
+            <button
+              onClick={() => setShowTutorial(true)}
+              className="flex items-center gap-1.5 text-xs text-zinc-400 hover:text-zinc-700 border border-zinc-200 hover:border-zinc-300 rounded-lg px-3 py-2 transition-colors bg-white"
+              title="Help & Tutorial"
+            >
+              <HelpCircle className="w-3.5 h-3.5" />
+              <span className="hidden sm:inline">Help</span>
+            </button>
             <div className="w-7 h-7 rounded-full bg-zinc-100 flex items-center justify-center text-xs font-semibold text-zinc-600">
               {clientName[0]?.toUpperCase()}
             </div>
