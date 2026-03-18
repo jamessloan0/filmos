@@ -34,7 +34,7 @@ export default function CreateProject() {
       // Check if user already has an active project (trial limit)
       const existing = await base44.entities.Project.filter({ owner_email: u.email });
       const active = existing.filter((p) => !p.archived);
-      if (active.length >= 1) {
+      if (active.length >= 1 && u.plan !== 'pro') {
         setShowUpgrade(true);
       }
       setChecking(false);
