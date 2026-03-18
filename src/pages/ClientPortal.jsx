@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { base44 } from "@/api/base44Client";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import { Film, Loader2, FileText, MessageSquare, Receipt, LayoutGrid, AlertTriangle, ThumbsUp, Presentation, PackageCheck } from "lucide-react";
+import { Film, Loader2, FileText, MessageSquare, Receipt, LayoutGrid, AlertTriangle, ThumbsUp, Presentation, PackageCheck, HelpCircle } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
