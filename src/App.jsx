@@ -20,7 +20,7 @@ const LayoutWrapper = ({ children, currentPageName }) => Layout ?
   : <>{children}</>;
 
 const AuthenticatedApp = () => {
-  const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin, user } = useAuth();
+  const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin, user, isAuthenticated } = useAuth();
 
   // Show loading spinner while checking app public settings or auth
   if (isLoadingPublicSettings || isLoadingAuth) {
@@ -36,13 +36,21 @@ const AuthenticatedApp = () => {
     if (authError.type === 'user_not_registered') {
       return <UserNotRegisteredError />;
     } else if (authError.type === 'auth_required') {
-      // Show landing page instead of redirecting to login
       return (
         <Routes>
           <Route path="*" element={<Landing />} />
         </Routes>
       );
     }
+  }
+
+  // Block non-admin authenticated users — show landing page
+  if (isAuthenticated && user && user.role !== 'admin') {
+    return (
+      <Routes>
+        <Route path="*" element={<Landing />} />
+      </Routes>
+    );
   }
 
   // Render the main app
