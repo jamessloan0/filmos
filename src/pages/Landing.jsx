@@ -365,10 +365,10 @@ export default function Landing() {
               </div>
               <div className="px-7 pb-7">
                 <button
-                  onClick={goToLogin}
+                  onClick={() => document.getElementById('waitlist-hero-input')?.focus()}
                   className="w-full border border-zinc-200 hover:border-zinc-300 text-zinc-700 font-semibold py-3 rounded-2xl text-sm transition-colors"
                 >
-                  Get Started Free
+                  Join Waitlist
                 </button>
               </div>
             </div>
