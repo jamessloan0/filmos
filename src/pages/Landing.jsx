@@ -398,11 +398,10 @@ export default function Landing() {
               </div>
               <div className="px-7 pb-7">
                 <button
-                  onClick={handleProCheckout}
-                  disabled={checkoutLoading}
-                  className="w-full bg-white hover:bg-zinc-100 text-zinc-900 font-semibold py-3 rounded-2xl text-sm transition-colors shadow-md flex items-center justify-center gap-2 disabled:opacity-60"
+                  onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                  className="w-full bg-white hover:bg-zinc-100 text-zinc-900 font-semibold py-3 rounded-2xl text-sm transition-colors shadow-md"
                 >
-                  {checkoutLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : <>Subscribe — $20/month <ChevronRight className="w-4 h-4" /></>}
+                  Join Waitlist
                 </button>
               </div>
             </div>
