@@ -363,6 +363,7 @@ export default function ClientPortal() {
           </TabsContent>
         </Tabs>
       </div>
+      <ClientTutorialModal open={showTutorial} onClose={() => setShowTutorial(false)} />
     </div>
   );
 }
