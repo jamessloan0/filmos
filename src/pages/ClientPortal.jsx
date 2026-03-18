@@ -25,6 +25,7 @@ export default function ClientPortal() {
   const [clientName, setClientName] = useState("");
   const [enteredName, setEnteredName] = useState(false);
   const [nameInput, setNameInput] = useState("");
+  const [showTutorial, setShowTutorial] = useState(false);
   const [currentTab, setCurrentTab] = useState("overview");
   const [notifications, setNotifications] = useState([]);
   const lsKey = `filmos_seen_messages_client_${token}`;
