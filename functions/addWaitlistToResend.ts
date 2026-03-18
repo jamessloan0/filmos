@@ -11,7 +11,9 @@ Deno.serve(async (req) => {
 
     const RESEND_API_KEY = Deno.env.get('RESEND_API_KEY');
 
-    const res = await fetch('https://api.resend.com/contacts', {
+    const RESEND_AUDIENCE_ID = Deno.env.get('RESEND_AUDIENCE_ID');
+
+    const res = await fetch(`https://api.resend.com/audiences/${RESEND_AUDIENCE_ID}/contacts`, {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${RESEND_API_KEY}`,
