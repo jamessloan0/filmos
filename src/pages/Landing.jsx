@@ -380,11 +380,7 @@ export default function Landing() {
               </div>
               <div className="px-7 pt-7 pb-6 flex-1">
                 <p className="text-xs font-semibold text-zinc-500 uppercase tracking-widest mb-4">Pro</p>
-                <div className="flex items-end gap-1 mb-1">
-                  <span className="text-4xl font-bold text-white">$20</span>
-                  <span className="text-zinc-400 mb-1">/ month</span>
-                </div>
-                <p className="text-sm text-zinc-500 mb-6">For filmmakers running a real business.</p>
+                 <p className="text-sm text-zinc-500 mb-6">For filmmakers running a real business.</p>
                 <ul className="space-y-2.5">
                   {[
                     "Unlimited projects",
