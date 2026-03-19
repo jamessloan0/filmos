@@ -4,12 +4,13 @@ import { Button } from "@/components/ui/button";
 import { Sparkles, CheckCircle2, X, Zap } from "lucide-react";
 import { base44 } from "@/api/base44Client";
 
-const MONTHLY_PRICE_ID = "price_1TBjPC7bpL2WPaP2w4XyIimC";
-const YEARLY_PRICE_ID = "price_1TCmrF7bpL2WPaP28tNSf1D0";
+const MONTHLY_PRICE_ID = "price_1TCnOx7bpL2WPaP2SwgXXT1l";
+const YEARLY_PRICE_ID = "price_1TCnOx7bpL2WPaP2yTWjR2c8";
 
 const PRO_FEATURES = [
   "Unlimited projects",
-  "Everything in Free",
+  "Unlimited clients",
+  "Unlimited invoices",
   "File uploads up to 20 GB",
   "Extended file storage (14 days)",
   "Priority support",
@@ -86,7 +87,7 @@ export default function UpgradeModal({ open, onClose, userEmail }) {
               >
                 Yearly
                 <span className="text-[10px] font-bold bg-emerald-500 text-white px-1.5 py-0.5 rounded-full">
-                  SAVE 17%
+                  SAVE 14%
                 </span>
               </button>
             </div>
@@ -97,18 +98,18 @@ export default function UpgradeModal({ open, onClose, userEmail }) {
             {isYearly ? (
               <>
                 <div className="flex items-baseline justify-center gap-1">
-                  <span className="text-4xl font-bold text-zinc-900">$16.67</span>
+                  <span className="text-4xl font-bold text-zinc-900">$25</span>
                   <span className="text-zinc-400 text-sm">/month</span>
                 </div>
                 <p className="text-sm text-zinc-500 mt-1">
-                  Billed as <span className="font-semibold text-zinc-700">$200/year</span>
-                  <span className="ml-2 text-emerald-600 font-semibold">— save $40 vs monthly</span>
+                  Billed as <span className="font-semibold text-zinc-700">$300/year</span>
+                  <span className="ml-2 text-emerald-600 font-semibold">— save $48 vs monthly</span>
                 </p>
               </>
             ) : (
               <>
                 <div className="flex items-baseline justify-center gap-1">
-                  <span className="text-4xl font-bold text-zinc-900">$20</span>
+                  <span className="text-4xl font-bold text-zinc-900">$29</span>
                   <span className="text-zinc-400 text-sm">/month</span>
                 </div>
                 <p className="text-sm text-zinc-400 mt-1">Billed monthly · Cancel anytime</p>
@@ -131,7 +132,7 @@ export default function UpgradeModal({ open, onClose, userEmail }) {
             className="w-full bg-zinc-900 hover:bg-zinc-800 h-11 text-base font-semibold rounded-xl"
           >
             <Sparkles className="w-4 h-4 mr-2" />
-            {loading ? "Redirecting…" : isYearly ? "Subscribe — $200/year" : "Subscribe — $20/month"}
+            {loading ? "Redirecting…" : isYearly ? "Subscribe — $300/year" : "Subscribe — $29/month"}
           </Button>
           <p className="text-center text-xs text-zinc-400 mt-3">
             Cancel anytime · Secure payment via Stripe
