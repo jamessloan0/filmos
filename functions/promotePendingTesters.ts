@@ -3,28 +3,34 @@ import { createClientFromRequest } from 'npm:@base44/sdk@0.8.21';
 Deno.serve(async (req) => {
   try {
     const base44 = createClientFromRequest(req);
-    const payload = await req.json();
 
-    const userId = payload?.event?.entity_id;
-    if (!userId) return Response.json({ error: 'No entity_id' }, { status: 400 });
-
-    // Get the user record
-    const users = await base44.asServiceRole.entities.User.filter({ id: userId });
-    const user = users?.[0];
-    if (!user) return Response.json({ skipped: 'user not found' });
-
-    // Check if this email is in the pending testers list
-    const pending = await base44.asServiceRole.entities.PendingTester.filter({ email: user.email });
-    if (!pending || pending.length === 0) {
-      console.log(`${user.email} is not a pending tester, skipping`);
-      return Response.json({ skipped: true });
+    const user = await base44.auth.me();
+    if (user?.role !== 'admin') {
+      return Response.json({ error: 'Forbidden' }, { status: 403 });
     }
 
-    // Promote to tester
-    await base44.asServiceRole.entities.User.update(userId, { role: 'tester' });
-    console.log(`Promoted ${user.email} to tester`);
+    // Get all pending tester emails
+    const pending = await base44.asServiceRole.entities.PendingTester.list();
+    if (!pending || pending.length === 0) {
+      return Response.json({ promoted: [], message: 'No pending testers' });
+    }
 
-    return Response.json({ success: true, email: user.email });
+    const pendingEmails = pending.map(p => p.email.toLowerCase());
+
+    // Get all users
+    const allUsers = await base44.asServiceRole.entities.User.list();
+    const toPromote = allUsers.filter(u =>
+      pendingEmails.includes(u.email?.toLowerCase()) && u.role !== 'tester' && u.role !== 'admin'
+    );
+
+    const promoted = [];
+    for (const u of toPromote) {
+      await base44.asServiceRole.entities.User.update(u.id, { role: 'tester' });
+      console.log(`Promoted ${u.email} to tester`);
+      promoted.push(u.email);
+    }
+
+    return Response.json({ promoted, total: promoted.length });
   } catch (error) {
     console.error('Error:', error.message);
     return Response.json({ error: error.message }, { status: 500 });
