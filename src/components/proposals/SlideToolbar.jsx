@@ -68,20 +68,21 @@ export default function SlideToolbar({ slide, onUpdate, selectedElementId }) {
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
+                <SelectItem value="'Poppins', sans-serif">Poppins</SelectItem>
+                <SelectItem value="'Inter', sans-serif">Inter</SelectItem>
+                <SelectItem value="'Montserrat', sans-serif">Montserrat</SelectItem>
+                <SelectItem value="'Playfair Display', serif">Playfair Display</SelectItem>
+                <SelectItem value="'Lato', sans-serif">Lato</SelectItem>
+                <SelectItem value="'Raleway', sans-serif">Raleway</SelectItem>
+                <SelectItem value="'Nunito', sans-serif">Nunito</SelectItem>
+                <SelectItem value="'DM Sans', sans-serif">DM Sans</SelectItem>
+                <SelectItem value="'Josefin Sans', sans-serif">Josefin Sans</SelectItem>
+                <SelectItem value="'Cormorant Garamond', serif">Cormorant Garamond</SelectItem>
                 <SelectItem value="Arial, sans-serif">Arial</SelectItem>
                 <SelectItem value="Helvetica, sans-serif">Helvetica</SelectItem>
-                <SelectItem value="Verdana, sans-serif">Verdana</SelectItem>
-                <SelectItem value="Trebuchet MS, sans-serif">Trebuchet MS</SelectItem>
                 <SelectItem value="Georgia, serif">Georgia</SelectItem>
-                <SelectItem value="Times New Roman, serif">Times New Roman</SelectItem>
-                <SelectItem value="Garamond, serif">Garamond</SelectItem>
-                <SelectItem value="Courier New, monospace">Courier New</SelectItem>
-                <SelectItem value="Monaco, monospace">Monaco</SelectItem>
-                <SelectItem value="Comic Sans MS, cursive">Comic Sans</SelectItem>
+                <SelectItem value="'Courier New', monospace">Courier New</SelectItem>
                 <SelectItem value="Impact, sans-serif">Impact</SelectItem>
-                <SelectItem value="Palatino, serif">Palatino</SelectItem>
-                <SelectItem value="Lucida Console, monospace">Lucida Console</SelectItem>
-                <SelectItem value="Century Gothic, sans-serif">Century Gothic</SelectItem>
               </SelectContent>
             </Select>
           </div>

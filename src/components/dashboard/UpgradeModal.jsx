@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { Sparkles, CheckCircle2, X } from "lucide-react";
+import { Sparkles, CheckCircle2, X, Zap } from "lucide-react";
 import { base44 } from "@/api/base44Client";
 
-const PRICE_ID = "price_1TBjPC7bpL2WPaP2w4XyIimC";
+const MONTHLY_PRICE_ID = "price_1TBjPC7bpL2WPaP2w4XyIimC";
+const YEARLY_PRICE_ID = "price_1TCmrF7bpL2WPaP28tNSf1D0";
 
 const PRO_FEATURES = [
   "Unlimited projects",
@@ -16,9 +17,11 @@ const PRO_FEATURES = [
 
 export default function UpgradeModal({ open, onClose, userEmail }) {
   const [loading, setLoading] = useState(false);
+  const [billing, setBilling] = useState("yearly"); // default to yearly to emphasize savings
+
+  const isYearly = billing === "yearly";
 
   const handleUpgrade = async () => {
-    // Block checkout inside iframe (Base44 preview)
     if (window.self !== window.top) {
       alert("Checkout is only available from the published app. Please open the app in a new tab.");
       return;
@@ -30,7 +33,7 @@ export default function UpgradeModal({ open, onClose, userEmail }) {
       const cancelUrl = `${window.location.origin}/Dashboard`;
 
       const res = await base44.functions.invoke("stripeCreateCheckout", {
-        priceId: PRICE_ID,
+        priceId: isYearly ? YEARLY_PRICE_ID : MONTHLY_PRICE_ID,
         successUrl,
         cancelUrl,
         userEmail: userEmail || undefined,
@@ -68,9 +71,49 @@ export default function UpgradeModal({ open, onClose, userEmail }) {
         </div>
 
         <div className="px-8 py-6 bg-white">
-          <div className="flex items-baseline justify-center gap-1 mb-6">
-            <span className="text-4xl font-bold text-zinc-900">$20</span>
-            <span className="text-zinc-400 text-sm">/month</span>
+          {/* Billing toggle */}
+          <div className="flex items-center justify-center mb-6">
+            <div className="flex bg-zinc-100 rounded-xl p-1 gap-1 w-full">
+              <button
+                onClick={() => setBilling("monthly")}
+                className={`flex-1 py-2 text-sm font-semibold rounded-lg transition-all ${billing === "monthly" ? "bg-white shadow text-zinc-900" : "text-zinc-500 hover:text-zinc-700"}`}
+              >
+                Monthly
+              </button>
+              <button
+                onClick={() => setBilling("yearly")}
+                className={`flex-1 py-2 text-sm font-semibold rounded-lg transition-all flex items-center justify-center gap-2 ${billing === "yearly" ? "bg-white shadow text-zinc-900" : "text-zinc-500 hover:text-zinc-700"}`}
+              >
+                Yearly
+                <span className="text-[10px] font-bold bg-emerald-500 text-white px-1.5 py-0.5 rounded-full">
+                  SAVE 17%
+                </span>
+              </button>
+            </div>
+          </div>
+
+          {/* Price display */}
+          <div className="text-center mb-6">
+            {isYearly ? (
+              <>
+                <div className="flex items-baseline justify-center gap-1">
+                  <span className="text-4xl font-bold text-zinc-900">$16.67</span>
+                  <span className="text-zinc-400 text-sm">/month</span>
+                </div>
+                <p className="text-sm text-zinc-500 mt-1">
+                  Billed as <span className="font-semibold text-zinc-700">$200/year</span>
+                  <span className="ml-2 text-emerald-600 font-semibold">— save $40 vs monthly</span>
+                </p>
+              </>
+            ) : (
+              <>
+                <div className="flex items-baseline justify-center gap-1">
+                  <span className="text-4xl font-bold text-zinc-900">$20</span>
+                  <span className="text-zinc-400 text-sm">/month</span>
+                </div>
+                <p className="text-sm text-zinc-400 mt-1">Billed monthly · Cancel anytime</p>
+              </>
+            )}
           </div>
 
           <ul className="space-y-3 mb-7">
@@ -88,7 +131,7 @@ export default function UpgradeModal({ open, onClose, userEmail }) {
             className="w-full bg-zinc-900 hover:bg-zinc-800 h-11 text-base font-semibold rounded-xl"
           >
             <Sparkles className="w-4 h-4 mr-2" />
-            {loading ? "Redirecting…" : "Subscribe — $20/month"}
+            {loading ? "Redirecting…" : isYearly ? "Subscribe — $200/year" : "Subscribe — $20/month"}
           </Button>
           <p className="text-center text-xs text-zinc-400 mt-3">
             Cancel anytime · Secure payment via Stripe
