@@ -44,8 +44,8 @@ const AuthenticatedApp = () => {
     }
   }
 
-  // Block non-admin authenticated users — show landing page
-  if (isAuthenticated && user && user.role !== 'admin') {
+  // Block non-admin/non-tester authenticated users — show landing page
+  if (isAuthenticated && user && user.role !== 'admin' && user.role !== 'tester') {
     return (
       <Routes>
         <Route path="*" element={<Landing />} />

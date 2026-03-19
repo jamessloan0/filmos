@@ -54,7 +54,7 @@ export default function Dashboard() {
   const activeProjects = projects.filter((p) => !p.archived);
   const archivedProjects = projects.filter((p) => !!p.archived);
 
-  const isPro = user?.plan === 'pro';
+  const isPro = user?.plan === 'pro' || user?.role === 'tester';
 
   const handleNewProject = () => {
     // Free tier: allow only 1 project
