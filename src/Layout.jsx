@@ -105,7 +105,7 @@ export default function Layout({ children, currentPageName }) {
                 <p className="text-xs text-zinc-500 truncate">{user.email}</p>
               </div>
             </div>
-            {user?.plan === 'pro' && (
+            {(user?.plan === 'pro' || user?.role === 'tester') && (
               <button
               onClick={async () => {
                 try {
