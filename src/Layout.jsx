@@ -15,7 +15,8 @@ import { Button } from "@/components/ui/button";
 
 const NAV_ITEMS = [
 { label: "Dashboard", icon: LayoutDashboard, page: "Dashboard" },
-{ label: "New Project", icon: Plus, page: "CreateProject" }];
+{ label: "New Project", icon: Plus, page: "CreateProject" },
+{ label: "Testers", icon: UserCheck, page: "AdminTesters", adminOnly: true }];
 
 
 export default function Layout({ children, currentPageName }) {
