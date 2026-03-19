@@ -47,18 +47,28 @@
  *
  * The mainPage value must match a key in the PAGES object exactly.
  */
-import Dashboard from './pages/Dashboard';
-import CreateProject from './pages/CreateProject';
-import ProjectWorkspace from './pages/ProjectWorkspace';
 import ClientPortal from './pages/ClientPortal';
+import CreateProject from './pages/CreateProject';
+import Dashboard from './pages/Dashboard';
+import Landing from './pages/Landing';
+import Privacy from './pages/Privacy';
+import ProjectWorkspace from './pages/ProjectWorkspace';
+import ShareFile from './pages/ShareFile';
+import Terms from './pages/Terms';
+import AdminTesters from './pages/AdminTesters';
 import __Layout from './Layout.jsx';
 
 
 export const PAGES = {
-    "Dashboard": Dashboard,
-    "CreateProject": CreateProject,
-    "ProjectWorkspace": ProjectWorkspace,
     "ClientPortal": ClientPortal,
+    "CreateProject": CreateProject,
+    "Dashboard": Dashboard,
+    "Landing": Landing,
+    "Privacy": Privacy,
+    "ProjectWorkspace": ProjectWorkspace,
+    "ShareFile": ShareFile,
+    "Terms": Terms,
+    "AdminTesters": AdminTesters,
 }
 
 export const pagesConfig = {
