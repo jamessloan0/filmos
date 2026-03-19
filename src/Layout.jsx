@@ -70,7 +70,7 @@ export default function Layout({ children, currentPageName }) {
 
         {/* Navigation */}
         <nav className="flex-1 px-3 py-4 space-y-1">
-          {NAV_ITEMS.map((item) => {
+          {NAV_ITEMS.filter(item => !item.adminOnly || user?.role === 'admin').map((item) => {
             const isActive = currentPageName === item.page;
             return (
               <Link
