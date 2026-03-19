@@ -22,11 +22,20 @@ const STATUS_CONFIG = {
   overdue: { label: "Overdue", className: "bg-red-50 text-red-700 border-red-200" },
 };
 
-export default function InvoicesTab({ invoices, projectId, projectName, clientName, clientEmail, isClient, onInvoiceCreated, filmmakerName, filmmakerEmail }) {
+export default function InvoicesTab({ invoices, projectId, projectName, clientName, clientEmail, isClient, onInvoiceCreated, filmmakerName, filmmakerEmail, isPro, onUpgrade }) {
   const [open, setOpen] = useState(false);
   const [viewInvoice, setViewInvoice] = useState(null);
   const [creating, setCreating] = useState(false);
   const [form, setForm] = useState({ amount: "", description: "", due_date: "" });
+
+  // Free plan: 1 invoice per calendar month across all projects
+  const thisMonthInvoiceCount = invoices.filter(inv => {
+    if (!inv.created_date) return false;
+    const d = new Date(inv.created_date);
+    const now = new Date();
+    return d.getFullYear() === now.getFullYear() && d.getMonth() === now.getMonth();
+  }).length;
+  const atFreeLimit = !isPro && thisMonthInvoiceCount >= 1;
 
   const handleCreate = async () => {
     if (!form.amount || !form.description || !form.due_date) return;
@@ -176,10 +185,18 @@ export default function InvoicesTab({ invoices, projectId, projectName, clientNa
     <div className="space-y-6">
       {/* Create invoice */}
       {!isClient && (
-        <div className="flex justify-end">
+        <div className="flex justify-end items-center gap-3">
+          {atFreeLimit && (
+            <p className="text-xs text-amber-600 bg-amber-50 border border-amber-200 rounded-lg px-3 py-1.5">
+              Free plan: 1 invoice/month. <button onClick={onUpgrade} className="font-semibold underline">Upgrade to Pro</button> for unlimited.
+            </p>
+          )}
           <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
-              <Button className="bg-zinc-900 hover:bg-zinc-800">
+              <Button
+                className="bg-zinc-900 hover:bg-zinc-800"
+                onClick={atFreeLimit ? (e) => { e.preventDefault(); onUpgrade?.(); } : undefined}
+              >
                 <Plus className="w-4 h-4 mr-2" />
                 Create Invoice
               </Button>

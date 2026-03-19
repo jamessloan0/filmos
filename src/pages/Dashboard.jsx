@@ -126,15 +126,15 @@ export default function Dashboard() {
           onClick={() => setShowUpgrade(true)}
         >
           <div>
-            <p className="text-white font-semibold text-sm">You're on the free trial</p>
-            <p className="text-zinc-400 text-xs mt-0.5">Upgrade to Pro for unlimited projects and full access.</p>
+            <p className="text-white font-semibold text-sm">You're on the free plan</p>
+            <p className="text-zinc-400 text-xs mt-0.5">Upgrade to Pro for unlimited projects, clients & invoices.</p>
           </div>
           <Button
-            size="sm"
-            className="bg-white text-zinc-900 hover:bg-zinc-100 rounded-lg font-semibold flex-shrink-0 self-start sm:self-auto"
-            onClick={(e) => { e.stopPropagation(); setShowUpgrade(true); }}
+          size="sm"
+          className="bg-white text-zinc-900 hover:bg-zinc-100 rounded-lg font-semibold flex-shrink-0 self-start sm:self-auto"
+          onClick={(e) => { e.stopPropagation(); setShowUpgrade(true); }}
           >
-            Upgrade — $20/mo
+          Upgrade — $29/mo
           </Button>
         </div>
       )}
