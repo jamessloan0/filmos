@@ -17,6 +17,7 @@ import DeliverablesTab from "@/components/workspace/DeliverablesTab";
 import NotificationBanner from "@/components/workspace/NotificationBanner";
 import NotificationSettingsPanel from "@/components/notifications/NotificationSettingsPanel";
 import ErrorBoundary from "@/lib/ErrorBoundary";
+import UpgradeModal from "@/components/dashboard/UpgradeModal";
 
 export default function ProjectWorkspace() {
   const params = new URLSearchParams(window.location.search);
@@ -26,6 +27,7 @@ export default function ProjectWorkspace() {
   const [user, setUser] = useState(null);
   const [copied, setCopied] = useState(false);
   const [currentTab, setCurrentTab] = useState("overview");
+  const [showUpgrade, setShowUpgrade] = useState(false);
   const [notifications, setNotifications] = useState([]);
   const lsKey = `filmos_seen_messages_${projectId}`;
   const [seenMessageCount, setSeenMessageCount] = useState(() =>
@@ -300,6 +302,8 @@ export default function ProjectWorkspace() {
             onInvoiceCreated={refreshAll}
             filmmakerName={user?.full_name || user?.email}
             filmmakerEmail={user?.email}
+            isPro={user?.plan === 'pro' || user?.role === 'tester'}
+            onUpgrade={() => setShowUpgrade(true)}
           />
         </TabsContent>
         <TabsContent value="feedback">
@@ -330,6 +334,7 @@ export default function ProjectWorkspace() {
           </ErrorBoundary>
         </TabsContent>
       </Tabs>
+      <UpgradeModal open={showUpgrade} onClose={() => setShowUpgrade(false)} userEmail={user?.email} />
     </div>
   );
 }
