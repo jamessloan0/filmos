@@ -268,7 +268,7 @@ export default function Landing() {
                 <p className="text-3xl font-bold text-zinc-900 mb-1">$0 <span className="text-base font-normal text-zinc-400">/ month</span></p>
                 <p className="text-sm text-zinc-400 mb-5">Try FilmOS with your first project.</p>
                 <ul className="space-y-2.5">
-                  {["1 project", "All core features", "Video review & comments", "Proposals & invoicing", "File uploads up to 2 GB"].map((item) => (
+                  {["1 project", "1 invoice per month", "Video review & comments", "Proposals", "File uploads up to 2 GB"].map((item) => (
                     <li key={item} className="flex items-center gap-2.5 text-sm text-zinc-600">
                       <CheckCircle2 className="w-4 h-4 text-zinc-400 flex-shrink-0" /> {item}
                     </li>
@@ -291,7 +291,7 @@ export default function Landing() {
                 <p className="text-xs font-semibold text-zinc-500 uppercase tracking-widest mb-3">Pro</p>
                 <p className="text-sm text-zinc-400 mb-5">For filmmakers running a real business.</p>
                 <ul className="space-y-2.5">
-                  {["Unlimited projects", "Everything in Free", "File uploads up to 20 GB", "Extended file storage (14 days)", "Priority support"].map((item) => (
+                  {["Unlimited projects", "Unlimited clients", "Unlimited invoices", "File uploads up to 20 GB", "Priority support"].map((item) => (
                     <li key={item} className="flex items-center gap-2.5 text-sm text-zinc-300">
                       <CheckCircle2 className="w-4 h-4 text-sky-400 flex-shrink-0" /> {item}
                     </li>
