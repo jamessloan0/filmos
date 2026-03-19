@@ -76,7 +76,7 @@ export default function Landing() {
 
   useEffect(() => {
     base44.auth.me().then((u) => {
-      if (u?.role === "admin") navigate("/Dashboard");
+      if (u?.role === "admin" || u?.role === "tester") navigate("/Dashboard");
     }).catch(() => {});
   }, []);
 
