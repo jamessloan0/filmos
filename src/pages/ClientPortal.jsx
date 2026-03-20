@@ -63,44 +63,21 @@ export default function ClientPortal() {
 
   const projectId = project?.id;
 
-  const { data: files = [] } = useQuery({
-    queryKey: ["client-files", projectId],
-    queryFn: () => base44.entities.ProjectFile.filter({ project_id: projectId }, "-created_date"),
-    enabled: !!projectId && enteredName,
-  });
-
-  const { data: messages = [] } = useQuery({
-    queryKey: ["client-messages", projectId],
-    queryFn: () => base44.entities.Message.filter({ project_id: projectId }, "created_date"),
-    enabled: !!projectId && enteredName,
-  });
-
-  const { data: invoices = [] } = useQuery({
-    queryKey: ["client-invoices", projectId],
-    queryFn: () => base44.entities.Invoice.filter({ project_id: projectId }, "-created_date"),
-    enabled: !!projectId && enteredName,
-  });
-
-  const { data: activities = [] } = useQuery({
-    queryKey: ["client-activities", projectId],
-    queryFn: () => base44.entities.Activity.filter({ project_id: projectId }, "-created_date"),
-    enabled: !!projectId && enteredName,
-  });
-
-  const { data: feedbackItems = [] } = useQuery({
-    queryKey: ["client-feedback", projectId],
-    queryFn: () => base44.entities.Feedback.filter({ project_id: projectId }, "-created_date"),
-    enabled: !!projectId && enteredName,
-  });
-
-  const { data: proposals = [] } = useQuery({
-    queryKey: ["client-proposals", projectId],
+  const cpQuery = (type, key) => ({
+    queryKey: [key, projectId],
     queryFn: async () => {
-      const res = await base44.functions.invoke('getClientPortalProposals', { project_id: projectId });
-      return res.data?.proposals || [];
+      const res = await base44.functions.invoke('getClientPortalData', { project_id: projectId, type });
+      return res.data?.data || [];
     },
     enabled: !!projectId && enteredName,
   });
+
+  const { data: files = [] } = useQuery(cpQuery('files', 'client-files'));
+  const { data: messages = [] } = useQuery(cpQuery('messages', 'client-messages'));
+  const { data: invoices = [] } = useQuery(cpQuery('invoices', 'client-invoices'));
+  const { data: activities = [] } = useQuery(cpQuery('activities', 'client-activities'));
+  const { data: feedbackItems = [] } = useQuery(cpQuery('feedback', 'client-feedback'));
+  const { data: proposals = [] } = useQuery(cpQuery('proposals', 'client-proposals'));
 
   const refreshAll = () => {
     queryClient.invalidateQueries({ queryKey: ["client-files", projectId] });
