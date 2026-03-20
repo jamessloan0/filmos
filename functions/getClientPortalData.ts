@@ -29,7 +29,7 @@ Deno.serve(async (req) => {
         data = await sr.entities.Feedback.filter({ project_id }, "-created_date");
         break;
       case 'proposals':
-        data = await sr.entities.Proposal.filter({ project_id, status: "sent" }, "-created_date");
+        data = await sr.entities.Proposal.filter({ project_id }, "-created_date");
         break;
       default:
         return Response.json({ error: 'Unknown type' }, { status: 400 });
