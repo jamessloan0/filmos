@@ -26,7 +26,7 @@ function generateToken() {
   return Array.from({ length: 24 }, () => chars[Math.floor(Math.random() * chars.length)]).join("");
 }
 
-export default function DeliverablesTab({ projectId, authorName, authorType = "filmmaker", isClient = false }) {
+export default function DeliverablesTab({ projectId, authorName, authorType = "filmmaker", isClient = false, isPro = false }) {
   const queryClient = useQueryClient();
   const fileInputRef = useRef(null);
   const versionInputRef = useRef(null);
@@ -108,6 +108,11 @@ export default function DeliverablesTab({ projectId, authorName, authorType = "f
 
   const handleDisableShare = async (file) => {
     await base44.entities.ProjectFile.update(file.id, { share_enabled: false });
+    refresh();
+  };
+
+  const handleToggleDownloads = async (file) => {
+    await base44.entities.ProjectFile.update(file.id, { downloads_disabled: !file.downloads_disabled });
     refresh();
   };
 
@@ -195,6 +200,9 @@ export default function DeliverablesTab({ projectId, authorName, authorType = "f
                       onGenerate={() => handleGenerateShareLink(latestFile)}
                       onDisable={() => handleDisableShare(latestFile)}
                       onReview={(f, src) => { setReviewFile(f); setReviewSrc(src); }}
+                      onToggleDownloads={handleToggleDownloads}
+                      isClient={isClient}
+                      isPro={isPro}
                     />
                     {!isClient && (
                       <button
@@ -243,6 +251,9 @@ export default function DeliverablesTab({ projectId, authorName, authorType = "f
                           onGenerate={() => handleGenerateShareLink(v)}
                           onDisable={() => handleDisableShare(v)}
                           onReview={(f, src) => { setReviewFile(f); setReviewSrc(src); }}
+                          onToggleDownloads={handleToggleDownloads}
+                          isClient={isClient}
+                          isPro={isPro}
                           compact
                         />
                       </div>
