@@ -77,7 +77,8 @@ export default function ClientPortal() {
   const { data: invoices = [] } = useQuery(cpQuery('invoices', 'client-invoices'));
   const { data: activities = [] } = useQuery(cpQuery('activities', 'client-activities'));
   const { data: feedbackItems = [] } = useQuery(cpQuery('feedback', 'client-feedback'));
-  const { data: proposals = [] } = useQuery(cpQuery('proposals', 'client-proposals'));
+  const { data: allProposals = [] } = useQuery(cpQuery('proposals', 'client-proposals'));
+  const proposals = allProposals.filter(p => p.status !== 'draft');
 
   const refreshAll = () => {
     queryClient.invalidateQueries({ queryKey: ["client-files", projectId] });
