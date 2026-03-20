@@ -95,7 +95,10 @@ export default function ClientPortal() {
 
   const { data: proposals = [] } = useQuery({
     queryKey: ["client-proposals", projectId],
-    queryFn: () => base44.entities.Proposal.filter({ project_id: projectId, status: "sent" }, "-created_date"),
+    queryFn: async () => {
+      const res = await base44.functions.invoke('getClientPortalProposals', { project_id: projectId });
+      return res.data?.proposals || [];
+    },
     enabled: !!projectId && enteredName,
   });
 
