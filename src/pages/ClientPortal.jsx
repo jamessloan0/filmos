@@ -55,9 +55,8 @@ export default function ClientPortal() {
   const { data: project, isLoading, error } = useQuery({
     queryKey: ["client-project", token],
     queryFn: async () => {
-      const projects = await base44.entities.Project.filter({ access_token: token });
-      if (!projects || projects.length === 0) return null;
-      return projects[0];
+      const res = await base44.functions.invoke('getProjectByToken', { token });
+      return res.data?.project || null;
     },
     enabled: !!token,
   });
