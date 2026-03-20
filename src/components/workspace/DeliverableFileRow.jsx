@@ -1,16 +1,16 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
-import { Download, Play, Loader2, Clock } from "lucide-react";
+import { Download, Play, Loader2, DownloadCloud, EyeOff } from "lucide-react";
 import { useSignedUrl, downloadFile } from "@/components/utils/useSignedUrl";
 import ShareLinkPopover from "@/components/workspace/ShareLinkPopover";
 
-export default function DeliverableFileRow({ file, isVideo, FileIcon, shareUrl, onGenerate, onDisable, onReview, compact = false }) {
+export default function DeliverableFileRow({ file, isVideo, FileIcon, shareUrl, onGenerate, onDisable, onReview, onToggleDownloads, isClient = false, isPro = false, compact = false }) {
   const mediaUrl = useSignedUrl(file);
 
   const isProcessing = isVideo && file.proxy_status === 'processing';
   const proxyFailed = isVideo && file.proxy_status === 'failed';
-  // Show review button when: no proxy attempted yet (legacy/image), proxy ready, or proxy failed (fall back to original)
   const canReview = isVideo && !isProcessing;
+  const downloadsDisabled = !!file.downloads_disabled;
 
   return (
     <>
@@ -38,20 +38,40 @@ export default function DeliverableFileRow({ file, isVideo, FileIcon, shareUrl, 
         </Button>
       )}
 
-      <ShareLinkPopover
-        file={file}
-        shareUrl={shareUrl}
-        onGenerate={onGenerate}
-        onDisable={onDisable}
-        compact={compact}
-      />
-      <button
-        onClick={() => downloadFile(file)}
-        className={`${compact ? "p-1.5" : "p-2"} rounded-lg hover:bg-zinc-100 transition-colors text-zinc-400 hover:text-zinc-700`}
-        title="Download original file"
-      >
-        <Download className={compact ? "w-3.5 h-3.5" : "w-4 h-4"} />
-      </button>
+      {!isClient && (
+        <ShareLinkPopover
+          file={file}
+          shareUrl={shareUrl}
+          onGenerate={onGenerate}
+          onDisable={onDisable}
+          compact={compact}
+        />
+      )}
+
+      {/* Download toggle (filmmaker Pro only) */}
+      {!isClient && isPro && onToggleDownloads && (
+        <button
+          onClick={() => onToggleDownloads(file)}
+          className={`${compact ? "p-1.5" : "p-2"} rounded-lg hover:bg-zinc-100 transition-colors ${downloadsDisabled ? "text-amber-500 hover:text-amber-700" : "text-zinc-400 hover:text-zinc-700"}`}
+          title={downloadsDisabled ? "Downloads disabled — click to enable" : "Disable client downloads"}
+        >
+          {downloadsDisabled
+            ? <EyeOff className={compact ? "w-3.5 h-3.5" : "w-4 h-4"} />
+            : <DownloadCloud className={compact ? "w-3.5 h-3.5" : "w-4 h-4"} />
+          }
+        </button>
+      )}
+
+      {/* Download button — hidden for clients when disabled */}
+      {!(isClient && downloadsDisabled) && (
+        <button
+          onClick={() => downloadFile(file)}
+          className={`${compact ? "p-1.5" : "p-2"} rounded-lg hover:bg-zinc-100 transition-colors text-zinc-400 hover:text-zinc-700`}
+          title="Download original file"
+        >
+          <Download className={compact ? "w-3.5 h-3.5" : "w-4 h-4"} />
+        </button>
+      )}
     </>
   );
 }
