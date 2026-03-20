@@ -45,9 +45,15 @@ const AuthenticatedApp = () => {
   }
 
   // Block non-admin/non-tester authenticated users — show landing page
+  // But allow ClientPortal and ShareFile through (no auth needed)
   if (isAuthenticated && user && user.role !== 'admin' && user.role !== 'tester') {
+    const ClientPortal = Pages['ClientPortal'];
     return (
       <Routes>
+        {ClientPortal && <Route path="/ClientPortal" element={<ClientPortal />} />}
+        <Route path="/ShareFile" element={<ShareFile />} />
+        <Route path="/Terms" element={<Terms />} />
+        <Route path="/Privacy" element={<Privacy />} />
         <Route path="*" element={<Landing />} />
       </Routes>
     );
