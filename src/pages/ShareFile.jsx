@@ -91,13 +91,15 @@ export default function ShareFile() {
             <p className="font-semibold text-zinc-900 text-base truncate">{file.file_name}</p>
             <p className="text-sm text-zinc-400 mt-0.5">Shared via FilmOS</p>
           </div>
-          <Button
-            onClick={() => downloadFile(file)}
-            className="bg-zinc-900 hover:bg-zinc-800 rounded-xl h-10 px-6 font-medium flex-shrink-0 shadow-sm"
-          >
-            <Download className="w-4 h-4 mr-2" />
-            Download
-          </Button>
+          {!file.downloads_disabled && (
+            <Button
+              onClick={() => downloadFile(file)}
+              className="bg-zinc-900 hover:bg-zinc-800 rounded-xl h-10 px-6 font-medium flex-shrink-0 shadow-sm"
+            >
+              <Download className="w-4 h-4 mr-2" />
+              Download
+            </Button>
+          )}
         </div>
       </div>
 

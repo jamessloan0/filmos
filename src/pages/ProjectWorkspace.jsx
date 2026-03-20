@@ -330,6 +330,7 @@ export default function ProjectWorkspace() {
             authorName={user?.full_name || user?.email || "Filmmaker"}
             authorType="filmmaker"
             isClient={false}
+            isPro={user?.plan === 'pro' || user?.role === 'tester'}
           />
           </ErrorBoundary>
         </TabsContent>
