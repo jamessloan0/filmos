@@ -26,7 +26,7 @@ function generateToken() {
   return Array.from({ length: 24 }, () => chars[Math.floor(Math.random() * chars.length)]).join("");
 }
 
-export default function DeliverablesTab({ projectId, authorName, authorType = "filmmaker", isClient = false, isPro = false }) {
+export default function DeliverablesTab({ projectId, authorName, authorType = "filmmaker", isClient = false, isPro = false, files: propFiles, onRefresh }) {
   const queryClient = useQueryClient();
   const fileInputRef = useRef(null);
   const versionInputRef = useRef(null);
@@ -39,13 +39,21 @@ export default function DeliverablesTab({ projectId, authorName, authorType = "f
   const [reviewSrc, setReviewSrc] = useState(null);
   const [expanded, setExpanded] = useState({});
 
-  const { data: allFiles = [] } = useQuery({
+  const { data: fetchedFiles = [] } = useQuery({
     queryKey: ["deliverables", projectId],
     queryFn: () => base44.entities.ProjectFile.filter({ project_id: projectId, category: "deliverables" }, "created_date"),
-    enabled: !!projectId,
+    enabled: !!projectId && !isClient,
   });
 
-  const refresh = () => queryClient.invalidateQueries({ queryKey: ["deliverables", projectId] });
+  const allFiles = isClient ? (propFiles || []) : fetchedFiles;
+
+  const refresh = () => {
+    if (isClient && onRefresh) {
+      onRefresh();
+    } else {
+      queryClient.invalidateQueries({ queryKey: ["deliverables", projectId] });
+    }
+  };
 
   // Build version tree: top-level files + their versions
   const rootFiles = allFiles.filter(f => !f.parent_file_id);
