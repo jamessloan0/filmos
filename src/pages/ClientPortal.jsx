@@ -78,6 +78,7 @@ export default function ClientPortal() {
   const { data: activities = [] } = useQuery(cpQuery('activities', 'client-activities'));
   const { data: feedbackItems = [] } = useQuery(cpQuery('feedback', 'client-feedback'));
   const { data: allProposals = [] } = useQuery(cpQuery('proposals', 'client-proposals'));
+  const { data: deliverableFiles = [] } = useQuery(cpQuery('deliverables', 'client-deliverables'));
   const proposals = allProposals.filter(p => p.status !== 'draft');
 
   const refreshAll = () => {
