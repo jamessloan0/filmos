@@ -201,8 +201,16 @@ export default function FilesTab({ files, projectId, isClient, onFileUploaded })
                         {catLabel}
                       </Badge>
                       <button
+                        onClick={() => setPreviewFile(file)}
+                        className="p-2 rounded-lg hover:bg-zinc-100 transition-colors"
+                        title="Preview"
+                      >
+                        <Eye className="w-4 h-4 text-zinc-500" />
+                      </button>
+                      <button
                         onClick={() => downloadFile(file)}
                         className="p-2 rounded-lg hover:bg-zinc-100 transition-colors"
+                        title="Download"
                       >
                         <Download className="w-4 h-4 text-zinc-500" />
                       </button>
