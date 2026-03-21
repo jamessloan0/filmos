@@ -88,6 +88,7 @@ export default function ClientPortal() {
     queryClient.invalidateQueries({ queryKey: ["client-activities", projectId] });
     queryClient.invalidateQueries({ queryKey: ["client-feedback", projectId] });
     queryClient.invalidateQueries({ queryKey: ["client-proposals", projectId] });
+    queryClient.invalidateQueries({ queryKey: ["client-deliverables", projectId] });
     queryClient.invalidateQueries({ queryKey: ["client-project", token] });
   };
 
