@@ -3,10 +3,11 @@ import { base44 } from "@/api/base44Client";
 import { format } from "date-fns";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Upload, Download, FileText, Image, Film, File, Loader2 } from "lucide-react";
+import { Upload, Download, FileText, Image, Film, File, Loader2, Eye } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { uploadToS3 } from "@/components/utils/s3Upload";
 import { downloadFile } from "@/components/utils/useSignedUrl";
+import FilePreviewModal from "@/components/workspace/FilePreviewModal";
 
 const CATEGORIES = [
   { value: "proposal", label: "Proposal" },
