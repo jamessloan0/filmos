@@ -354,6 +354,8 @@ export default function ClientPortal() {
               authorName={clientName}
               authorType="client"
               isClient={true}
+              files={deliverableFiles}
+              onRefresh={refreshAll}
             />
           </TabsContent>
         </Tabs>
