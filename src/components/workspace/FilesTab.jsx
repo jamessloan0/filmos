@@ -93,6 +93,7 @@ export default function FilesTab({ files, projectId, isClient, onFileUploaded })
 
   return (
     <div className="space-y-6">
+      <FilePreviewModal file={previewFile} onClose={() => setPreviewFile(null)} />
       {/* Upload bar */}
       {!isClient && (
         <div className="bg-white border border-zinc-200 rounded-xl p-4 space-y-3">
