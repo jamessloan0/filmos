@@ -31,6 +31,9 @@ Deno.serve(async (req) => {
       case 'proposals':
         data = await sr.entities.Proposal.filter({ project_id }, "-created_date");
         break;
+      case 'deliverables':
+        data = await sr.entities.ProjectFile.filter({ project_id, category: "deliverables" }, "created_date");
+        break;
       default:
         return Response.json({ error: 'Unknown type' }, { status: 400 });
     }
