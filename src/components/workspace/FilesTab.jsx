@@ -35,6 +35,7 @@ export default function FilesTab({ files, projectId, isClient, onFileUploaded })
   const [uploadProgress, setUploadProgress] = useState(0);
   const [selectedCategory, setSelectedCategory] = useState("proposal");
   const [filterCategory, setFilterCategory] = useState("all");
+  const [previewFile, setPreviewFile] = useState(null);
   const fileInputRef = useRef(null);
 
   const handleUpload = async (e) => {
