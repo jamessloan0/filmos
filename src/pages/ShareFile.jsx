@@ -20,12 +20,8 @@ export default function ShareFile() {
   const { data: file, isLoading, error } = useQuery({
     queryKey: ["share-file", token],
     queryFn: async () => {
-      const files = await base44.entities.ProjectFile.filter({ share_token: token, share_enabled: true });
-      if (!files || files.length === 0) return null;
-      const f = files[0];
-      // Enforce share link expiry
-      if (f.share_expires_at && new Date(f.share_expires_at) < new Date()) return null;
-      return f;
+      const res = await base44.functions.invoke('getFileByShareToken', { token });
+      return res.data?.file || null;
     },
     enabled: !!token,
   });
