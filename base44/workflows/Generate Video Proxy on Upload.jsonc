@@ -1,0 +1,37 @@
+{
+  "name": "Generate Video Proxy on Upload",
+  "description": "Automatically generates a low-bitrate proxy version of uploaded deliverable videos for smooth browser playback",
+  "trigger": {
+    "condition": null,
+    "config": {
+      "trigger_type": "entity",
+      "events": [
+        "create"
+      ],
+      "entity_name": "ProjectFile"
+    }
+  },
+  "definition": {
+    "document": {
+      "dsl": "1.0.0",
+      "name": "generate_video_proxy_on_upload",
+      "version": "1.0",
+      "namespace": "base44"
+    },
+    "do": [
+      {
+        "run_function": {
+          "call": "invoke_backend_function",
+          "with": {
+            "function_name": "createVideoProxy",
+            "args": {}
+          },
+          "then": "end"
+        }
+      }
+    ]
+  },
+  "x-base44-migrated-from-automation": {
+    "legacy_payload_function": "createVideoProxy"
+  }
+}
